@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ section.title | default(value="List") }}</h1>
+
+  {# 먼저 현재 섹션의 하위 섹션이 있으면(예: /posts 밑에 note, reference) 그 목록을 표시 #}
+  {% if section.subsections | length > 0 %}
+    {% for sub in section.subsections %}
+      {% set s = get_section(path=sub) %}
+      <h2>{{ s.title | default(value=s.path | split(pat="/") | last) }}</h2>
+      <ul>
+        {% for p in s.pages %}
+          <li>
+            {% if p.extra.doc_number %}[{{ p.extra.doc_number }}] {% endif %}
+            <a href="{{ p.permalink }}">{{ p.title }}</a>
+            {% if p.extra.author %} — {{ p.extra.author }}{% endif %}
+            {% if p.date %} / {{ p.date | date(format="%Y-%m-%d") }}{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  {% else %}
+    {# 하위 섹션이 없으면 현재 섹션의 페이지들 출력 #}
+    <ul>
+      {% for p in section.pages %}
+        <li>
+          {% if p.extra.doc_number %}[{{ p.extra.doc_number }}] {% endif %}
+          <a href="{{ p.permalink }}">{{ p.title }}</a>
+          {% if p.extra.author %} — {{ p.extra.author }}{% endif %}
+          {% if p.date %} / {{ p.date | date(format="%Y-%m-%d") }}{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock content %}

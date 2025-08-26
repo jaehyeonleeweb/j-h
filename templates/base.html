@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="{{ lang | default(value="en") }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>
+    {{ config.title }}{% if page and page.title %} — {{ page.title }}{% endif %}
+    {% if section and section.title %} — {{ section.title }}{% endif %}
+  </title>
+  <link rel="stylesheet" href="/styles.css?v=20250817">
+</head>
+<body class="site">
+  <header class="topbar">
+    <nav class="mainnav">
+      <a href="{{ get_url(path='/' ) }}">archive</a>
+      <a href="{{ get_url(path='/about/' ) }}">about</a>
+      <a href="{{ get_url(path='/contact/' ) }}">contact</a>
+      <a href="{{ get_url(path='/buy/' ) }}">buy</a>
+    </nav>
+
+    <div class="lang-switch">
+      {# 페이지일 때 #}
+      {% if page %}
+        {% if page.lang == "en" %}
+          {% for t in page.translations %}{% if t.lang == "kr" %}
+            <a href="{{ t.permalink }}">한</a>
+          {% endif %}{% endfor %}
+        {% else %}
+          {% for t in page.translations %}{% if t.lang == "en" %}
+            <a href="{{ t.permalink }}">en</a>
+          {% endif %}{% endfor %}
+        {% endif %}
+      {% endif %}
+
+      {# 섹션일 때 (예: /, /posts, /posts/note 등) #}
+      {% if section and not page %}
+        {% if section.lang == "en" %}
+          {% for t in section.translations %}{% if t.lang == "kr" %}
+            <a href="{{ t.permalink }}">한</a>
+          {% endif %}{% endfor %}
+        {% else %}
+          {% for t in section.translations %}{% if t.lang == "en" %}
+            <a href="{{ t.permalink }}">en</a>
+          {% endif %}{% endfor %}
+        {% endif %}
+      {% endif %}
+    </div>
+  </header>
+
+  <main class="content">
+    {% block content %}{{ body }}{% endblock content %}
+  </main>
+
+  <footer class="foot">
+    <small>© 2025 jaehyeon lee</small>
+  </footer>
+</body>
+</html>

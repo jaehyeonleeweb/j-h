@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <article class="post" lang="{{ page.lang | default(value=lang) }}">
+    <h1>{{ page.title }}</h1>
+
+    {% set site_owner = config.extra.site_owner | default(value="") %}
+{% set author = page.extra.author | default(value="") | trim %}
+
+<p class="meta">
+  {% if page.extra.doc_number %}[{{ page.extra.doc_number }}] {% endif %}
+  {% if author != "" and author != site_owner %}{{ author }} · {% endif %}
+  {% if page.date %}{{ page.date | date(format="%Y-%m-%d") }}{% endif %}
+  {% if page.extra.category %} · {{ page.extra.category }}{% endif %}
+</p>
+
+    
+    <!-- 본문 전용 래퍼: 여기만 Pretendard/언어별 클래스 적용 -->
+    <div id="output-html">
+      {{ page.content | safe }}
+    </div>
+  </article>
+{% endblock content %}

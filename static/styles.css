@@ -1,0 +1,140 @@
+/* === Pretendard Variable (CDN) === */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+/* ——— Base tokens ——— */
+:root{
+  --container: 1320px;
+
+  --fg:#111; --muted:#666;
+
+  --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-6:1.5rem; --space-8:2rem; --space-12:3rem;
+
+  /* 라틴=Helvetica, 한글=Pretendard */
+  --font-latin: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-cjk: "Pretendard Variable", Pretendard, "Noto Sans KR", "Malgun Gothic", sans-serif;
+}
+
+html{ box-sizing:border-box }
+*,*::before,*::after{ box-sizing:inherit }
+
+/* 전역 타이포: 16px, 얇음(400) */
+body{
+  margin:0;
+  color:var(--fg);
+  font-family: var(--font-latin), var(--font-cjk);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.55;
+}
+
+/* 전역 링크 장식 제거 */
+a{ color:inherit; text-decoration:none }
+a:hover,a:focus{ text-decoration:none }
+
+/* ——— Page chrome ——— */
+.site{
+  max-width:var(--container);
+  margin:0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+.topbar{
+  display:flex; gap:var(--space-3);
+  justify-content:space-between; align-items:flex-start;
+  margin-bottom:var(--space-6);
+}
+.mainnav a{ margin-right: var(--space-3) }
+.lang-switch a{ border:0; padding:0; border-radius:0; text-decoration:none }
+
+/* ——— Type scale: 크기는 동일, 굵기로만 위계 ——— */
+h1,h2,h3{ font-size:1em; font-weight:700; line-height:1.25; margin: var(--space-4) 0 var(--space-3) }
+strong,b{ font-weight:700 }
+
+/* ——— Archive(목록) = 1단 유지 ——— */
+.archive-list{ list-style:none; margin: var(--space-4) 0 var(--space-12); padding:0 }
+.archive-list .hdr{ display:none }
+
+.archive-list .row{
+  display:grid; align-items:baseline; gap:.25rem .75rem; padding:.5rem 0;
+  grid-template-areas:"n y t a c";
+  grid-template-columns: 3rem 6rem 1fr minmax(10rem,auto) minmax(8rem,auto);
+}
+.row .n{ grid-area:n; display:block; font-variant-numeric: tabular-nums; font-weight:700 }
+.row .y{ grid-area:y; color:var(--muted); font-variant-numeric: tabular-nums }
+.row .t{ grid-area:t; font-weight:400 }
+.row .a{ grid-area:a; color:var(--muted) }
+.row .c{ grid-area:c; color:var(--muted); text-transform:none }
+
+@media (max-width:1024px){
+  .archive-list .row{
+    grid-template-areas:
+      "n t t"
+      "n meta meta";
+    grid-template-columns: 2.1rem 1fr minmax(12rem,auto);
+  }
+  .row .y,.row .a,.row .c{ grid-area:meta; display:inline; margin-right:.8rem }
+}
+@media (max-width:640px){
+  .archive-list .row{
+    grid-template-areas:
+      "n t"
+      "n meta";
+    grid-template-columns: 2.1rem 1fr;
+  }
+  .row{ padding:.6rem 0 }
+}
+
+/* ——— Post body ONLY: 3 → 2 → 1 멀티컬럼 ——— */
+/* post.html 안의 <article class="post"> … <div id="output-html"> … */
+
+.post #output-html{
+  /* 혹시 이전에 남아 있을 grid 규칙 무력화 */
+  display:block !important;
+
+  /* 멀티컬럼 */
+  column-count: 3;
+  column-gap: 1.5rem;
+  orphans: 2; widows: 2;
+
+  font: inherit;
+  color: inherit;
+}
+
+/* 본문 링크만 밑줄 */
+.post #output-html a{
+  text-decoration: underline;
+  text-underline-offset: .08em;
+  text-decoration-thickness: from-font;
+}
+
+/* 컬럼 내부에서 깨지기 쉬운 블록은 한 컬럼으로 유지 */
+.post #output-html p,
+.post #output-html ul, .post #output-html ol,
+.post #output-html blockquote,
+.post #output-html pre, .post #output-html table,
+.post #output-html figure, .post #output-html img{
+  break-inside: avoid;
+}
+.post #output-html img{ max-width:100%; height:auto; display:block }
+
+/* 필요 시 전체 폭으로 펼치고 싶을 때 `.full` 클래스 사용 */
+.post #output-html .full{
+  column-span: all;      /* Chromium/Safari 주로 지원 */
+  break-after: avoid;
+}
+
+/* 반응형: 1024↓ 2단, 640↓ 1단 */
+@media (max-width:1024px){
+  .post #output-html{ column-count: 2; }
+}
+@media (max-width:640px){
+  .post #output-html{ column-count: 1; }
+}
+
+/* ——— 언어별 폰트 ——— */
+.ml-en{ font-family: var(--font-latin); font-weight: inherit }
+.ml-ko{ font-family: var(--font-cjk);   font-weight: inherit }
+.ml-jp{ font-family: var(--font-cjk);   font-weight: inherit }
+.ml-cn{ font-family: var(--font-cjk);   font-weight: inherit }
+.ml-num{ font-family: var(--font-latin); font-variant-numeric: tabular-nums }
+.ml-punct{ font-family: var(--font-latin); font-weight: inherit }

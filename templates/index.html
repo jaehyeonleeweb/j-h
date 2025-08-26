@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if lang == "kr" %}
+    {% set root = get_section(path="posts/_index.kr.md") %}
+  {% else %}
+    {% set root = get_section(path="posts/_index.md") %}
+  {% endif %}
+
+  {% set site_owner = config.extra.site_owner | default(value="") %}
+  
+  <ul class="archive-list">
+
+ 
+    
+
+       {% for p in root.pages | reverse %}
+       <li class="row">
+        <span class="n">{{ p.extra.doc_number | default(value=p.extra.number | default(value="")) }}</span>
+        <time class="y">
+          {% if p.extra.year %}{{ p.extra.year }}
+          {% elif p.date %}{{ p.date | date(format="%Y") }}
+          {% endif %}
+        </time>
+        <a class="t" href="{{ p.permalink }}">{{ p.title }}</a>
+
+        {% set author = p.extra.author | default(value="") | trim %}
+        {% if author != "" and author != site_owner %}
+          <span class="a">{{ author }}</span>
+        {% else %}
+          <span class="a"></span>
+        {% endif %}
+
+        <span class="c">{{ p.extra.category | default(value=p.path | split(pat="/") | nth(n=1)) }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
