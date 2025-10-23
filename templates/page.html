@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<article class="page-two-col">
+  
+  <aside class="page-meta">
+    <dl class="meta-list">
+      {% if page.extra.doc_no %}
+        <dt><h1>document no.:</h1></dt>
+        <dd>{{ page.extra.doc_no }}</dd>
+      {% endif %}
+  
+      {% if page.extra.category %}
+        <dt><h1>category:</h1></dt>
+        <dd>{{ page.extra.category }}</dd>
+      {% endif %}
+  
+      {% if page.extra.date_ym %}
+        <dt><h1>date:</h1></dt>
+        <dd>{{ page.extra.date_ym }}</dd>
+      {% endif %}
+  
+      {% if page.extra.format %}
+        <dt><h1>format:</h1></dt>
+        <dd>{{ page.extra.format }}</dd>
+      {% endif %}
+  
+      {% if page.extra.link %}
+      <dt><h1>link:</h1></dt>
+      <dd class="meta-link">
+        <a href="{{ page.extra.link }}">
+          {{ page.extra.link_label | default(value=page.extra.link) }}
+        </a>
+      </dd>
+    {% endif %}
+  
+      {% if page.extra.author %}
+        <dt><h1>author:</h1></dt>
+        <dd>{{ page.extra.author }}</dd>
+      {% endif %}
+    </dl>
+  </aside>
+
+  <div class="page-body page-content">    <h1>{{ page.title }}</h1>
+    {{ page.content | safe }}
+  </div>
+
+</article>
+
+{% endblock content %}

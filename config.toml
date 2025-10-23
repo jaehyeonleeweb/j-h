@@ -1,0 +1,14 @@
+base_url = "https://j-h-a-r-c-h-i-v-e.com"
+title = "j-h"
+default_language = "en"
+build_search_index = true
+generate_feeds = false
+ignored_content = ["content/shop/**"]
+
+
+[markdown]
+hard_breaks = true 
+
+[languages]
+[languages.kr]
+# 한국어는 /kr/ 경로로 출력

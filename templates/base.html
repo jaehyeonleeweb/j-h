@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% if current_path is starting_with("/kr/") %}
+  {% set page_lang = "ko" %}
+  {% set langprefix = "/kr" %}
+{% else %}
+  {% set page_lang = "en" %}
+  {% set langprefix = "" %}
+{% endif %}
+
+<html lang="{{ page_lang }}">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% if page %}{{ page.title }} · {% endif %}{{ config.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 0) 첫 페인트부터 폴백 감추기 (FOUT/FOIT 방지) -->
+    <style>
+      html:not(.wf-active):not(.wf-inactive) body { visibility: hidden; }
+      html.wf-loading body { visibility: hidden; }
+      html.wf-active body,
+      html.wf-inactive body { visibility: visible; }
+      html.wf-active body { animation: fontFadeIn .18s ease-out; }
+      @keyframes fontFadeIn { from { opacity: 0 } to { opacity: 1 } }
+    </style>
+
+    <!-- 1) 폰트 커넥션 선연결 -->
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="preconnect" href="https://p.typekit.net" crossorigin>
+
+    <!-- 2) Typekit 로더 -->
+    <script>
+      (function(d) {
+        var config = { kitId: 'efe0obd', scriptTimeout: 3000, async: true },
+            h = d.documentElement,
+            t = setTimeout(function() {
+              h.className = h.className.replace(/\bwf-loading\b/g,"") + " wf-inactive";
+            }, config.scriptTimeout),
+            tk = d.createElement("script"),
+            f = false,
+            s = d.getElementsByTagName("script")[0],
+            a;
+        h.className += " wf-loading";
+        tk.src = "https://use.typekit.net/" + config.kitId + ".js";
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function() {
+          a = this.readyState;
+          if (f || (a && a !== "complete" && a !== "loaded")) return;
+          f = true; clearTimeout(t);
+          try { Typekit.load(config); } catch (e) {}
+        };
+        s.parentNode.insertBefore(tk, s);
+      })(document);
+    </script>
+
+    <!-- (선택) 개발 중 편의 -->
+    <link rel="stylesheet" href="https://use.typekit.net/efe0obd.css">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+
+  <body>
+    <!-- 전체 2단 그리드 -->
+    <div class="shell">
+      <!-- 좌측: 세로 메뉴 -->
+      <aside class="site-nav">
+        <!-- ✅ 모바일 상단 바 (≤600px에서 보이도록 CSS 제어) -->
+        <div class="nav-bar" role="navigation" aria-label="mobile top bar">
+          <button class="nav-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-menu">menu</button>
+          {% if page_lang == "ko" %}
+            <a href="{{ current_path | replace(from="/kr", to="") }}" class="lang-toggle">en</a>
+          {% else %}
+            <a href="/kr{{ current_path }}" class="lang-toggle">kr</a>
+          {% endif %}
+        </div>
+
+        <!-- ✅ 메인 메뉴: 데스크탑에서 항상 보이고, 모바일에선 토글 대상 -->
+        <nav id="nav-menu" aria-label="primary">
+          <a href="{{ langprefix }}/">all archive</a>
+          <a href="{{ langprefix }}/works/">works</a>
+          <a href="{{ langprefix }}/about/">about</a>
+          <a href="{{ langprefix }}/contact/">contact</a>
+        
+          <!-- ⛔️ 비활성: 링크 대신 span, 클릭 불가, 회색(60%) -->
+          <span class="nav-item nav-item--disabled" aria-disabled="true" title="Coming soon">shop</span>
+        </nav>
+
+        <!-- ✅ 데스크탑 전용 언어 토글: 메뉴 '아래 한 칸'에 표시 (모바일에선 CSS로 숨김) -->
+        <div class="lang-toggle--desktop">
+          {% if page_lang == "ko" %}
+            <a href="{{ current_path | replace(from="/kr", to="") }}">en</a>
+          {% else %}
+            <a href="/kr{{ current_path }}">kr</a>
+          {% endif %}
+        </div>
+      </aside>
+
+      <!-- 우측: 콘텐츠 -->
+      <main class="site-main">
+        {% block content %}{% endblock content %}
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo" aria-label="site footer">
+      <p class="site-footer__text">
+        j-h, jaydashaitch, online archive of jae hyeon lee. ©2025 jaehyeon lee
+      </p>
+      <p class="site-footer__text--mobile">
+        j-h, ©2025 jaehyeon lee
+      </p>
+    </footer>
+
+    <!-- Hangul span 래핑 스크립트 -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const HANGUL_RE = /([\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A3]+)/g;
+        const SKIP_SELECTOR = 'pre, code, kbd, samp, script, style';
+        const walker = document.createTreeWalker(
+          document.body,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode(node) {
+              if (!node.nodeValue || !HANGUL_RE.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+              let p = node.parentNode;
+              while (p && p !== document.body) {
+                if (p.matches && p.matches(SKIP_SELECTOR)) return NodeFilter.FILTER_REJECT;
+                p = p.parentNode;
+              }
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          }
+        );
+        const texts = [];
+        let n;
+        while (n = walker.nextNode()) texts.push(n);
+        for (const text of texts) {
+          const span = document.createElement('span');
+          span.innerHTML = text.nodeValue.replace(HANGUL_RE, '<span class="han">$1</span>');
+          text.parentNode.replaceChild(span, text);
+        }
+      });
+    </script>
+
+    <!-- ✅ Mobile Menu Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("menu-toggle");
+        const menu = document.getElementById("nav-menu");
+        if (!btn || !menu) return;
+
+        function closeMenu() {
+          menu.classList.remove("open");
+          btn.setAttribute("aria-expanded", "false");
+        }
+
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const isOpen = menu.classList.toggle("open");
+          btn.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
+        });
+
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 600) closeMenu();
+        });
+      });
+    </script>
+  </body>
+</html>

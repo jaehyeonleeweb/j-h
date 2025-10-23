@@ -1,0 +1,174 @@
+/* ================================
+   COMPONENTS — Buttons, Links, UI
+   ================================ */
+
+/* 정렬 화살표 버튼을 일반 문자처럼 보이게 */
+.sort {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: default; /* 클릭 느낌 제거 */
+    text-decoration: none;
+    opacity: 0.8;
+  }
+  .sort .arrow {
+    font-family: inherit;
+    opacity: 0.7;
+    margin-left: 2px;
+  }
+  
+/* =========================================
+   GLOBAL LINK STYLE — j-h components
+   ========================================= */
+
+/* 모든 링크 기본값 */
+a {
+    color: #000;                     /* 기본 색상: 검정 */
+    text-decoration: none;           /* 밑줄 제거 */
+    transition: text-decoration 0.2s ease;
+  }
+  
+  /* hover 시 밑줄만 표시 */
+  a:hover {
+    text-decoration-line: underline; /* 밑줄 표시 */
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 3px;
+    text-decoration-color: currentColor; /* 글자색과 동일 */
+  }
+  
+  /* visited, focus, active도 색상 유지 */
+  a:visited,
+  a:focus,
+  a:active {
+    color: #000;
+    text-decoration: none;
+  }
+  
+
+  /* =========================
+   THUMB GRID — cards
+   ========================= */
+
+/* 1) 그리드 컨테이너
+   - 좌우 8px, 상하 1rem 간격
+   - 5단 → 뷰포트 좁아지면 자동으로 단수 감소 (min 220px)
+   - 행 윗선 동일 정렬(카드들이 위로 붙음) */
+.grid.thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem 8px;              /* row-gap col-gap */
+    align-items: start;         /* 행의 윗선 정렬 */
+    @media (max-width: 600px) {
+        gap: .5rem; 
+    }  
+
+}
+  
+  /* 2) 카드 링크 */
+  .card {
+    display: block;
+    text-decoration: none;      /* 전역 링크 스타일과 충돌 없음 */
+    color: inherit;
+  }
+  
+  /* 3) 썸네일 이미지 박스
+     - 가로폭만 100%, 세로는 이미지 본래 비율에 맡김(자유)
+     - object-fit 없음: 자유 높이 */
+  .card .thumb {
+    background: #f3f3f3;        /* 썸네일 없을 때 회색 배경 */
+    overflow: hidden;
+  }
+  
+  .card .thumb img {
+    display: block;
+    width: 100%;
+    height: auto;               /* 세로 자유 */
+  }
+  
+  /* 4) 메타(제목/가격/연도) */
+  .card .meta {
+    margin-top: 0.5rem;
+    line-height: 1.25;
+  }
+  
+  .card .meta .title {
+    margin: 0;
+    font-weight: 600;
+  }
+  
+  .card .meta .subtle {
+    opacity: .7;
+  }
+  
+  /* =========================================
+   THUMBNAIL BORDER — universal
+   ========================================= */
+/* 썸네일 테두리만 */
+.thumb img {
+    border: 0.5px solid;
+    box-sizing: border-box;
+    /* width/height/object-fit 선언 제거! */
+  }
+  
+
+/* =========================================
+   THUMB HOVER — overlay meta only on hover
+   ========================================= */
+
+/* 카드 기준 좌표 */
+.card { position: relative; }
+
+/* 기본: 텍스트(메타) 완전 숨김 + 오버레이 위치 미리 잡기 */
+.card .meta {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;              /* 필요시 우측도 4px 제한 */
+  margin: 0;               /* 아래로 밀던 여백 제거 */
+  color: #fff;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(2px);
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 2;
+  pointer-events: none;    /* 텍스트 대신 카드 전체가 클릭되도록 */
+}
+
+/* 이미지 트랜지션 준비 */
+.card .thumb img { transition: filter .2s ease; }
+
+/* 데스크탑(hover 가능)에서만 동작 */
+@media (hover: hover) and (pointer: fine) {
+  /* 1) 더 강하게 어둡게 (가독성↑) */
+  .card:hover .thumb img {
+    filter: brightness(.0)
+  }
+
+  /* 2) 텍스트 오버레이 나타남 */
+  .card:hover .meta {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}
+
+/* 모션 최소화 환경 */
+@media (prefers-reduced-motion: reduce) {
+  .card .thumb img,
+  .card .meta { transition: none; }
+}
+
+/* disabled nav item */
+.nav-item--disabled {
+    display: block;                 /* nav 내부 정렬 유지 */
+    margin: 0;
+    opacity: .35;                   /* 흐리게 */
+    pointer-events: none;           /* 클릭/포커스 차단 */
+    cursor: default;
+    user-select: none;
+    text-decoration-line: line-through;  /* 취소선 표시 */
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 2px;
+    text-decoration-color: currentColor; /* 글자색 기반 취소선 */
+  }

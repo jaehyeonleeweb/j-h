@@ -1,0 +1,441 @@
+/* ================================
+   TYPOGRAPHY — j-h minimal rhythm
+   ================================ */
+
+/* 0) Font stack */
+:root {
+    --font-latin: adobe-caslon-pro;
+    --font-korean: "JH-choijeongho-94"; /* Hangul only alias */
+    --font-ko-stack: var(--font-latin), var(--font-korean), serif;
+  }
+  
+  /* 1) Hangul-only face (no punctuation, no Latin) */
+  @font-face {
+    font-family: "JH-choijeongho-94";
+    src: url("https://use.typekit.net/af/e0a524/00000000000000007735dd56/31/m?features=NONE&v=4&chunks=0&order=0")
+         format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: 100%;
+    unicode-range:
+      U+1100-11FF,   /* Hangul Jamo */
+      U+3130-318F,   /* Hangul Compatibility Jamo */
+      U+AC00-D7A3;   /* Hangul Syllables */
+    size-adjust: 94%;
+    font-display: block;
+  }
+  
+  /* 2) Base (Caslon default) */
+  html {
+    font-family: var(--font-latin), serif;
+    font-size: 16px;
+    line-height: 1.3;
+    color: #000;
+    background: #fff;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-synthesis: none;
+  }
+  
+  /* 3) Korean pages — Caslon first, Hangul fallback */
+  html[lang="ko"], html[lang="kr"] {
+    font-family: var(--font-ko-stack);
+    letter-spacing: 0; /* global reset; we'll target Hangul separately */
+    font-kerning: normal;
+    font-variant-east-asian: proportional-width;
+    font-feature-settings: "kern" 1, "palt" 1;
+  }
+  
+  /* 4) Inheritance safeguard */
+  html[lang="ko"] :where(body, p, a, li, ul, ol, dl, dt, dd, small, time,
+    h1, h2, h3, h4, h5, h6, blockquote, figcaption, table, th, td,
+    button, input, select, textarea, label) {
+    font-family: inherit;
+  }
+  
+  /* 5) Monospace */
+  pre, code, kbd, samp {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  }
+  
+
+/* =========================================
+   WRAPPING RULES — break only at spaces
+   ========================================= */
+
+/* 기본: 단어 중간(한글/영문) 줄바꿈 금지, 띄어쓰기·하이픈 등 경계에서만 줄바꿈 */
+:where(.page-content, .page-meta, .page-body) {
+    word-break: keep-all;   /* CJK에서도 '글자 단위' 줄바꿈 금지 → 공백/하이픈에서만 */
+    overflow-wrap: normal;  /* 긴 단어라도 임의로 분해하지 않음 */
+    line-break: loose;      /* (CJK) 문장부호 주변 여유롭게 처리 */
+  }
+  
+  /* 하위 요소도 동일 규칙 상속 */
+  :where(.page-content, .page-meta, .page-body)
+    :where(p, li, dt, dd, h1, h2, h3, h4, h5, h6, blockquote, figcaption) {
+    word-break: inherit;
+    overflow-wrap: inherit;
+    line-break: inherit;
+  }
+  
+  /* 영문 페이지에서 하이픈 자동 허용 (가능한 브라우저/사전에서만 동작) */
+  html[lang="en"] :where(.page-content, .page-body, .page-meta) {
+    word-break: normal;   /* 영어에선 'normal'이 hyphens:auto와 궁합이 좋음 */
+    hyphens: auto;        /* 자동 하이픈 분리 허용 (사전 필요; 브라우저/OS 의존) */
+    overflow-wrap: normal;
+  }
+  
+  /* 한국어 페이지: 하이픈 자동 분리 비활성(의미 거의 없음이지만 명시) */
+  html[lang="ko"] :where(.page-content, .page-body, .page-meta),
+  html[lang="kr"] :where(.page-content, .page-body, .page-meta) {
+    hyphens: none;
+  }
+  
+  /* (옵션) 아주 긴 토큰/URL이 박스를 터뜨릴 때만 수동으로 적용할 유틸리티 */
+  .u-break {
+    overflow-wrap: anywhere;   /* 필요 시 어디서나 줄바꿈 */
+    word-break: break-word;    /* 레거시 보정 */
+  }
+
+
+
+  /* 6) Heading */
+  h1 {
+    font-size: 1rem;
+    text-decoration: underline;
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 3px;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+  }
+  
+  /* 7) Paragraphs */
+  p, ul, ol {
+    margin: 0.7em 0;
+    line-height: inherit;
+  }
+  
+/* Meta link & Content links — 박스형 링크 (기울임/밑줄 제거) */
+.page-content a,
+.page-meta .meta-link a {
+  display: inline-block;
+  transform: none;                           /* 기울임 제거 */
+  transform-origin: initial;
+  color: #000;
+  text-decoration: none !important;          /* 밑줄 제거(전역 규칙 무효화) */
+
+  /* 박스(윗/좌/우만) — 0.3px */
+  border-top:    0.5px solid #000;
+  border-left:   0.5px solid #000;
+  border-right:  0;
+  border-bottom: 0;
+
+  /* 글자와 박스 간 간격: 2px 2px 0 2px */
+  padding: 2px 2px 0 0;
+
+  background-color: transparent;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+
+/* 호버: 밑줄 없이, 박스 칠만 살짝 어둡게 */
+.page-content a:hover,
+.page-meta .meta-link a:hover {
+  text-decoration: none !important;          /* 혹시 모를 밑줄 방지 */
+  background-color: rgba(0, 0, 0, 0.06);     /* 살짝 어둡게 */
+}
+
+/* 접근성: 키보드 포커스 시 시인성 보강 */
+.page-content a:focus-visible,
+.page-meta .meta-link a:focus-visible {
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0.10);
+}
+
+
+  
+  /* Images */
+  .page-content img,
+  .page-body img,
+  .page-content figure > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Remove link box on image links */
+  .page-content a:has(img),
+  .page-content a img {
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+  }
+  
+  /* Korean page paragraph line-height */
+  html[lang="ko"] .page-two-col .page-content,
+  html[lang="kr"] .page-two-col .page-content {
+    line-height: 1.7;
+  }
+  
+  /* ------------------------------------
+     Hangul-only letter-spacing tweak
+     ------------------------------------ */
+     .han {
+        letter-spacing: -0.035em;
+        position: relative;
+        top: -0.06em; /* 기준선을 살짝 위로 (0.02~0.06em 사이에서 조정) */
+      }
+  pre .han, code .han, kbd .han, samp .han { letter-spacing: 0; }
+  
+
+
+
+
+  /* ================================
+   META LIST — B(dd) 들여쓰기
+   ================================ */
+:root{
+    --meta-indent: 12px; /* 필요시 10~16px 사이로 조절 */
+  }
+  
+  .page-meta .meta-list{
+    margin: 0;
+    padding: 0;
+  }
+  .page-meta .meta-list dt{
+    margin: 0;
+  }
+  .page-meta .meta-list dd{
+    padding-left: var(--meta-indent);  /* ← B 들여쓰기 */
+    text-indent: 0;                 /* 다중 줄도 동일 들여쓰기 유지 */
+  }
+  
+/* 전역: 이미지가 포함되지 않은 모든 링크 hover는 밑줄 */
+:where(a):not(:has(img)):hover {
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 3px;
+    text-decoration-color: currentColor;
+  }
+  
+
+/* 이미지가 들어간 링크는 텍스트 밑줄/흐림 제거(이미지에만 흐림 적용) */
+:where(a):has(img) { text-decoration: none !important; }
+
+/* 이미지가 들어간 링크 안의 텍스트(있다면)는 절대 흐려지지 않음 */
+:where(a):has(img):hover {
+  opacity: 1 !important;
+}
+
+
+
+/* PAGE CONTENT 내 문단 기본 여백 제거 */
+.page-content p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    /* 같은 의미: margin: 0; */
+  }
+
+
+
+
+/* 본문에서 em/strong을 ‘기울임/굵게’ 대신 ‘연하게’ 처리 */
+.page-content em,
+.page-content i {
+  font-style: normal;
+  font-size: 0.85em; 
+}
+
+.page-content strong,
+.page-content b {
+  font-weight: inherit; /* 굵게 해제 */
+  font-size: 0.85em; 
+
+}
+
+/* 정말 굵게 내보내고 싶은 곳은 .u-bold 유틸리티로 */
+.page-content .u-bold { font-weight: 700; opacity: 1; }
+
+
+
+
+
+
+
+:root {
+    --quote-indent: 20px;   /* 왼쪽 들여쓰기/세로선 위치 */
+    --quote-rule:   0.5px;  /* 세로선 두께 */
+  }
+  
+  /* ================================
+     BLOCKQUOTE — kill leading inline run
+     ================================ */
+  .page-content blockquote {
+    position: relative;
+    margin: 0 0 0 var(--quote-indent);  /* 왼쪽만 들여쓰기 */
+    padding-left: .6rem;                /* 텍스트 숨쉬기 */
+    border-left: var(--quote-rule) solid currentColor;
+    margin-top: 0;
+  }
+  
+  /* 내부 첫/마지막 요소 여백 제거 */
+  .page-content blockquote > :first-child { margin-top: 0; }
+  .page-content blockquote > :last-child  { margin-bottom: 0; }
+  
+  /* 내부 문단·리스트 기본 여백 0 */
+  .page-content blockquote p,
+  .page-content blockquote ul,
+  .page-content blockquote ol { margin: 0; }
+  
+  /* --------------------------------------------
+     핵심: 첫 블록 요소 이전에 나열된 '직계 인라인 노드들'을 전부 숨김
+     (span/sup/br 등). 최대 12개까지 연속 대응.
+     -------------------------------------------- */
+  .page-content blockquote
+    > :not(p,ul,ol,div,pre,figure,table,hr,blockquote):first-child,
+  .page-content blockquote
+    > :not(p,ul,ol,div,pre,figure,table,hr,blockquote):first-child
+      + :not(p,ul,ol,div,pre,figure,table,hr,blockquote),
+  .page-content blockquote
+    > :not(p,ul,ol,div,pre,figure,table,hr,blockquote):first-child
+      + :not(p,ul,ol,div,pre,figure,table,hr,blockquote)
+      + :not(p,ul,ol,div,pre,figure,table,hr,blockquote),
+  .page-content blockquote
+    > :not(p,ul,ol,div,pre,figure,table,hr,blockquote):first-child
+      ~ :not(p,ul,ol,div,pre,figure,table,hr,blockquote):nth-child(-n+12) {
+    /* 위 4줄은: 첫 자식이 '블록이 아닌 것'이라면, 그 연속 런(최대 12개)을 숨김 */
+    display: none !important;
+  }
+
+  
+
+
+
+
+  
+  
+/* =========================================
+   FOOTNOTES — refined layout (compact + clean)
+   ========================================= */
+
+
+   
+/* A) 본문 위첨자(참조): 줄간격 안정화 (네 코드 유지) */
+.page-content a.footnote-ref,
+.page-content sup.footnote-reference,
+.page-content sup[id^="fnref"] > a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.85em;
+  line-height: 1;
+  vertical-align: baseline;
+  position: relative;
+  top: -0.35em;
+}
+
+/* B) 각주 전체 영역 */
+.page-content .footnotes {
+  margin-top: 1.2rem;
+  font-size: 0.85em;      /* ← 통일: 본문 대비 작게 */
+  line-height: 1.3;
+  position: relative;
+}
+
+/* 상단 구분선: 왼쪽에서 20px만 */
+.page-content .footnotes > hr { display: none; }
+.page-content .footnotes::before {
+  content: "";
+  display: block;
+  width: 20px;
+  border-top: .5px solid currentColor;  /* height 대신 border로 확실하게 */
+  opacity: .35;
+  margin-bottom: .5rem;
+}
+
+/* OL/UL 구조: 항목 간 여백 0 */
+.page-content .footnotes ol,
+.page-content .footnotes ul {
+  margin: 0;
+  padding-left: 1.5em;    /* 번호 들여쓰기 */
+}
+.page-content .footnotes li {
+  margin: 0;              /* ← 여백 제거 */
+  padding: 0;             /* ← 여백 제거 */
+  line-height: 1.3;
+}
+/* 번호 뒤 콜론(1:, 2:) */
+.page-content .footnotes li::marker {
+  content: counters(list-item, ".") ": ";
+}
+/* li 내부 모든 요소 기본 여백 제거 */
+.page-content .footnotes li > * { margin: 0; }
+/* 첫 문장은 번호와 같은 줄에서 시작 */
+.page-content .footnotes li > p { display: inline; }
+/* 같은 항목 안의 다음 문단부터만 살짝 간격 */
+.page-content .footnotes li > p + p {
+  display: block;
+  margin-top: .3em;
+}
+
+/* div.footnote-definition 구조(렌더러에 따라 사용됨) */
+.page-content .footnote-definition {
+  display: grid;
+  grid-template-columns: auto 1fr;  /* 번호 + 내용 */
+  column-gap: .4em;
+  row-gap: 0;
+  margin: 0;                         /* ← 여백 제거 */
+  padding: 0;                        /* ← 여백 제거 */
+  font-size: 0.85em;
+  line-height: 1.3;
+}
+.page-content .footnote-definition > * { margin: 0; }
+.page-content .footnote-definition > .footnote-definition-label {
+  line-height: 1;
+}
+.page-content .footnote-definition > .footnote-definition-label::after {
+  content: ":";
+  margin-left: .25em;
+}
+.page-content .footnote-definition > p { display: inline; }
+.page-content .footnote-definition > p + p {
+  display: block;
+  margin-top: .3em;
+}
+
+/* 돌아가기 링크 약하게 */
+.page-content .footnotes a.footnote-backref {
+  text-decoration: none;
+  opacity: .5;
+}
+
+.page-content .footnotes {
+    margin-top: 1.2rem;   /* 본문과 구분될 약간의 공백 — 이미 있음 */
+    font-size: 0.85em;
+    line-height: 1.3;
+    position: relative;
+  }
+  
+  .page-content .footnotes > hr { display: none; }
+  
+  /* 왼쪽에서 시작하는 20px 가로선 — 이미 구현되어 있으므로 유지 */
+  .page-content .footnotes::before {
+    content: "";
+    display: block;
+    width: 20px;                           /* 20px 길이 */
+    border-top: .5px solid currentColor;   /* 가로선 */
+    opacity: .35;
+    margin-bottom: .5rem;                  /* 선과 각주 목록 사이 최소 간격 */
+  }
+
+
+  .page-content .footnotes > span {
+    display: inline;     /* 기본값 유지해도 됨 */
+    font-size: 0;        /* 인라인 라인박스 제거 */
+    line-height: 0;
+  }
+  .page-content .footnotes > span > .footnote-definition {
+    font-size: .85em;    /* 원래 값 복구 */
+    line-height: 1.3;    /* 원래 값 복구 */
+  }
+  

@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block content %}
+
+<table class="list-table" id="archive-table">
+  <colgroup>
+    <col class="col-doc">
+    <col class="col-title">
+    <col class="col-cat">
+    <col class="col-year">
+  </colgroup>
+
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {# ---------- works ---------- #}
+    {% set s_works = get_section(path="works/_index.md") %}
+    {% set list_works = s_works.pages | filter(attribute="lang", value=lang) %}
+    {% set list_works_len = list_works | length %}
+    {% if lang == "kr" and list_works_len == 0 %}
+      {% set s_works = get_section(path="works/_index.kr.md") %}
+      {% set list_works = s_works.pages | filter(attribute="lang", value=lang) %}
+    {% endif %}
+    {% for p in list_works %}
+      {% set doc = p.extra.doc_no | default(value="") %}
+      {% set year_extra = p.extra.date_year | default(value="") %}
+      {% set cat = p.extra.category | default(value="works") %}
+      <tr data-title="{{ p.title | lower }}" data-doc="{{ doc }}" data-cat="{{ cat | lower }}"
+          data-year="{% if year_extra %}{{ year_extra }}{% elif p.date %}{{ p.date | date(format='%Y') }}{% endif %}">
+        <td>{{ doc }}</td>
+        <td class="title-cell"><a href="{{ p.permalink }}">{{ p.title }}</a></td>
+        <td>{{ cat }}</td>
+        <td>{% if year_extra %}{{ year_extra }}{% elif p.date %}{{ p.date | date(format='%Y') }}{% else %}–{% endif %}</td>
+      </tr>
+    {% endfor %}
+
+    {# ---------- shop ---------- #}
+    {% set s_shop = get_section(path="shop/_index.md") %}
+    {% set list_shop = s_shop.pages | filter(attribute="lang", value=lang) %}
+    {% set list_shop_len = list_shop | length %}
+    {% if lang == "kr" and list_shop_len == 0 %}
+      {% set s_shop = get_section(path="shop/_index.kr.md") %}
+      {% set list_shop = s_shop.pages | filter(attribute="lang", value=lang) %}
+    {% endif %}
+    {% for p in list_shop %}
+      {% set doc = p.extra.doc_no | default(value="") %}
+      {% set year_extra = p.extra.date_year | default(value="") %}
+      {% set cat = p.extra.category | default(value="shop") %}
+      <tr data-title="{{ p.title | lower }}" data-doc="{{ doc }}" data-cat="{{ cat | lower }}"
+          data-year="{% if year_extra %}{{ year_extra }}{% elif p.date %}{{ p.date | date(format='%Y') }}{% endif %}">
+        <td>{{ doc }}</td>
+        <td class="title-cell"><a href="{{ p.permalink }}">{{ p.title }}</a></td>
+        <td>{{ cat }}</td>
+        <td>{% if year_extra %}{{ year_extra }}{% elif p.date %}{{ p.date | date(format='%Y') }}{% else %}–{% endif %}</td>
+      </tr>
+    {% endfor %}
+
+    {# ---------- glossary ---------- #}
+    {% set s_glossary = get_section(path="glossary/_index.md") %}
+    {% set list_glossary = s_glossary.pages | filter(attribute="lang", value=lang) %}
+    {% set list_glossary_len = list_glossary | length %}
+    {% if lang == "kr" and list_glossary_len == 0 %}
+      {% set s_glossary = get_section(path="glossary/_index.kr.md") %}
+      {% set list_glossary = s_glossary.pages | filter(attribute="lang", value=lang) %}
+    {% endif %}
+    {% for p in list_glossary %}
+      {% set doc = p.extra.doc_no | default(value="") %}
+      {% set year_extra = p.extra.date_year | default(value="") %}
+      {% set cat = p.extra.category | default(value="glossary") %}
+      <tr data-title="{{ p.title | lower }}" data-doc="{{ doc }}" data-cat="{{ cat | lower }}"
+          data-year="{% if year_extra %}{{ year_extra }}{% elif p.date %}{{ p.date | date(format='%Y') }}{% endif %}">
+        <td>{{ doc }}</td>
+        <td class="title-cell"><a href="{{ p.permalink }}">{{ p.title }}</a></td>
+        <td>{{ cat }}</td>
+        <td>{% if year_extra %}{{ year_extra }}{% elif p.date %}{{ p.date | date(format='%Y') }}{% else %}–{% endif %}</td>
+      </tr>
+    {% endfor %}
+
+    {# ---------- method ---------- #}
+    {% set s_method = get_section(path="method/_index.md") %}
+    {% set list_method = s_method.pages | filter(attribute="lang", value=lang) %}
+    {% set list_method_len = list_method | length %}
+    {% if lang == "kr" and list_method_len == 0 %}
+      {% set s_method = get_section(path="method/_index.kr.md") %}
+      {% set list_method = s_method.pages | filter(attribute="lang", value=lang) %}
+    {% endif %}
+    {% for p in list_method %}
+      {% set doc = p.extra.doc_no | default(value="") %}
+      {% set year_extra = p.extra.date_year | default(value="") %}
+      {% set cat = p.extra.category | default(value="method") %}
+      <tr data-title="{{ p.title | lower }}" data-doc="{{ doc }}" data-cat="{{ cat | lower }}"
+          data-year="{% if year_extra %}{{ year_extra }}{% elif p.date %}{{ p.date | date(format='%Y') }}{% endif %}">
+        <td>{{ doc }}</td>
+        <td class="title-cell"><a href="{{ p.permalink }}">{{ p.title }}</a></td>
+        <td>{{ cat }}</td>
+        <td>{% if year_extra %}{{ year_extra }}{% elif p.date %}{{ p.date | date(format='%Y') }}{% else %}–{% endif %}</td>
+      </tr>
+    {% endfor %}
+
+    {# ---------- thought ---------- #}
+    {% set s_thought = get_section(path="thought/_index.md") %}
+    {% set list_thought = s_thought.pages | filter(attribute="lang", value=lang) %}
+    {% set list_thought_len = list_thought | length %}
+    {% if lang == "kr" and list_thought_len == 0 %}
+      {% set s_thought = get_section(path="thought/_index.kr.md") %}
+      {% set list_thought = s_thought.pages | filter(attribute="lang", value=lang) %}
+    {% endif %}
+    {% for p in list_thought %}
+      {% set doc = p.extra.doc_no | default(value="") %}
+      {% set year_extra = p.extra.date_year | default(value="") %}
+      {% set cat = p.extra.category | default(value="thought") %}
+      <tr data-title="{{ p.title | lower }}" data-doc="{{ doc }}" data-cat="{{ cat | lower }}"
+          data-year="{% if year_extra %}{{ year_extra }}{% elif p.date %}{{ p.date | date(format='%Y') }}{% endif %}">
+        <td>{{ doc }}</td>
+        <td class="title-cell"><a href="{{ p.permalink }}">{{ p.title }}</a></td>
+        <td>{{ cat }}</td>
+        <td>{% if year_extra %}{{ year_extra }}{% elif p.date %}{{ p.date | date(format='%Y') }}{% else %}–{% endif %}</td>
+      </tr>
+    {% endfor %}
+
+    {# ---------- about (single page) ---------- #}
+    {% if lang == "kr" %}
+      {% set p_about = get_page(path="about/about.kr.md") %}
+    {% else %}
+      {% set p_about = get_page(path="about/about.md") %}
+    {% endif %}
+    {% if p_about %}
+      {% set doc = p_about.extra.doc_no | default(value="") %}
+      {% set year_extra = p_about.extra.date_year | default(value="") %}
+      {% set cat = p_about.extra.category | default(value="about") %}
+      <tr data-title="{{ p_about.title | lower }}" data-doc="{{ doc }}" data-cat="{{ cat | lower }}"
+          data-year="{% if year_extra %}{{ year_extra }}{% elif p_about.date %}{{ p_about.date | date(format='%Y') }}{% endif %}">
+        <td>{{ doc }}</td>
+        <td class="title-cell"><a href="{{ p_about.permalink }}">{{ p_about.title }}</a></td>
+        <td>{{ cat }}</td>
+        <td>{% if year_extra %}{{ year_extra }}{% elif p_about.date %}{{ p_about.date | date(format='%Y') }}{% else %}–{% endif %}</td>
+      </tr>
+    {% endif %}
+
+    {# ---------- contact (single page) ---------- #}
+    {% if lang == "kr" %}
+      {% set p_contact = get_page(path="contact/contact.kr.md") %}
+    {% else %}
+      {% set p_contact = get_page(path="contact/contact.md") %}
+    {% endif %}
+    {% if p_contact %}
+      {% set doc = p_contact.extra.doc_no | default(value="") %}
+      {% set year_extra = p_contact.extra.date_year | default(value="") %}
+      {% set cat = p_contact.extra.category | default(value="contact") %}
+      <tr data-title="{{ p_contact.title | lower }}" data-doc="{{ doc }}" data-cat="{{ cat | lower }}"
+          data-year="{% if year_extra %}{{ year_extra }}{% elif p_contact.date %}{{ p_contact.date | date(format='%Y') }}{% endif %}">
+        <td>{{ doc }}</td>
+        <td class="title-cell"><a href="{{ p_contact.permalink }}">{{ p_contact.title }}</a></td>
+        <td>{{ cat }}</td>
+        <td>{% if year_extra %}{{ year_extra }}{% elif p_contact.date %}{{ p_contact.date | date(format="%Y") }}{% else %}–{% endif %}</td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>
+
+{# --- 정렬 버튼 보관용 마크업(비활성) ---
+  반드시 테이블 바깥에만 둡니다
+  <th style="width:5%"><button class="sort" ...>…</button></th>
+  ...
+#}
+
+<!-- 기존 정렬 스크립트는 그대로 -->
+<script>
+(function () {
+  const table = document.getElementById('archive-table');
+  if (!table) return;
+
+  const tbody = table.querySelector('tbody');
+  const headers = table.querySelectorAll('thead .sort'); // 지금은 0개
+
+  function sortRows(key, type, order) {
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const dir = (order === 'desc') ? -1 : 1;
+    rows.sort((a, b) => {
+      let va = a.dataset[key] ?? '';
+      let vb = b.dataset[key] ?? '';
+      if (type === 'num') {
+        const na = parseInt(va, 10);
+        const nb = parseInt(vb, 10);
+        const aValid = Number.isFinite(na);
+        const bValid = Number.isFinite(nb);
+        if (aValid && bValid) return (na - nb) * dir;
+        if (aValid && !bValid) return -1;
+        if (!aValid && bValid) return 1;
+        return 0;
+      } else {
+        va = (va || '').toString();
+        vb = (vb || '').toString();
+        return va.localeCompare(vb) * dir;
+      }
+    });
+    rows.forEach(r => tbody.appendChild(r));
+  }
+
+  const qs = new URLSearchParams(location.search);
+  const initKey = qs.get('sort') || 'doc';
+  const initOrder = qs.get('order') || 'desc';
+  const inferType = (k) => (k === 'doc' || k === 'year') ? 'num' : 'str';
+  sortRows(initKey, inferType(initKey), initOrder);
+})();
+</script>
+{% endblock content %}
