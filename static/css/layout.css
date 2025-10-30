@@ -1,446 +1,414 @@
-/* reset */
-html, body { margin: 0; }
-
 /* =========================================
-   GLOBAL VARS — j-h layout
+   RESET
    ========================================= */
-:root{
-  --nav-col: 100px;
-  --gap-lg: 40px;
-  --gap-sm: 20px;
-  --maxw: 1440px;
-  --pad-x: .5rem;
+   html, body { margin: 0; }
 
-  /* Footer */
-  --footer-font-scale: 1;
-  --footer-line-gap: 6px;
-  --footer-pad-y: .4rem;
-  --footer-opacity: .6;
 
-  /* Guides */
-  --guide-offset: 8px;
-
-  /* viewport 기준 추정치가 아니라, 3단은 컨테이너 기반으로 계산할 거라
-     --content-w 는 2단선 계산 외에는 사용하지 않음(남겨둠) */
-  --content-w: calc(
-    min(100%, var(--maxw))
-    - (2 * var(--pad-x))
-    - var(--nav-col)
-    - var(--gap-lg)
-  );
-}
-
-/* 본문이 fixed footer에 가려지지 않도록 여백 확보 */
-body{
-  padding-bottom: calc(
-    (1rem * var(--footer-font-scale)) * 1.6
-    + var(--footer-pad-y) * 2
-    + var(--footer-line-gap) + 1px
-  );
-}
-
-/* =========================================
-   SHELL — 전체 2단(좌: 메뉴 / 우: 콘텐츠)
-   ========================================= */
-.shell{
-  display: grid;
-  grid-template-columns: var(--nav-col) 1fr;
-  gap: var(--gap-lg);
-  max-width: var(--maxw);
-  margin: 0;
-  padding: var(--pad-x);
-  align-items: start;
-}
-
-.site-nav{ position: sticky; top: var(--pad-x); }
-.site-nav nav a{ display: block; margin: 0; text-decoration: none; }
-.site-nav nav a:hover {
-    text-decoration-line: underline;
-    text-decoration-thickness: 0.5px;
-    text-underline-offset: 3px;
-    text-decoration-color: currentColor;
-    opacity: 1 !important; /* 어떤 기존 규칙보다 우선 */
-  }
-
-/* ★ 컨테이너 선언: 3단 계산을 100cqw로 정확히 */
-.site-main{
-  min-width: 0;
-  container-type: inline-size;
-}
-
-/* =========================================
-   PAGE — 우측 2단(3:7)
-   ========================================= */
-.page-two-col{
-  display: grid;
-  grid-template-columns: 3fr 7fr; /* 메타 30% / 본문 70% */
-  grid-template-areas: "meta body";
-  column-gap: var(--gap-lg);
-  row-gap: var(--gap-sm);
-}
-
-.page-header{ grid-area: header; }
-.page-meta{ grid-area: meta; }
-.page-body{ grid-area: body; min-width: 0; }
-
-/* =========================================
-   RESPONSIVE
-   ========================================= */
-@media (max-width:900px){
-  .shell{
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: var(--pad-x);
-  }
-  .site-nav{ position: static; }
-  .page-two-col{
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "header"
-      "meta"
-      "body";
-    row-gap: var(--gap-sm);
-  }
-}
-
-/* =========================================
-   META LIST
-   ========================================= */
+   /* =========================================
+      GLOBAL VARS — j-h layout
+      ========================================= */
+   :root {
+     --nav-col: 120px;
+     --maxw: 1440px;
+   
+     /* Footer */
+     --footer-font-scale: 1;
+     --footer-line-gap: 6px;
+     --footer-pad-y: .4rem;
+     --footer-opacity: .6;
+   
+     /* viewport 기준 추정치가 아니라,
+        3단은 컨테이너 기반으로 계산할 거라
+        --content-w 는 2단 계산 외에는 사용하지 않음(남겨둠) */
+     --content-w: calc(
+       min(100%, var(--maxw))
+       - (2 * var(--pad-x))
+       - var(--nav-col)
+       - var(--gap-lg)
+     );
+   }
+   
+   
+   /* =========================================
+      LAYOUT — SHELL (2단, 세로 꽉 채움)
+      ========================================= */
+   .shell {
+     display: grid;
+     grid-template-columns: var(--nav-col) 1fr;
+     max-width: var(--maxw);
+     min-height: 100dvh;
+     align-items: stretch;
+     column-gap: 0;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+   
+   
+   /* =========================================
+      LAYOUT — NAV (좌측 영역)
+      ========================================= */
+   .site-nav {
+     position: sticky;
+     top: 0;
+     height: 100dvh;
+     box-sizing: border-box;
+     padding: 10px;
+   }
+   
+   
+   /* =========================================
+      LAYOUT — MAIN (우측 영역)
+      ========================================= */
+   .site-main {
+     padding: 10px;
+     border-left: 0.5px solid #000;
+     min-width: 0;
+     height: 100dvh;
+     box-sizing: border-box;
+     overflow: auto;
+     container-type: inline-size;
+   }
+   
+   /* page.html처럼 내부에 .page-two-col이 있을 때만 패딩/보더 OFF */
+   .site-main:has(.page-two-col) {
+     padding: 0;
+     border-left: 0;
+   }
+   
+   
+   /* =========================================
+      PAGE(내부 2단) — meta/body
+      ========================================= */
+   .page-two-col {
+     display: grid;
+     grid-template-columns: 2fr 8fr;
+     grid-template-areas: "meta body";
+     column-gap: 0;
+     row-gap: 0;
+     min-height: 100%;
+   }
+   
+   /* meta/body 내부 여백 + 구분선 */
+   .page-meta {
+     grid-area: meta;
+     box-sizing: border-box;
+     padding: 10px;
+     border-left: 0.5px solid #000;
+   }
+   .page-body {
+     grid-area: body;
+     min-width: 0;
+     box-sizing: border-box;
+     padding: 10px;
+     border-left: 0.5px solid #000;
+   }
+   
+   
+   /* =========================================
+      RESPONSIVE (≤900px)
+      — 세로 스택 전환 / 상단 보더 사용
+      ========================================= */
+   @media (max-width: 900px) {
+     .shell {
+       grid-template-columns: 1fr;
+       align-items: start;
+       align-content: start;
+       grid-auto-rows: min-content;
+     }
+   
+     .site-nav {
+       position: static;
+       height: auto;
+       padding: 10px;
+     }
+   
+     .site-main {
+       height: auto;
+       overflow: visible;
+       padding: 10px;
+       border-left: 0;
+       border-top: 0.5px solid #000;
+     }
+   
+     .page-two-col {
+       grid-template-columns: 1fr;
+       grid-template-areas:
+         "meta"
+         "body";
+     }
+   
+     .page-meta {
+       padding: 10px 10px 50px 10px;
+       border-left: 0;
+       border-top: 0;
+     }
+   
+     .page-body {
+       padding: 10px;
+       border-left: 0;
+       border-top: 0;
+     }
+   
+     /* meta 다음 body에만 상단선 추가 */
+     .page-two-col > * + * {
+       border-top: 0.5px solid #000;
+     }
+   }
+   
+   
+   /* =========================================
+      META LIST (정의/목록)
+      ========================================= */
+   .meta-list dt, .meta-list dd {
+     margin: 0;
+     padding: 0;
+   }
+   .meta-list dt { font-weight: 500; }
    .meta-list dd {
-    margin-block-start: 0;
-    margin-block-end: 0;
-    margin-inline-start: 0;
-    margin-inline-end: 0;
-    padding: 0;
-  }
-  .meta-list dt,
-  .meta-list dd {
-    margin: 0;
-    padding: 0;
-  }
-  .meta-list dt {
-    font-weight: 500;
-  }
-  .meta-list dd {
-    margin-left: 0;
-  }
-  
-  /* =========================================
-     section.html — 리스트 테이블
-     ========================================= */
-  .list-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin: 0;
-  }
-  
-  /* 열 폭 정의 (colgroup 기반) */
-  .list-table col.col-doc   { width: 5%; }
-  .list-table col.col-title { width: auto; }
-  .list-table col.col-cat, 
-  .list-table col.col-year  { width: auto; min-width: 50px; }  
-  
-  /* thead 높이 제거 (정렬 버튼 비활성화 상태) */
-  .list-table thead {
-    font-size: 0;
-    line-height: 0;
-    border: 0;
-    padding: 0;
-  }
-  .list-table thead th {
-    padding: 0;
-    margin: 0;
-    border: 0;
-    height: 0;
-    line-height: 0;
-  }
-  .list-table thead .sort {
-    padding: 0;
-    margin: 0;
-    border: 0;
-    background: none;
-    font-size: 0;
-    line-height: 0;
-    height: 0;
-    overflow: hidden;
-  }
-  
-  /* 셀 공통 */
-  .list-table td {
-    vertical-align: top;
-    text-align: left;
-    padding: 0; /* 초기화 */
-  }
-  
-  /* 칸 사이 간격: 마지막 칸 제외 오른쪽만 */
-  .list-table tbody tr > td:not(:last-child) {
-    padding-right: 10px;
-  }
-  
-  /* 2열 타이틀 링크 */
-  .title-cell a {
-    text-decoration: none;
-    color: inherit;
-    transition: opacity 0.2s ease;
-  }
-
-  
-  /* 마지막 열(연도): 중앙정렬 + 좌우 패딩 제거 */
-  .list-table tbody tr > td:last-child {
-    text-align: center;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-  
-  /* ✅ 1) 행 hover 시 4칸 모두 밑줄 (0.5px / 3px offset), opacity 변경 없음 */
-  .list-table tbody tr:hover td {
-    text-decoration-line: underline;
-    text-decoration-thickness: 0.5px;
-    text-underline-offset: 3px;
-    text-decoration-color: currentColor;
-    text-decoration-skip-ink: auto;
-  }
-  /* 제목 링크가 :hover로 반투명해지는 기존 규칙을 행 hover에서는 무효화 */
-  .list-table tbody tr:hover .title-cell a {
-    opacity: 1;
-  }
-  
-  /* 반응형: 모바일에서 cat/year 최소폭 축소 */
-  @media (max-width: 600px) {
-    .list-table col.col-cat,
-    .list-table col.col-year {
-      min-width: 40px;
-    }
-  }
-  
-  
-
-/* =========================================
-   FOOTER — 화면 바닥 고정 (텍스트만)
-   ========================================= */
-   .site-footer{
-    position: fixed;
-    left: 0; right: 0; bottom: 0;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: var(--footer-pad-y) var(--pad-x);
-    font-size: calc(1rem * var(--footer-font-scale));
-    line-height: 1.3;
-    background: transparent;
-    z-index: 1000;
-  }
-  
-  .site-footer__text,
-  .site-footer__text--mobile{
-    position: relative;
-    width: 100%;
-    max-width: var(--maxw);
-    margin: 0;
-    color: #000;
-    background: transparent;
-    font-size: 1rem;
-  }
-  
-  /* 축약 버전은 숨김 — 데스크탑에서 */
-  .site-footer__text--mobile { display: none; }
-  
-  /* =========================================
-     MOBILE
-     ========================================= */
-  @media (max-width: 600px){
-    /* 데스크탑 문구 숨기고 축약 버전만 보이게 */
-    .site-footer__text { display: none; }
-    .site-footer__text--mobile {
-      display: block;
-      font-size: 0.7rem; /* 글자만 살짝 작게 */
-    }
-  }
-  
-  
-  
-  
-  
-
-/* =========================================
-   GUIDES — viewport-wide vertical lines
-   ========================================= */
-body::before{
-  content:"";
-  position: fixed;
-  top: 0; bottom: 0; /* 100vh */
-  width: 0;
-  border-left: 0.5px solid currentColor;
-  opacity: 1;
-  pointer-events: none;
-  z-index: 500;
-  /* 2단(meta) 왼쪽 경계 - 4px */
-  left: calc(var(--pad-x) + var(--nav-col) + var(--gap-lg) - var(--guide-offset));
-}
-
-/* 3단(body) 왼쪽 경계 - 4px (.site-main 컨테이너 기준 100cqw 계산) */
-.site-main::after{
-  content:"";
-  position: fixed;
-  top: 0; bottom: 0; /* 100vh */
-  width: 0;
-  border-left: 0.5px solid currentColor;
-  opacity: 1;
-  pointer-events: none;
-  z-index: 500;
-  /* body-left = site-left + meta폭((100cqw - gap)*0.3) + gap - 4px */
-  left: calc(
-    (var(--pad-x) + var(--nav-col) + var(--gap-lg))
-    + ((100cqw - var(--gap-lg)) * 0.3) /* 3/(3+7)=0.3 */
-    + var(--gap-lg)
-    - var(--guide-offset)
-  );
-  display: none; /* 기본은 숨김 */
-}
-/* .page-two-col 있을 때만 3단 선 노출 */
-body:has(.page-two-col) .site-main::after{ display: block; }
-
-/* 1컬럼(<=900px) 전환 시, 가이드 라인 강제 숨김 */
-@media (max-width:900px){
-  body::before,
-  .site-main::after{
-    display: none !important;
-  }
-}
-/* 전역: 텍스트 링크는 hover해도 절대 흐려지지 않음 */
-a:hover { opacity: 1 !important; }
-
-/* =========================================
-   MOBILE NAVIGATION — j-h layout
-   ========================================= */
-
-/* 기본 (데스크탑) */
-.nav-bar { display: none; }
-.site-nav .lang-toggle--desktop {
-  display: block;
-  margin-top: 1rem;
-  text-align: left;
-}
-.site-nav .lang-toggle--desktop a:hover {
-  text-decoration-line: underline;
-  text-decoration-thickness: 0.5px;
-  text-underline-offset: 3px;
-  text-decoration-color: currentColor;
-  opacity: 1 !important;
-}
+     margin-left: 0;
+     margin-block-start: 0;
+     margin-block-end: 0;
+   }
+   
+   
+   /* =========================================
+      section.html — 리스트 테이블
+      ========================================= */
+   .list-table {
+     width: 100%;
+     border-collapse: separate;
+     border-spacing: 0;
+     margin: 0;
+   }
+   
+   /* 열 폭 정의 */
+   .list-table col.col-doc   { width: 5%; }
+   .list-table col.col-title { width: auto; }
+   .list-table col.col-cat,
+   .list-table col.col-year  { width: auto; min-width: 50px; }
+   
+   /* thead 제거 */
+   .list-table thead,
+   .list-table thead th,
+   .list-table thead .sort {
+     font-size: 0;
+     line-height: 0;
+     border: 0;
+     padding: 0;
+     margin: 0;
+     height: 0;
+     background: none;
+     overflow: hidden;
+   }
+   
+   /* 셀 공통 */
+   .list-table td {
+     vertical-align: top;
+     text-align: left;
+     padding: 0;
+   }
+   
+   /* 칸 사이 간격 */
+   .list-table tbody tr > td:not(:last-child) {
+     padding-right: 10px;
+   }
+   
+   /* 타이틀 링크 */
+   .title-cell a {
+     text-decoration: none;
+     color: inherit;
+     transition: opacity 0.2s ease;
+   }
+   
+   /* 마지막 열 중앙정렬 */
+   .list-table tbody tr > td:last-child {
+     text-align: center;
+     padding-left: 0 !important;
+     padding-right: 0 !important;
+   }
+   
+   /* 행 hover: 밑줄 전체 */
+   .list-table tbody tr:hover td {
+     text-decoration-line: underline;
+     text-decoration-thickness: 0.5px;
+     text-underline-offset: 3px;
+     text-decoration-color: currentColor;
+     text-decoration-skip-ink: auto;
+   }
+   
+   /* hover시 제목 링크 투명도 유지 */
+   .list-table tbody tr:hover .title-cell a {
+     opacity: 1;
+   }
+   
+   
+   /* =========================================
+      FOOTER — 화면 바닥 고정
+      ========================================= */
+   .site-footer {
+     position: fixed;
+     left: 10px; right: 0; bottom: 0;
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     padding: var(--footer-pad-y) var(--pad-x);
+     font-size: calc(1rem * var(--footer-font-scale));
+     line-height: 1.3;
+     background: transparent;
+     z-index: 1000;
+   }
+   .site-footer__text,
+   .site-footer__text--mobile {
+     position: relative;
+     width: 100%;
+     max-width: var(--maxw);
+     margin: 0;
+     color: #000;
+     background: transparent;
+     font-size: 1rem;
+   }
+   .site-footer__text--mobile { display: none; }
+   
+   /* MOBILE 푸터 전용 */
+   @media (max-width: 600px) {
+     .site-footer__text { display: none; }
+     .site-footer__text--mobile {
+       display: block;
+       margin-top: .4rem; /* ✅ 모바일 전용 여백 */
+     }
+   }
+   
+   
+   /* =========================================
+      GLOBAL INTERACTION — 링크 hover
+      ========================================= */
+   a:hover { opacity: 1 !important; }
+   
+   
+   /* =========================================
+      MOBILE NAVIGATION — 기본(데스크탑)
+      ========================================= */
+   .nav-bar { display: none; }
+   .site-nav .lang-toggle--desktop {
+     display: block;
+     margin-top: 1rem;
+     text-align: left;
+   }
+   .site-nav .lang-toggle--desktop a:hover {
+     text-decoration-line: underline;
+     text-decoration-thickness: 0.5px;
+     text-underline-offset: 3px;
+     text-decoration-color: currentColor;
+     opacity: 1 !important;
+   }
+   
+   
+   /* =========================================
+      MOBILE (≤600px) — 네비/상단바/본문/리스트 등
+      ========================================= */
+   @media (max-width: 600px) {
+   
+     /* 전체 확대 */
+     html { font-size: calc(16px * 1.35); }
+   
+     /* 상단바 */
+     .nav-bar {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       padding: 0;
+     }
+   
+     /* 단일 문서 페이지: 상단선 제거 */
+     .page-template.site-main {
+       border-top: none !important;
+       padding-top: 0 !important;
+     }
+   
+     /* 메뉴 버튼 & 언어 토글 */
+     .nav-toggle,
+     .nav-bar .lang-toggle {
+       background: none;
+       border: none;
+       padding: 0;
+       margin: 0;
+       font: inherit;
+       color: inherit;
+       cursor: pointer;
+       text-decoration: none;
+     }
+   
+     /* 데스크탑용 토글 숨김 */
+     .site-nav .lang-toggle--desktop { display: none; }
+   
+     /* 메뉴 기본 숨김, open 시 표시 */
+     .site-nav nav {
+       display: none;
+       flex-direction: column;
+       padding: 10px 0;
+       border-top: 0.5px solid currentColor;
+     }
+     .site-nav nav.open { display: flex; }
+   
+     /* 메뉴 항목 스타일 */
+     .site-nav nav a,
+     .site-nav nav span {
+       display: block;
+       padding: 0;
+       margin: 0;
+       text-decoration: none;
+       color: inherit;
+     }
+   
+     /* 🔹 모바일에서는 <br> 제거 → 공백 방지 */
+     .site-nav nav br { display: none; }
+   
+     /* nav, main, body 구분선 */
+     .site-main { border-top: 0.5px solid currentColor; }
+     .page-body { border-top: 0.5px solid currentColor; }
+   
+     /* 리스트: 3번째 열 숨김 */
+     .list-table col.col-cat,
+     .list-table td:nth-child(3) { display: none; }
+   
+     /* 전역 두께 오버라이드 */
+     * {
+       border-width: 1px !important;
+       text-decoration-thickness: 1px !important;
+     }
+   
+     /* 리스트 최소폭 축소 */
+     .list-table col.col-year { min-width: 40px; }
+   }
+   
 
 /* =========================================
-   MOBILE (≤600px)
+   WORKS GRID — 최대 4단 제한 (정리판)
    ========================================= */
-@media (max-width: 600px) {
-  /* 전체 확대 */
-  html { font-size: calc(16px * 1.35); }
 
-  /* 상단바 — menu / lang */
-  .nav-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
-  }
-
-  /* ✅ page.html (단일 문서 페이지)에서는 site-main 구분선 숨김 */
-.page-template.site-main {
-    border-top: none !important;
-    padding-top: 0 !important;
+/* 기본 2단 (mobile~small) */
+.site-main .grid.thumbs {
+    display: grid;
+    gap: 10px;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: stretch;
+    align-items: stretch;
+    column-count: initial;
   }
   
-
-  .nav-toggle,
-  .nav-bar .lang-toggle {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  /* 🔹 데스크탑용 토글 숨김 */
-  .site-nav .lang-toggle--desktop { display: none; }
-
-  /* 메뉴 기본 숨김 */
-  .site-nav nav {
-    display: none;
-    flex-direction: column;
-    gap: 0;
-    padding: .25rem 0 1rem 0;
-    border-top: 0.5px solid currentColor;
-  }
-  /* 토글 시 열림 */
-  .site-nav nav.open { display: flex; }
-
-  /* 메뉴 항목 스타일 */
-  .site-nav nav a {
-    display: block;
-    padding: 0;
-    color: inherit;
-    text-decoration: none;
-  }
-
-
-  /* nav, main, body 구분선 */
-  .site-main {
-    border-top: 0.5px solid currentColor;
-    padding-top: .25rem;
-  }
-
-  .page-body {
-    border-top: 0.5px solid currentColor;
-    padding-top: .25rem;
-  }
-
-
-
-  /* section.html 리스트 — 3번째 열 숨김 */
-  .list-table col.col-cat,
-  .list-table td:nth-child(3) {
-    display: none;
-  }
-
-  /* 페이지 상단/하단 여백 정리 */
-  .shell {
-    padding-top: .4rem;
-    gap: 0;
-  }
-}
-
-@media (max-width: 600px) {
-    /* 모든 border 중 얇은 선(0.5px)을 1px로 */
-    * {
-      border-width: 1px !important;
-    }
-  
-    /* 밑줄 두께 (텍스트) */
-    * {
-      text-decoration-thickness: 1px !important;
+  /* 중간 화면 (tablet 이상) → 3단 */
+  @media (min-width: 800px) {
+    .site-main .grid.thumbs {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
   
-/* 모바일에서 header↔meta 사이 '그 칸'만 없애기 */
-@media (max-width: 600px){
-    /* 기존 row-gap은 유지 (건드리지 않음) */
-    .page-two-col{ row-gap: var(--gap-sm); }
-  
-    /* meta 위쪽만 gap만큼 당겨서 시각적으로 0으로 */
-    .page-two-col > .page-meta{
-      margin-block-start: calc(-1 * var(--gap-sm));
-      /* 혹시 meta 자체에 padding-top이 있으면 같이 제거 */
-      padding-top: 0;
-    }
-  
-    /* meta 내부 첫 요소가 margin-top 갖고 있으면 새는 여백 차단(선택) */
-    .page-two-col > .page-meta > *:first-child{
-      margin-top: 0;
+  /* 큰 화면 (desktop 이상) → 최대 4단 */
+  @media (min-width: 1100px) {
+    .site-main .grid.thumbs {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
-  
   

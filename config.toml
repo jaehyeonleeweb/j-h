@@ -7,8 +7,10 @@ ignored_content = ["content/shop/**"]
 
 
 [markdown]
-hard_breaks = true 
+hard_breaks = false 
+footnotes = true
 
 [languages]
 [languages.kr]
 # 한국어는 /kr/ 경로로 출력
+title = "j-h"

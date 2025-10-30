@@ -50,8 +50,22 @@ FILE_URL_KEYS = {"thumbnail", "image", "poster"}
 
 # ---------- 정규식 ----------
 MD_RE = re.compile(r"\.md$", re.IGNORECASE)
-IMG_LINK_RE = re.compile(r'!\[([^\]]*)\]\((?:\s*)(media/[^)]+)(?:\s*)\)')
-LINK_RE     = re.compile(r'\[([^\]]*)\]\((?:\s*)(media/[^)]+)(?:\s*)\)')
+
+# ★ title(옵션)까지 캡처하도록 수정
+IMG_LINK_RE = re.compile(
+    r'!\[([^\]]*)\]\('
+    r'(?:\s*)(\/?media\/[^)\s]+)(?:\s*)'   # ← 선행 슬래시 허용
+    r'(?:\"([^\"]*)\")?'                   #  "title" (옵션)
+    r'\)'
+)
+
+LINK_RE = re.compile(
+    r'\[([^\]]*)\]\('
+    r'(?:\s*)(\/?media\/[^)]+)(?:\s*)'     # ← 선행 슬래시 허용
+    r'\)'
+)
+
+DISABLED_LINK_RE = re.compile(r'\[([^\]]+)\]\(\s*#disabled\s*\)')
 
 FM_TOML_RE = re.compile(r'^\s*\+{3}\s*\n(.*?)\n\+{3}\s*', re.S)
 FM_YAML_RE = re.compile(r'^\s*-{3}\s*\n(.*?)\n-{3}\s*', re.S)
@@ -85,34 +99,43 @@ def is_subsection(section_rel: str) -> bool:
 # ---------- 미디어 경로 재작성 ----------
 def to_web_media_path(doc_parent_rel: str, media_rel: str) -> str:
     """
-    media_rel이 'media/...' 또는 '/media/...'일 때
-    웹 기준 경로로 변환.
-    예:
-      doc_parent_rel = 'works/project'
-      media_rel = 'media/thumbnail/th_pr-001.webp'
-      -> '/media/works/project/thumbnail/th_pr-001.webp'
+    'media/...' (상대) 또는 '/media/...' (절대)을 사이트 절대경로로 정규화.
+    그 외(http 등)는 그대로 반환.
     """
-    media_rel = (media_rel or "").strip().lstrip("/")
-    # 이미 사이트 절대경로면 바로 정규화 후 반환
-    if media_rel.startswith("media/") is False and media_rel.startswith("/media/"):
-        out = media_rel
-        # 중복된 '/media/<parent>/media/' 패턴 정리
+    s = (media_rel or "").strip()
+    if not s:
+        return s
+
+    # 1) 이미 사이트 절대 경로면 그대로 반환
+    if s.startswith("/media/"):
+        out = s
         if doc_parent_rel:
+            # 중복된 '/media/<parent>/media/' 패턴 정리
             out = out.replace(f"/media/{doc_parent_rel}/media/", f"/media/{doc_parent_rel}/")
         return out
-    # 'media/...' 상대 경로 → 사이트 절대경로
-    if media_rel.startswith("media/"):
-        media_rel = media_rel[len("media/"):]  # 'thumbnail/th_pr-001.webp'
-    base = f"/media/{doc_parent_rel}/" if doc_parent_rel else "/media/"
-    path = os.path.join(base, media_rel).replace("\\", "/")
-    return path.replace("//", "/")
+
+    # 2) Vault 상대 경로 'media/...'
+    if s.startswith("media/"):
+        rel = s[len("media/"):]  # e.g. 'thumbnail/th_pr-001.webp'
+        base = f"/media/{doc_parent_rel}/" if doc_parent_rel else "/media/"
+        path = os.path.join(base, rel).replace("\\", "/")
+        return path.replace("//", "/")
+
+    # 3) 외부 URL(http 등)은 손대지 않음
+    return s
+
 
 def rewrite_media_paths(doc_rel_dir: str, text: str) -> str:
+    # ★ 이미지: title까지 보존하면서 src만 절대경로로
     def repl_img(m):
-        alt, mrel = m.group(1), m.group(2)
-        return f'![{alt}]({to_web_media_path(doc_rel_dir, mrel)})'
+        alt, mrel, title = (m.group(1) or ""), (m.group(2) or ""), (m.group(3) or "")
+        abs_src = to_web_media_path(doc_rel_dir, mrel)
+        if title:
+            return f'![{alt}]({abs_src} "{title}")'
+        return f'![{alt}]({abs_src})'
     text = IMG_LINK_RE.sub(repl_img, text)
 
+    # 일반 링크는 종전대로
     def repl_link(m):
         label, mrel = m.group(1), m.group(2)
         return f'[{label}]({to_web_media_path(doc_rel_dir, mrel)})'
@@ -123,8 +146,24 @@ def copy_media_folder(src_doc_dir: str, doc_parent_rel: str):
     media_src = os.path.join(src_doc_dir, "media")
     if not os.path.isdir(media_src):
         return
+
     dest_media_dir = os.path.join(DEST, "static", "media", doc_parent_rel)
+
+    # 🔥 추가: 기존 media 폴더 전체 삭제 후 재복사 (잔여파일 제거)
+    if os.path.isdir(dest_media_dir):
+        shutil.rmtree(dest_media_dir)
+
     os.makedirs(dest_media_dir, exist_ok=True)
+
+    for root, dirs, files in os.walk(media_src):
+        rel = os.path.relpath(root, media_src)
+        for d in dirs:
+            os.makedirs(os.path.join(dest_media_dir, rel, d), exist_ok=True)
+        for f in files:
+            sp = os.path.join(root, f)
+            dp = os.path.join(dest_media_dir, rel, f)
+            os.makedirs(os.path.dirname(dp), exist_ok=True)
+            shutil.copy2(sp, dp)
     for root, dirs, files in os.walk(media_src):
         rel = os.path.relpath(root, media_src)
         for d in dirs:
@@ -419,6 +458,181 @@ def move_custom_fields_into_extra(text: str, doc_parent_rel: str) -> str:
 
     return text
 
+# ---------- 이미지 title 옵션 파서 & 변환 (NEW) ----------
+def _parse_img_title_directives(title: str) -> dict:
+    """
+    title 예시: 'fixed:480; bordered; caption=Hello world'
+    반환: {'fixed': '480', 'bordered': True, 'caption': 'Hello world'}
+    """
+    out = {}
+    if not title:
+        return out
+
+    tokens = [t.strip() for t in title.split(';') if t.strip()]
+    for raw in tokens:
+        # 1) 'caption=...' 등 '=' 우선
+        if '=' in raw:
+            k, v = raw.split('=', 1)
+            out[k.strip().lower()] = v.strip()
+            continue
+        # 2) 'fixed:480' / 'grid:3' 등 ':'
+        if ':' in raw:
+            k, v = raw.split(':', 1)
+            out[k.strip().lower()] = v.strip()
+            continue
+        # 3) 단독 플래그
+        out[raw.lower()] = True
+
+    return out
+
+def transform_markdown_images_with_directives(doc_rel_dir: str, text: str) -> str:
+    """
+    media 경로 재작성 이후 실행.
+    - ![alt](/media/.. "옵션") → <figure class="..."><img ...><figcaption>...</figcaption></figure>
+    - 옵션이 없으면 그대로 둠.
+    - gridw:### → figure에 data-gridw="###" 부여 (wrap 단계에서 사용)
+    """
+    def repl(m):
+        alt   = (m.group(1) or "").strip()
+        src   = (m.group(2) or "").strip()
+        title = (m.group(3) or "").strip()
+
+        # 안전 절대경로화 (재보정)
+        src_abs = to_web_media_path(doc_rel_dir, src)
+
+        opts = _parse_img_title_directives(title)
+        if not opts:
+            return f'![{alt}]({src_abs})'
+
+        classes, style = [], ""
+
+        # ✅ 여기를 반드시 repl() 안으로 들여쓰기
+        # 캡션 키가 있을 때만 출력 (빈 값이면 출력 안 함)
+        has_caption = ('caption' in opts)
+        caption_text = (opts.get('caption') or "").strip() if has_caption else ""
+
+        if 'full' in opts: 
+            classes.append('img--full')
+        if 'bordered' in opts: 
+            classes.append('img--bordered')
+
+        fixed = opts.get('fixed') or opts.get('max')
+        if fixed:
+            classes.append('img--fixed')
+            try:
+                w = int(str(fixed).strip().replace('px',''))
+                style += f'max-width:{w}px;'
+            except:
+                pass
+
+        grid = opts.get('grid')
+        if grid:
+            classes.append(f'grid-{grid}')
+
+        # gridw 지원
+        data_attr = ""
+        gridw = opts.get('gridw')
+        if gridw:
+            gridw_clean = str(gridw).strip().replace('px','')
+            if gridw_clean.isdigit():
+                data_attr = f' data-gridw="{gridw_clean}"'
+
+        cls_attr   = f' class="{" ".join(classes)}"' if classes else ''
+        style_attr = f' style="{style}"' if style else ''
+
+        fig = []
+        fig.append(f'<figure{cls_attr}{style_attr}{data_attr}>')
+        fig.append(f'  <img src="{src_abs}" alt="{alt}">')
+        if has_caption and caption_text:
+            fig.append(f'  <figcaption>{caption_text}</figcaption>')
+        fig.append(f'</figure>')
+        return "\n".join(fig)
+
+    return IMG_LINK_RE.sub(repl, text)
+
+
+
+def transform_disabled_links(text: str) -> str:
+    """
+    [Label](#disabled) → <a class="is-disabled" aria-disabled="true">Label</a>
+    (front matter의 link 값과는 별개, 본문 마크다운 앵커만 대상)
+    """
+    return DISABLED_LINK_RE.sub(
+        r'<a class="is-disabled" aria-disabled="true">\1</a>',
+        text
+    )
+
+
+# ---------- grid:N figure 연속 묶기 (NEW) ----------
+def wrap_grid_runs(text: str) -> str:
+    """
+    연속된 <figure ... class="... grid-N ..."> 블록들을
+    <div class="img-grid cols-N"> ... </div>으로 감싼다.
+    - N이 같은 것들만 같은 그룹
+    - 사이에 공백/개행만 있는 경우 연속으로 간주
+    - ★ 첫 figure의 data-gridw가 있으면 컨테이너에 max-width 적용
+    """
+    fig_re = re.compile(
+        r'(<figure(?P<attrs>[^>]*?)class="(?P<class>[^"]*\bgrid-(?P<n>\d+)\b[^"]*)"(?P<tail>[^>]*)>.*?</figure>)',
+        re.S
+    )
+
+    out, i = [], 0
+    pending = []   # [(start, end, n, html, attrs+tail)]
+    pending_n = None
+
+    def _flush_group():
+        if not pending:
+            return ""
+        first_attrs = pending[0][4]
+        # data-gridw 추출
+        m_w = re.search(r'data-gridw="(\d+)"', first_attrs or "")
+        mw = m_w.group(1) if m_w else None
+        style_attr = f' style="max-width:{mw}px;margin-left:auto;margin-right:auto;"' if mw else ""
+        # 그대로 묶기 (기존 캡션 유지)
+        html_parts = [f'<div class="img-grid cols-{pending_n}"{style_attr}>']
+        html_parts += [h for _,__,___,h,____ in pending]
+        html_parts.append('</div>')
+        return "".join(html_parts)
+
+    for m in fig_re.finditer(text):
+        start, end = m.span()
+        n = m.group('n')
+        html = m.group(0)
+        attrs_tail = (m.group('attrs') or '') + (m.group('tail') or '')
+
+        gap = text[i:start]
+        only_ws = (gap.strip() == "")
+
+        if not pending:
+            out.append(gap)  # 앞의 일반 텍스트 flush
+            pending = [(start, end, n, html, attrs_tail)]
+            pending_n = n
+        else:
+            if only_ws and n == pending_n:
+                pending.append((start, end, n, html, attrs_tail))
+            else:
+                # 이전 그룹 마감
+                out.append(_flush_group())
+                # 다른 콘텐츠/다른 N 처리
+                out.append(gap)
+                pending = [(start, end, n, html, attrs_tail)]
+                pending_n = n
+
+        i = end
+
+    # 마지막 잔여 처리
+    tail = text[i:]
+    if pending:
+        out.append(_flush_group())
+        out.append(tail)
+    else:
+        out.append(tail)
+
+    return "".join(out)
+
+
+
 # ---------- 섹션 인덱스 생성/보정 ----------
 def ensure_index_for_section(section_rel: str):
     dest_dir = os.path.join(DEST, "content", section_rel) if section_rel else os.path.join(DEST, "content")
@@ -517,6 +731,15 @@ def process_markdown(src_path: str, rel_path_from_vault: str):
     # 1) media 경로 + 본문 위키링크 변환
     body = rewrite_media_paths(doc_parent_rel, body)
     head, body = rewrite_wikilinks_in_body(kind, head, body, doc_parent_rel)
+
+    # ★ 1-2) 이미지 title 옵션 → figure 변환
+    body = transform_markdown_images_with_directives(doc_parent_rel, body)
+
+    # ★ 1-2.5) 준비중 링크 변환 ([...](#disabled) → <a class="is-disabled"...>)
+    body = transform_disabled_links(body)
+
+    # ★ 1-3) 연속 grid:N figure 묶기 (NEW)
+    body = wrap_grid_runs(body)
 
     # 합치기
     text2 = assemble_front_matter(kind, head, body)

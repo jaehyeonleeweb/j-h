@@ -106,7 +106,7 @@ a {
    ========================================= */
 /* 썸네일 테두리만 */
 .thumb img {
-    border: 0.5px solid;
+    border: 0;
     box-sizing: border-box;
     /* width/height/object-fit 선언 제거! */
   }

@@ -13,8 +13,3 @@
 @import url("./layout.css");
 @import url("./components.css");
 
-
-/* document 본문에만 적용하고 싶으면 스코프를 좁혀 주세요 */
-.page-content {
-    white-space: pre-line;  /* 개행(\n)을 실제 줄바꿈으로 표시 */
-  }
