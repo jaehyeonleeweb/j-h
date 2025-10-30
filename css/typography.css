@@ -25,9 +25,13 @@
     --font-latin: adobe-caslon-pro;
     --font-korean: "JH-choijeongho-94";
     --font-ko-stack: var(--font-latin), var(--font-korean), serif;
+  
+    /* === NEW: 전역 선/밑줄 두께 변수 === */
+    --rule: .5px;         /* 모든 보더/구분선 기본 두께 */
+    --u-thickness: .5px;  /* 밑줄/텍스트 데코 두께 */
+    --u-offset: 3px;      /* 밑줄 오프셋 */
   }
   
-  /* 한글 전용 폰트 — Caslon 대비 94% 크기 보정 */
   @font-face {
     font-family: "JH-choijeongho-94";
     src: url("https://use.typekit.net/af/e0a524/00000000000000007735dd56/31/m?features=NONE&v=4&chunks=0&order=0")
@@ -121,8 +125,8 @@
     font-size: 1rem;
     font-weight: 400;
     text-decoration: underline;
-    text-decoration-thickness: 0.5px;
-    text-underline-offset: 3px;
+    text-decoration-thickness: var(--u-thickness); /* 0.5px → var(--u-thickness) */
+    text-underline-offset: var(--u-offset);
     margin: 0;
     padding: 0;
   }
@@ -133,8 +137,9 @@
   
   hr {
     border: 0;
-    border-top: 0.5px solid currentColor;
+    border-top: var(--rule) solid currentColor; /* 0.5px → var(--rule) */
   }
+  
   
   /* ---------------------------------------------------------
      3) LINK STYLING — BOX TYPE LINKS
@@ -145,8 +150,8 @@
     display: inline-block;
     color: #000;
     text-decoration: none !important;
-    border-top: 0.5px solid #000;
-    border-left: 0.5px solid #000;
+    border-top: var(--rule) solid #000;   /* 0.5px → var(--rule) */
+    border-left: var(--rule) solid #000;  /* 0.5px → var(--rule) */
     border-right: 0;
     border-bottom: 0;
     padding: 2px 0 0 2px;
@@ -177,36 +182,36 @@
   /* 전역 hover: 이미지 없는 링크만 밑줄 */
   :where(a):not(:has(img)):hover {
     text-decoration-line: underline;
-    text-decoration-thickness: 0.5px;
-    text-underline-offset: 3px;
+    text-decoration-thickness: var(--u-thickness); /* 0.5px → var(--u-thickness) */
+    text-underline-offset: var(--u-offset);
     text-decoration-color: currentColor;
   }
   :where(a):has(img):hover { opacity: 1 !important; }
   
   
   /* ---------------------------------------------------------
-   DISABLED LINKS — hover 유지 + 클릭 차단
-   --------------------------------------------------------- */
-
-/* 1) 비활성 링크 기본 */
-.page-content a.is-disabled,
-.page-meta .meta-link a.is-disabled {
-  position: relative;
-  cursor: not-allowed;
-  opacity: 0.5; /* 시각적 약화 (원하면 조정 가능) */
-}
-
-/* 2) 클릭 이벤트 차단: 투명 오버레이 */
-.page-content a.is-disabled::after,
-.page-meta .meta-link a.is-disabled::after {
-  content: "";
-  position: absolute;
-  inset: 0;                  /* a 전체를 덮음 */
-  pointer-events: auto;      /* 클릭 이벤트를 이 레이어가 가로채서 막음 */
-  background: transparent;   /* 보이지 않게 */
-}
-
-
+     DISABLED LINKS — hover 유지 + 클릭 차단
+     --------------------------------------------------------- */
+  
+  /* 1) 비활성 링크 기본 */
+  .page-content a.is-disabled,
+  .page-meta .meta-link a.is-disabled {
+    position: relative;
+    cursor: not-allowed;
+    opacity: 0.5; /* 시각적 약화 */
+  }
+  
+  /* 2) 클릭 이벤트 차단: 투명 오버레이 */
+  .page-content a.is-disabled::after,
+  .page-meta .meta-link a.is-disabled::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: auto;
+    background: transparent;
+  }
+  
+  
   /* ---------------------------------------------------------
      4) HANGUL / KOREAN TEXT ADJUSTMENTS
      --------------------------------------------------------- */
@@ -239,11 +244,6 @@
   /* ---------------------------------------------------------
      6) INLINE TEXT STYLES — Obsidian mapping
      --------------------------------------------------------- */
-  
-  :root {
-    --u-thickness: 0.5px;
-    --u-offset: 3px;
-  }
   
   /* *text* → italic */
   .page-content em,
@@ -279,16 +279,16 @@
   }
   
   /* h2 내부 링크 색상 상속 */
-.page-content h2 a {
+  .page-content h2 a {
     color: inherit !important;
     border-color: currentColor !important;
   }
-
-/* h3 (sub-head · same size as h2 but normal color) */
-.page-content h3 {
+  
+  /* h3 (sub-head · same size as h2 but normal color) */
+  .page-content h3 {
     font-size: 0.85em;
     font-weight: 400;
-    color: #000; /* 기본 색상 유지 */
+    color: #000;
     margin: 0;
     padding: 0;
     line-height: inherit;
@@ -300,7 +300,6 @@
     border-color: currentColor !important;
   }
   
-
   /* h1 보강 */
   .page-content h1 {
     font-size: 1rem;
@@ -313,7 +312,7 @@
   }
   
   /* 페이지 상단 표시 제목에만 하단 마진 */
-.page-content > h1.display-title {
+  .page-content > h1.display-title {
     margin: 0 0 1.2rem 0;
   }
   
@@ -365,18 +364,16 @@
   .page-content ol.ol--loose  > li{ margin-top: .7em; }
   
   .page-content li a, .page-content li span.han { display: inline; }
-
-/* ----------------------------------------------
-   h3 + ol — h3 스타일 상속 + footnote 간격 일치
-   ---------------------------------------------- */
-   .page-content h3 + ol {
+  
+  /* h3 + ol — h3 스타일 상속 + footnote 간격 일치 */
+  .page-content h3 + ol {
     /* h3 스타일 복제 */
     font-size: 0.85em;
     font-weight: 400;
     color: #000;
     line-height: inherit;
-    margin-top: 0.3em; /* h3와 붙이기 */
-    margin-bottom: 0;  /* 불필요한 여백 제거 */
+    margin-top: 0.3em;
+    margin-bottom: 0;
   
     /* 리스트 구조 설정 */
     list-style: none;
@@ -400,7 +397,7 @@
     content: counters(item, ".") ".";
     justify-self: start;
     white-space: nowrap;
-    font-variant-numeric: tabular-nums; /* 숫자 폭 정렬 */
+    font-variant-numeric: tabular-nums;
   }
   
   .page-content h3 + ol > li > :is(p, div, blockquote, figure, table, pre) {
@@ -414,14 +411,13 @@
   }
   
   
-  
   /* ---------------------------------------------------------
      8) BLOCKQUOTE
      --------------------------------------------------------- */
   
   :root {
     --quote-indent: 20px;
-    --quote-rule: 0.5px;
+    --quote-rule: var(--rule); /* 0.5px → var(--rule) 연결 */
   }
   
   .page-content blockquote {
@@ -448,9 +444,9 @@
       ~ :not(p,ul,ol,div,pre,figure,table,hr,blockquote):nth-child(-n+12) {
     display: none !important;
   }
-
+  
   /* page-content 맨 처음에 오는 blockquote의 위쪽 여백 제거 */
-.page-content > blockquote:first-child {
+  .page-content > blockquote:first-child {
     margin-top: 0;
   }
   
@@ -491,7 +487,7 @@
     position: absolute;
     top: 0; left: 0;
     width: 100%;
-    border-top: .5px solid currentColor;
+    border-top: var(--rule) solid currentColor; /* .5px → var(--rule) */
   }
   
   /* 각주 내 링크 */
@@ -499,8 +495,8 @@
     display: inline-block;
     color: currentColor;
     text-decoration: none !important;
-    border-top: 0.5px solid currentColor;
-    border-left: 0.5px solid currentColor;
+    border-top: var(--rule) solid currentColor;  /* 0.5px → var(--rule) */
+    border-left: var(--rule) solid currentColor; /* 0.5px → var(--rule) */
     border-right: 0;
     border-bottom: 0;
     padding: 2px 0 0 2px;
@@ -595,7 +591,7 @@
   /* single variants */
   .page-content .img--full { width: 100%; }
   .page-content .img--fixed { margin-left: auto; margin-right: auto; }
-  .page-content .img--bordered img { border: 0.5px solid currentColor; }
+  .page-content .img--bordered img { border: var(--rule) solid currentColor; } /* 0.5px → var(--rule) */
   
   /* grid */
   .page-content .img-grid {
@@ -612,14 +608,14 @@
   .page-content .img-grid > figure { margin: 0; }
   .page-content .img-grid > figure img { width: 100%; height: auto; display: block; }
   .page-content .img-grid > figure figcaption {
-    font-size: 0.7m;
+    font-size: 0.7em;
     margin-top: 0.4rem;
     text-align: center;
   }
-  .page-content .img-grid > figure.img--bordered img { border: 0.5px solid currentColor; }
+  .page-content .img-grid > figure.img--bordered img { border: var(--rule) solid currentColor; } /* 0.5px → var(--rule) */
   
-/* responsive */
-@media (max-width: 900px) {
+  /* responsive */
+  @media (max-width: 900px) {
     .page-content .img-grid.cols-6,
     .page-content .img-grid.cols-5 { grid-template-columns: repeat(4, 1fr); }
     .page-content .img-grid.cols-4 { grid-template-columns: repeat(3, 1fr); }
@@ -627,6 +623,12 @@
   }
   
   @media (max-width: 600px) {
+    /* === NEW: 모바일에서 선/밑줄 두께 2배 === */
+    :root{
+      --rule: 1px;        /* .5px × 2 */
+      --u-thickness: 1px; /* .5px × 2 */
+    }
+  
     .page-content .img-grid.cols-6,
     .page-content .img-grid.cols-5,
     .page-content .img-grid.cols-4,
@@ -636,3 +638,4 @@
     /* 고정폭 이미지는 모바일에서 폭 제한 해제(원래 동작 유지) */
     .page-content .img--fixed { max-width: 100% !important; }
   } /* ← 누락된 닫는 중괄호 보완 */
+  
