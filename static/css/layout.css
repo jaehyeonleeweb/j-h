@@ -26,6 +26,10 @@
        - var(--nav-col)
        - var(--gap-lg)
      );
+   
+     /* === NEW: 전역 선/밑줄 두께 변수 === */
+     --rule: .5px;         /* 모든 보더/구분선 기본 두께 */
+     --u-thickness: .5px;  /* 밑줄/텍스트 데코 두께 */
    }
    
    
@@ -62,7 +66,7 @@
       ========================================= */
    .site-main {
      padding: 10px;
-     border-left: 0.5px solid #000;
+     border-left: var(--rule) solid #000; /* 0.5px → var(--rule) */
      min-width: 0;
      height: 100dvh;
      box-sizing: border-box;
@@ -94,14 +98,14 @@
      grid-area: meta;
      box-sizing: border-box;
      padding: 10px;
-     border-left: 0.5px solid #000;
+     border-left: var(--rule) solid #000; /* 0.5px → var(--rule) */
    }
    .page-body {
      grid-area: body;
      min-width: 0;
      box-sizing: border-box;
      padding: 10px;
-     border-left: 0.5px solid #000;
+     border-left: var(--rule) solid #000; /* 0.5px → var(--rule) */
    }
    
    
@@ -128,7 +132,7 @@
        overflow: visible;
        padding: 10px;
        border-left: 0;
-       border-top: 0.5px solid #000;
+       border-top: var(--rule) solid #000; /* 0.5px → var(--rule) */
      }
    
      .page-two-col {
@@ -152,7 +156,7 @@
    
      /* meta 다음 body에만 상단선 추가 */
      .page-two-col > * + * {
-       border-top: 0.5px solid #000;
+       border-top: var(--rule) solid #000; /* 0.5px → var(--rule) */
      }
    }
    
@@ -231,7 +235,7 @@
    /* 행 hover: 밑줄 전체 */
    .list-table tbody tr:hover td {
      text-decoration-line: underline;
-     text-decoration-thickness: 0.5px;
+     text-decoration-thickness: var(--u-thickness); /* 0.5px → var(--u-thickness) */
      text-underline-offset: 3px;
      text-decoration-color: currentColor;
      text-decoration-skip-ink: auto;
@@ -297,7 +301,7 @@
    }
    .site-nav .lang-toggle--desktop a:hover {
      text-decoration-line: underline;
-     text-decoration-thickness: 0.5px;
+     text-decoration-thickness: var(--u-thickness); /* 0.5px → var(--u-thickness) */
      text-underline-offset: 3px;
      text-decoration-color: currentColor;
      opacity: 1 !important;
@@ -309,8 +313,14 @@
       ========================================= */
    @media (max-width: 600px) {
    
+     /* === NEW: 모바일에서 선/밑줄 두께만 2배로 상향 === */
+     :root{
+       --rule: 1px;        /* .5px × 2 */
+       --u-thickness: 1px; /* .5px × 2 */
+     }
+   
      /* 전체 확대 */
-     html { font-size: calc(16px * 1.35); }
+     html { font-size: calc(16px * 1.2); }
    
      /* 상단바 */
      .nav-bar {
@@ -347,7 +357,7 @@
        display: none;
        flex-direction: column;
        padding: 10px 0;
-       border-top: 0.5px solid currentColor;
+       border-top: var(--rule) solid currentColor; /* 0.5px → var(--rule) */
      }
      .site-nav nav.open { display: flex; }
    
@@ -365,50 +375,42 @@
      .site-nav nav br { display: none; }
    
      /* nav, main, body 구분선 */
-     .site-main { border-top: 0.5px solid currentColor; }
-     .page-body { border-top: 0.5px solid currentColor; }
+     .site-main { border-top: var(--rule) solid currentColor; } /* 0.5px → var(--rule) */
+     .page-body { border-top: var(--rule) solid currentColor; } /* 0.5px → var(--rule) */
    
      /* 리스트: 3번째 열 숨김 */
      .list-table col.col-cat,
      .list-table td:nth-child(3) { display: none; }
    
-     /* 전역 두께 오버라이드 */
-     * {
-       border-width: 1px !important;
-       text-decoration-thickness: 1px !important;
-     }
+     /* ✅ 전역 강제 오버라이드(두께 변경) 제거됨 */
+     /* (기존) * { border-width: 1px !important; text-decoration-thickness: 1px !important; } */
+     /* 이제는 변수 --rule / --u-thickness 로 제어됨 */
    
      /* 리스트 최소폭 축소 */
      .list-table col.col-year { min-width: 40px; }
    }
    
-
-/* =========================================
-   WORKS GRID — 최대 4단 제한 (정리판)
-   ========================================= */
-
-/* 기본 2단 (mobile~small) */
-.site-main .grid.thumbs {
-    display: grid;
-    gap: 10px;
-    grid-auto-flow: row;
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: stretch;
-    align-items: stretch;
-    column-count: initial;
-  }
-  
-  /* 중간 화면 (tablet 이상) → 3단 */
-  @media (min-width: 800px) {
-    .site-main .grid.thumbs {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  
-  /* 큰 화면 (desktop 이상) → 최대 4단 */
-  @media (min-width: 1100px) {
-    .site-main .grid.thumbs {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-  
+   
+   /* =========================================
+      WORKS GRID — 단일 소스(컨테이너 기준 4→3→2→1)
+      ========================================= */
+   .site-main .grid.thumbs{
+     display: grid;
+     gap: 10px;
+     grid-auto-flow: row;
+     justify-items: stretch;
+     align-items: stretch;
+     grid-template-columns: repeat(4, 1fr); /* 기본: 4단 */
+   }
+   
+   /* 컨테이너(.site-main) 폭이 줄어들수록 단수 축소 */
+   @container (max-width: 1200px){
+     .site-main .grid.thumbs{ grid-template-columns: repeat(3, 1fr); }
+   }
+   @container (max-width: 900px){
+     .site-main .grid.thumbs{ grid-template-columns: repeat(2, 1fr); }
+   }
+   @container (max-width: 600px){
+     .site-main .grid.thumbs{ grid-template-columns: 1fr; }
+   }
+   
