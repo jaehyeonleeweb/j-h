@@ -1,0 +1,638 @@
+/* =========================================================
+   TYPOGRAPHY — j-h minimal rhythm (정돈·주석 강화판)
+   =========================================================
+   기능 변화 없음 / 중복 최소화 / 섹션별 논리 정리
+   ---------------------------------------------------------
+   0) Font Stack & Base
+   1) Line Break & Wrapping Rules
+   2) Basic Text Elements
+   3) Link Styling
+   4) Hangul Adjustments
+   5) Meta List (dt/dd)
+   6) Inline Text Styles (Obsidian mapping)
+   7) Ordered List
+   8) Blockquote
+   9) Footnotes
+   10) Inline Images
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   0) FONT STACK & BASE DEFINITIONS
+   --------------------------------------------------------- */
+
+   :root {
+    --font-latin: adobe-caslon-pro;
+    --font-korean: "JH-choijeongho-94";
+    --font-ko-stack: var(--font-latin), var(--font-korean), serif;
+  }
+  
+  /* 한글 전용 폰트 — Caslon 대비 94% 크기 보정 */
+  @font-face {
+    font-family: "JH-choijeongho-94";
+    src: url("https://use.typekit.net/af/e0a524/00000000000000007735dd56/31/m?features=NONE&v=4&chunks=0&order=0")
+         format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: 100%;
+    unicode-range: U+1100-11FF, U+3130-318F, U+AC00-D7A3;
+    size-adjust: 94%;
+    font-display: block;
+  }
+  
+  /* 기본 라틴 베이스 */
+  html {
+    font-family: var(--font-latin), serif;
+    font-size: 16px;
+    line-height: 1.3;
+    color: #000;
+    background: #fff;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-synthesis: none;
+  }
+  
+  /* 한국어 페이지: Caslon + 한글 fallback */
+  html[lang="ko"], html[lang="kr"] {
+    font-family: var(--font-ko-stack);
+    letter-spacing: 0;
+    font-kerning: normal;
+    font-variant-east-asian: proportional-width;
+    font-feature-settings: "kern" 1, "palt" 1;
+  }
+  
+  /* 상속 안정화 */
+  html[lang="ko"] :where(
+    body, p, a, li, ul, ol, dl, dt, dd, small, time,
+    h1, h2, h3, h4, h5, h6, blockquote, figcaption, table, th, td,
+    button, input, select, textarea, label
+  ) {
+    font-family: inherit;
+  }
+  
+  /* 모노스페이스 */
+  pre, code, kbd, samp {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                 "Liberation Mono", monospace;
+  }
+  
+  
+  /* ---------------------------------------------------------
+     1) LINE BREAK & WRAPPING RULES
+     --------------------------------------------------------- */
+  
+  /* 단어 단위 줄바꿈 (한영 공통) */
+  :where(.page-content, .page-meta, .page-body) {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    line-break: loose;
+  }
+  :where(.page-content, .page-meta, .page-body)
+    :where(p, li, dt, dd, h1, h2, h3, h4, h5, h6, blockquote, figcaption) {
+    word-break: inherit;
+    overflow-wrap: inherit;
+    line-break: inherit;
+  }
+  
+  /* 영문 */
+  html[lang="en"] :where(.page-content, .page-body, .page-meta) {
+    word-break: normal;
+    hyphens: auto;
+    overflow-wrap: normal;
+  }
+  
+  /* 한국어 */
+  html[lang="ko"], html[lang="kr"] :where(.page-content, .page-body, .page-meta) {
+    hyphens: none;
+  }
+  
+  /* 긴 URL 등 강제 줄바꿈 */
+  .u-break {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  
+  
+  /* ---------------------------------------------------------
+     2) BASIC TEXT ELEMENTS
+     --------------------------------------------------------- */
+  
+  h1 {
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: underline;
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 3px;
+    margin: 0;
+    padding: 0;
+  }
+  p, ul, ol {
+    margin: 0;
+    line-height: inherit;
+  }
+  
+  hr {
+    border: 0;
+    border-top: 0.5px solid currentColor;
+  }
+  
+  /* ---------------------------------------------------------
+     3) LINK STYLING — BOX TYPE LINKS
+     --------------------------------------------------------- */
+  
+  .page-content a,
+  .page-meta .meta-link a {
+    display: inline-block;
+    color: #000;
+    text-decoration: none !important;
+    border-top: 0.5px solid #000;
+    border-left: 0.5px solid #000;
+    border-right: 0;
+    border-bottom: 0;
+    padding: 2px 0 0 2px;
+    background-color: transparent;
+    transition: background-color .15s ease, border-color .15s ease;
+  }
+  
+  /* hover & focus-visible */
+  .page-content a:hover,
+  .page-meta .meta-link a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  .page-content a:focus-visible,
+  .page-meta .meta-link a:focus-visible {
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0.10);
+  }
+  
+  /* 이미지 포함 링크 */
+  .page-content a:has(img),
+  .page-content a img {
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+  }
+  
+  /* 전역 hover: 이미지 없는 링크만 밑줄 */
+  :where(a):not(:has(img)):hover {
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 3px;
+    text-decoration-color: currentColor;
+  }
+  :where(a):has(img):hover { opacity: 1 !important; }
+  
+  
+  /* ---------------------------------------------------------
+   DISABLED LINKS — hover 유지 + 클릭 차단
+   --------------------------------------------------------- */
+
+/* 1) 비활성 링크 기본 */
+.page-content a.is-disabled,
+.page-meta .meta-link a.is-disabled {
+  position: relative;
+  cursor: not-allowed;
+  opacity: 0.5; /* 시각적 약화 (원하면 조정 가능) */
+}
+
+/* 2) 클릭 이벤트 차단: 투명 오버레이 */
+.page-content a.is-disabled::after,
+.page-meta .meta-link a.is-disabled::after {
+  content: "";
+  position: absolute;
+  inset: 0;                  /* a 전체를 덮음 */
+  pointer-events: auto;      /* 클릭 이벤트를 이 레이어가 가로채서 막음 */
+  background: transparent;   /* 보이지 않게 */
+}
+
+
+  /* ---------------------------------------------------------
+     4) HANGUL / KOREAN TEXT ADJUSTMENTS
+     --------------------------------------------------------- */
+  
+  html[lang="ko"] .page-two-col .page-content,
+  html[lang="kr"] .page-two-col .page-content { line-height: 1.7; }
+  
+  .han {
+    letter-spacing: -0.035em;
+    position: relative;
+    top: -0.06em;
+  }
+  pre .han, code .han, kbd .han, samp .han { letter-spacing: 0; }
+  
+  
+  /* ---------------------------------------------------------
+     5) META LIST (dt/dd)
+     --------------------------------------------------------- */
+  
+  :root { --meta-indent: 12px; }
+  
+  .page-meta .meta-list { margin: 0; padding: 0; }
+  .page-meta .meta-list dt { margin: 0; }
+  .page-meta .meta-list dd {
+    padding-left: var(--meta-indent);
+    text-indent: 0;
+  }
+  
+  
+  /* ---------------------------------------------------------
+     6) INLINE TEXT STYLES — Obsidian mapping
+     --------------------------------------------------------- */
+  
+  :root {
+    --u-thickness: 0.5px;
+    --u-offset: 3px;
+  }
+  
+  /* *text* → italic */
+  .page-content em,
+  .page-content i {
+    font-style: italic;
+    font-size: 1em;
+    font-weight: inherit;
+    text-decoration: none;
+  }
+  
+  /* **text** → underline (not bold) */
+  .page-content strong,
+  .page-content b {
+    font-weight: inherit;
+    font-size: 1em;
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--u-thickness);
+    text-underline-offset: var(--u-offset);
+    text-decoration-color: currentColor;
+  }
+  
+  /* 링크 내부의 bold 처리 */
+  .page-content a :is(strong,b) { text-decoration: inherit; }
+  
+  /* h2 (sub-head) */
+  .page-content h2 {
+    font-size: 0.85em;
+    font-weight: 400;
+    color: rgba(0,0,0,.6);
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+  }
+  
+  /* h2 내부 링크 색상 상속 */
+.page-content h2 a {
+    color: inherit !important;
+    border-color: currentColor !important;
+  }
+
+/* h3 (sub-head · same size as h2 but normal color) */
+.page-content h3 {
+    font-size: 0.85em;
+    font-weight: 400;
+    color: #000; /* 기본 색상 유지 */
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+  }
+  
+  /* h3 내부 링크 색상 상속 */
+  .page-content h3 a {
+    color: inherit !important;
+    border-color: currentColor !important;
+  }
+  
+
+  /* h1 보강 */
+  .page-content h1 {
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: underline;
+    text-decoration-thickness: var(--u-thickness);
+    text-underline-offset: var(--u-offset);
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* 페이지 상단 표시 제목에만 하단 마진 */
+.page-content > h1.display-title {
+    margin: 0 0 1.2rem 0;
+  }
+  
+  /* 표시 제목 바로 뒤 blockquote는 상단 마진 제거 */
+  .page-content > h1.display-title + blockquote {
+    margin-top: 0 !important;
+  }
+  
+  
+  /* ---------------------------------------------------------
+     7) ORDERED LIST — flush-left marker grid
+     --------------------------------------------------------- */
+  
+  :root {
+    --ol-min-marker: 2.2ch;
+    --ol-gap: 1ch;
+  }
+  
+  .page-content ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: item var(--ol-start, 0);
+  }
+  
+  .page-content ol > li {
+    display: grid;
+    grid-template-columns: minmax(var(--ol-min-marker), max-content) 1fr;
+    column-gap: var(--ol-gap);
+    align-items: start;
+    margin-top: .5em;
+  }
+  .page-content ol > li:first-child { margin-top: 0; }
+  
+  .page-content ol > li::before {
+    counter-increment: item;
+    content: counters(item, ".") ".";
+    justify-self: start;
+    white-space: nowrap;
+  }
+  
+  .page-content ol > li > :is(p, div, blockquote, figure, table, pre){ grid-column: 2; }
+  
+  .page-content ol ol{       --ol-min-marker: 3.0ch; padding: 0; }
+  .page-content ol ol ol{    --ol-min-marker: 3.8ch; }
+  .page-content ol ol ol ol{ --ol-min-marker: 4.6ch; }
+  
+  .page-content ol.ol--tight  > li{ margin-top: .25em; }
+  .page-content ol.ol--loose  > li{ margin-top: .7em; }
+  
+  .page-content li a, .page-content li span.han { display: inline; }
+
+/* ----------------------------------------------
+   h3 + ol — h3 스타일 상속 + footnote 간격 일치
+   ---------------------------------------------- */
+   .page-content h3 + ol {
+    /* h3 스타일 복제 */
+    font-size: 0.85em;
+    font-weight: 400;
+    color: #000;
+    line-height: inherit;
+    margin-top: 0.3em; /* h3와 붙이기 */
+    margin-bottom: 0;  /* 불필요한 여백 제거 */
+  
+    /* 리스트 구조 설정 */
+    list-style: none;
+    padding: 0;
+    counter-reset: item var(--ol-start, 0);
+  
+    /* 각주와 동일한 간격 */
+    --ol-gap: .4em;
+  }
+  
+  .page-content h3 + ol > li {
+    display: grid;
+    grid-template-columns: minmax(2.2ch, max-content) 1fr;
+    column-gap: var(--ol-gap);
+    align-items: start;
+    margin-top: 0.25em;
+  }
+  
+  .page-content h3 + ol > li::before {
+    counter-increment: item;
+    content: counters(item, ".") ".";
+    justify-self: start;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums; /* 숫자 폭 정렬 */
+  }
+  
+  .page-content h3 + ol > li > :is(p, div, blockquote, figure, table, pre) {
+    grid-column: 2;
+  }
+  
+  /* h3 내부 링크 상속 (기존 규칙 유지) */
+  .page-content h3 + ol a {
+    color: inherit !important;
+    border-color: currentColor !important;
+  }
+  
+  
+  
+  /* ---------------------------------------------------------
+     8) BLOCKQUOTE
+     --------------------------------------------------------- */
+  
+  :root {
+    --quote-indent: 20px;
+    --quote-rule: 0.5px;
+  }
+  
+  .page-content blockquote {
+    position: relative;
+    margin: 1.3em 0 1.3em var(--quote-indent);
+    padding-left: 10px;
+    border-left: var(--quote-rule) solid currentColor;
+  }
+  .page-content blockquote > :first-child { margin-top: 0; }
+  .page-content blockquote > :last-child  { margin-bottom: 0; }
+  
+  .page-content blockquote p,
+  .page-content blockquote ul,
+  .page-content blockquote ol { margin: 0; }
+  
+  .page-content blockquote p + p,
+  .page-content blockquote :is(ul,ol) + p { margin-top: 1em; }
+  
+  /* 불필요한 인라인 요소 제거 */
+  .page-content blockquote
+    > :not(p,ul,ol,div,pre,figure,table,hr,blockquote):first-child,
+  .page-content blockquote
+    > :not(p,ul,ol,div,pre,figure,table,hr,blockquote):first-child
+      ~ :not(p,ul,ol,div,pre,figure,table,hr,blockquote):nth-child(-n+12) {
+    display: none !important;
+  }
+
+  /* page-content 맨 처음에 오는 blockquote의 위쪽 여백 제거 */
+.page-content > blockquote:first-child {
+    margin-top: 0;
+  }
+  
+  
+  /* ---------------------------------------------------------
+     9) FOOTNOTES — minimal + soft highlight
+     --------------------------------------------------------- */
+  
+  .page-content a.footnote-ref,
+  .page-content sup.footnote-reference,
+  .page-content sup[id^="fnref"],
+  .page-content sup[id^="fnref"] > a,
+  .page-content a[href^="#fn"] {
+    text-decoration: none;
+    color: inherit;
+    font-size: .85em;
+    line-height: 1;
+    position: relative;
+  }
+  .page-content a.footnote-ref:hover,
+  .page-content sup[id^="fnref"] > a:hover,
+  .page-content a[href^="#fn"]:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  
+  /* container */
+  .page-content .footnotes {
+    position: relative;
+    margin-top: 3rem;
+    padding-top: .85rem;
+    --fn-scale: .85;
+    font-size: calc(1em * var(--fn-scale));
+    line-height: 1.3;
+  }
+  .page-content .footnotes::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    border-top: .5px solid currentColor;
+  }
+  
+  /* 각주 내 링크 */
+  .page-content .footnotes a {
+    display: inline-block;
+    color: currentColor;
+    text-decoration: none !important;
+    border-top: 0.5px solid currentColor;
+    border-left: 0.5px solid currentColor;
+    border-right: 0;
+    border-bottom: 0;
+    padding: 2px 0 0 2px;
+    background-color: transparent;
+    transition: background-color .15s ease, border-color .15s ease;
+  }
+  .page-content .footnotes a:hover { background-color: rgba(0, 0, 0, 0.1); }
+  
+  /* back-ref */
+  .page-content .footnotes a[href^="#fnref"] {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    text-decoration: none;
+  }
+  .page-content .footnotes a[href^="#fnref"]:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  
+  /* footnote layout */
+  .page-content .footnotes :is(.footnote-definition, li[id^="fn"]) {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: .4em;
+    align-items: start;
+    margin-top: .5rem;
+    font-size: 1em;
+    white-space: normal;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,.08);
+  }
+  .page-content .footnotes :is(.footnote-definition, li[id^="fn"]):first-child {
+    margin-top: 0;
+  }
+  
+  /* label */
+  .page-content .footnotes .footnote-definition-label,
+  .page-content .footnotes li[id^="fn"] > .footnote-definition-label {
+    grid-column: 1;
+    display: inline-flex;
+    align-items: baseline;
+    white-space: nowrap;
+  }
+  .page-content .footnotes .footnote-definition-label::after,
+  .page-content .footnotes li[id^="fn"] > .footnote-definition-label::after {
+    content: ":";
+    margin-left: .25em;
+  }
+  
+  /* hover underline both */
+  .page-content .footnotes :is(.footnote-definition, li[id^="fn"]):hover
+    :is(.footnote-definition-label, p) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  
+  /* sub styles */
+  .page-content .footnotes :is(a, span, small, code, pre, blockquote, sup) {
+    font-size: 1em;
+    line-height: inherit;
+  }
+  .page-content .footnotes ol {
+    margin: .6rem 0 0 0;
+    padding-left: 1.4em;
+    list-style-position: outside;
+  }
+  
+  /* highlight animation hooks */
+  .fn-hl { background-color: transparent; transition: background-color 200ms ease-in; }
+  .fn-hl.is-on { background-color: #000; color: #fff !important; }
+  .fn-hl.is-fading { background-color: transparent; transition: background-color 700ms ease-out; }
+  
+  
+  /* ---------------------------------------------------------
+     10) INLINE IMAGES — single & grid presets
+     --------------------------------------------------------- */
+  
+  .page-content figure { margin: 1rem 0; }
+  .page-content figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .page-content figure figcaption {
+    text-align: center;
+    font-size: 0.7em;
+    line-height: 1.3;
+    margin-top: 0.4rem;
+  }
+  
+  /* single variants */
+  .page-content .img--full { width: 100%; }
+  .page-content .img--fixed { margin-left: auto; margin-right: auto; }
+  .page-content .img--bordered img { border: 0.5px solid currentColor; }
+  
+  /* grid */
+  .page-content .img-grid {
+    display: grid;
+    gap: var(--gap-sm, 10px);
+    margin: 1rem 0;
+  }
+  .page-content .img-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .page-content .img-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .page-content .img-grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .page-content .img-grid.cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .page-content .img-grid.cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  
+  .page-content .img-grid > figure { margin: 0; }
+  .page-content .img-grid > figure img { width: 100%; height: auto; display: block; }
+  .page-content .img-grid > figure figcaption {
+    font-size: 0.7m;
+    margin-top: 0.4rem;
+    text-align: center;
+  }
+  .page-content .img-grid > figure.img--bordered img { border: 0.5px solid currentColor; }
+  
+/* responsive */
+@media (max-width: 900px) {
+    .page-content .img-grid.cols-6,
+    .page-content .img-grid.cols-5 { grid-template-columns: repeat(4, 1fr); }
+    .page-content .img-grid.cols-4 { grid-template-columns: repeat(3, 1fr); }
+    .page-content .img-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  @media (max-width: 600px) {
+    .page-content .img-grid.cols-6,
+    .page-content .img-grid.cols-5,
+    .page-content .img-grid.cols-4,
+    .page-content .img-grid.cols-3,
+    .page-content .img-grid.cols-2 { grid-template-columns: 1fr; }
+  
+    /* 고정폭 이미지는 모바일에서 폭 제한 해제(원래 동작 유지) */
+    .page-content .img--fixed { max-width: 100% !important; }
+  } /* ← 누락된 닫는 중괄호 보완 */

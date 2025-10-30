@@ -1,0 +1,414 @@
+/* =========================================
+   RESET
+   ========================================= */
+   html, body { margin: 0; }
+
+
+   /* =========================================
+      GLOBAL VARS — j-h layout
+      ========================================= */
+   :root {
+     --nav-col: 120px;
+     --maxw: 1440px;
+   
+     /* Footer */
+     --footer-font-scale: 1;
+     --footer-line-gap: 6px;
+     --footer-pad-y: .4rem;
+     --footer-opacity: .6;
+   
+     /* viewport 기준 추정치가 아니라,
+        3단은 컨테이너 기반으로 계산할 거라
+        --content-w 는 2단 계산 외에는 사용하지 않음(남겨둠) */
+     --content-w: calc(
+       min(100%, var(--maxw))
+       - (2 * var(--pad-x))
+       - var(--nav-col)
+       - var(--gap-lg)
+     );
+   }
+   
+   
+   /* =========================================
+      LAYOUT — SHELL (2단, 세로 꽉 채움)
+      ========================================= */
+   .shell {
+     display: grid;
+     grid-template-columns: var(--nav-col) 1fr;
+     max-width: var(--maxw);
+     min-height: 100dvh;
+     align-items: stretch;
+     column-gap: 0;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+   
+   
+   /* =========================================
+      LAYOUT — NAV (좌측 영역)
+      ========================================= */
+   .site-nav {
+     position: sticky;
+     top: 0;
+     height: 100dvh;
+     box-sizing: border-box;
+     padding: 10px;
+   }
+   
+   
+   /* =========================================
+      LAYOUT — MAIN (우측 영역)
+      ========================================= */
+   .site-main {
+     padding: 10px;
+     border-left: 0.5px solid #000;
+     min-width: 0;
+     height: 100dvh;
+     box-sizing: border-box;
+     overflow: auto;
+     container-type: inline-size;
+   }
+   
+   /* page.html처럼 내부에 .page-two-col이 있을 때만 패딩/보더 OFF */
+   .site-main:has(.page-two-col) {
+     padding: 0;
+     border-left: 0;
+   }
+   
+   
+   /* =========================================
+      PAGE(내부 2단) — meta/body
+      ========================================= */
+   .page-two-col {
+     display: grid;
+     grid-template-columns: 2fr 8fr;
+     grid-template-areas: "meta body";
+     column-gap: 0;
+     row-gap: 0;
+     min-height: 100%;
+   }
+   
+   /* meta/body 내부 여백 + 구분선 */
+   .page-meta {
+     grid-area: meta;
+     box-sizing: border-box;
+     padding: 10px;
+     border-left: 0.5px solid #000;
+   }
+   .page-body {
+     grid-area: body;
+     min-width: 0;
+     box-sizing: border-box;
+     padding: 10px;
+     border-left: 0.5px solid #000;
+   }
+   
+   
+   /* =========================================
+      RESPONSIVE (≤900px)
+      — 세로 스택 전환 / 상단 보더 사용
+      ========================================= */
+   @media (max-width: 900px) {
+     .shell {
+       grid-template-columns: 1fr;
+       align-items: start;
+       align-content: start;
+       grid-auto-rows: min-content;
+     }
+   
+     .site-nav {
+       position: static;
+       height: auto;
+       padding: 10px;
+     }
+   
+     .site-main {
+       height: auto;
+       overflow: visible;
+       padding: 10px;
+       border-left: 0;
+       border-top: 0.5px solid #000;
+     }
+   
+     .page-two-col {
+       grid-template-columns: 1fr;
+       grid-template-areas:
+         "meta"
+         "body";
+     }
+   
+     .page-meta {
+       padding: 10px 10px 50px 10px;
+       border-left: 0;
+       border-top: 0;
+     }
+   
+     .page-body {
+       padding: 10px;
+       border-left: 0;
+       border-top: 0;
+     }
+   
+     /* meta 다음 body에만 상단선 추가 */
+     .page-two-col > * + * {
+       border-top: 0.5px solid #000;
+     }
+   }
+   
+   
+   /* =========================================
+      META LIST (정의/목록)
+      ========================================= */
+   .meta-list dt, .meta-list dd {
+     margin: 0;
+     padding: 0;
+   }
+   .meta-list dt { font-weight: 500; }
+   .meta-list dd {
+     margin-left: 0;
+     margin-block-start: 0;
+     margin-block-end: 0;
+   }
+   
+   
+   /* =========================================
+      section.html — 리스트 테이블
+      ========================================= */
+   .list-table {
+     width: 100%;
+     border-collapse: separate;
+     border-spacing: 0;
+     margin: 0;
+   }
+   
+   /* 열 폭 정의 */
+   .list-table col.col-doc   { width: 5%; }
+   .list-table col.col-title { width: auto; }
+   .list-table col.col-cat,
+   .list-table col.col-year  { width: auto; min-width: 50px; }
+   
+   /* thead 제거 */
+   .list-table thead,
+   .list-table thead th,
+   .list-table thead .sort {
+     font-size: 0;
+     line-height: 0;
+     border: 0;
+     padding: 0;
+     margin: 0;
+     height: 0;
+     background: none;
+     overflow: hidden;
+   }
+   
+   /* 셀 공통 */
+   .list-table td {
+     vertical-align: top;
+     text-align: left;
+     padding: 0;
+   }
+   
+   /* 칸 사이 간격 */
+   .list-table tbody tr > td:not(:last-child) {
+     padding-right: 10px;
+   }
+   
+   /* 타이틀 링크 */
+   .title-cell a {
+     text-decoration: none;
+     color: inherit;
+     transition: opacity 0.2s ease;
+   }
+   
+   /* 마지막 열 중앙정렬 */
+   .list-table tbody tr > td:last-child {
+     text-align: center;
+     padding-left: 0 !important;
+     padding-right: 0 !important;
+   }
+   
+   /* 행 hover: 밑줄 전체 */
+   .list-table tbody tr:hover td {
+     text-decoration-line: underline;
+     text-decoration-thickness: 0.5px;
+     text-underline-offset: 3px;
+     text-decoration-color: currentColor;
+     text-decoration-skip-ink: auto;
+   }
+   
+   /* hover시 제목 링크 투명도 유지 */
+   .list-table tbody tr:hover .title-cell a {
+     opacity: 1;
+   }
+   
+   
+   /* =========================================
+      FOOTER — 화면 바닥 고정
+      ========================================= */
+   .site-footer {
+     position: fixed;
+     left: 10px; right: 0; bottom: 0;
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     padding: var(--footer-pad-y) var(--pad-x);
+     font-size: calc(1rem * var(--footer-font-scale));
+     line-height: 1.3;
+     background: transparent;
+     z-index: 1000;
+   }
+   .site-footer__text,
+   .site-footer__text--mobile {
+     position: relative;
+     width: 100%;
+     max-width: var(--maxw);
+     margin: 0;
+     color: #000;
+     background: transparent;
+     font-size: 1rem;
+   }
+   .site-footer__text--mobile { display: none; }
+   
+   /* MOBILE 푸터 전용 */
+   @media (max-width: 600px) {
+     .site-footer__text { display: none; }
+     .site-footer__text--mobile {
+       display: block;
+       margin-top: .4rem; /* ✅ 모바일 전용 여백 */
+     }
+   }
+   
+   
+   /* =========================================
+      GLOBAL INTERACTION — 링크 hover
+      ========================================= */
+   a:hover { opacity: 1 !important; }
+   
+   
+   /* =========================================
+      MOBILE NAVIGATION — 기본(데스크탑)
+      ========================================= */
+   .nav-bar { display: none; }
+   .site-nav .lang-toggle--desktop {
+     display: block;
+     margin-top: 1rem;
+     text-align: left;
+   }
+   .site-nav .lang-toggle--desktop a:hover {
+     text-decoration-line: underline;
+     text-decoration-thickness: 0.5px;
+     text-underline-offset: 3px;
+     text-decoration-color: currentColor;
+     opacity: 1 !important;
+   }
+   
+   
+   /* =========================================
+      MOBILE (≤600px) — 네비/상단바/본문/리스트 등
+      ========================================= */
+   @media (max-width: 600px) {
+   
+     /* 전체 확대 */
+     html { font-size: calc(16px * 1.35); }
+   
+     /* 상단바 */
+     .nav-bar {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       padding: 0;
+     }
+   
+     /* 단일 문서 페이지: 상단선 제거 */
+     .page-template.site-main {
+       border-top: none !important;
+       padding-top: 0 !important;
+     }
+   
+     /* 메뉴 버튼 & 언어 토글 */
+     .nav-toggle,
+     .nav-bar .lang-toggle {
+       background: none;
+       border: none;
+       padding: 0;
+       margin: 0;
+       font: inherit;
+       color: inherit;
+       cursor: pointer;
+       text-decoration: none;
+     }
+   
+     /* 데스크탑용 토글 숨김 */
+     .site-nav .lang-toggle--desktop { display: none; }
+   
+     /* 메뉴 기본 숨김, open 시 표시 */
+     .site-nav nav {
+       display: none;
+       flex-direction: column;
+       padding: 10px 0;
+       border-top: 0.5px solid currentColor;
+     }
+     .site-nav nav.open { display: flex; }
+   
+     /* 메뉴 항목 스타일 */
+     .site-nav nav a,
+     .site-nav nav span {
+       display: block;
+       padding: 0;
+       margin: 0;
+       text-decoration: none;
+       color: inherit;
+     }
+   
+     /* 🔹 모바일에서는 <br> 제거 → 공백 방지 */
+     .site-nav nav br { display: none; }
+   
+     /* nav, main, body 구분선 */
+     .site-main { border-top: 0.5px solid currentColor; }
+     .page-body { border-top: 0.5px solid currentColor; }
+   
+     /* 리스트: 3번째 열 숨김 */
+     .list-table col.col-cat,
+     .list-table td:nth-child(3) { display: none; }
+   
+     /* 전역 두께 오버라이드 */
+     * {
+       border-width: 1px !important;
+       text-decoration-thickness: 1px !important;
+     }
+   
+     /* 리스트 최소폭 축소 */
+     .list-table col.col-year { min-width: 40px; }
+   }
+   
+
+/* =========================================
+   WORKS GRID — 최대 4단 제한 (정리판)
+   ========================================= */
+
+/* 기본 2단 (mobile~small) */
+.site-main .grid.thumbs {
+    display: grid;
+    gap: 10px;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: stretch;
+    align-items: stretch;
+    column-count: initial;
+  }
+  
+  /* 중간 화면 (tablet 이상) → 3단 */
+  @media (min-width: 800px) {
+    .site-main .grid.thumbs {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* 큰 화면 (desktop 이상) → 최대 4단 */
+  @media (min-width: 1100px) {
+    .site-main .grid.thumbs {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  

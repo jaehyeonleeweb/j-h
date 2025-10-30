@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Allow: /
+Sitemap: https://j-h-a-r-c-h-i-v-e.com/sitemap.xml
