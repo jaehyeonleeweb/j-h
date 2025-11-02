@@ -11,7 +11,7 @@ The structure of this web:
 
 > 1. This web documents practices related to images. It consists of two layers.[^1]
 > 		1. This web records workshop practices—ideas put into practice through workshops.
-> 			1. All workshops aim to explore the concept of latent images, borrowed from Oulipo's ‘Potential Literature’.[^2] The purpose of these practices is to enable images to reveal their own potential through constraint-based attempts.
+> 			1. All workshops aim to explore the concept of [Potential Images](/thought/th-001/), borrowed from Oulipo's ‘Potential Literature’.[^2] The purpose of these practices is to enable images to reveal their own potential through constraint-based attempts.
 > 			2. I actively embrace the Oulipian stance, though I sometimes apply it loosely. What is always important to me is the new.
 > 		2. This web documents the outcomes of personal projects (sometimes commissioned work)—often alongside the process and its trial and error.
 > 			1. Of course, the generation and development of motifs during the process are always sporadic.[^3] Therefore, a complete record is impossible. Yet, despite omissions and exaggerations, I imagine the various pairs of connections that a record of the process might create. The concepts that follow will give birth to new motifs.
