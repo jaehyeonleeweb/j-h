@@ -1,7 +1,7 @@
 ---
 title: 소개
 extra:
-  doc_no: "1"
+  doc_no: 1
   category: "소개"
 ---
 이 웹은 [나](/kr/contact/contact/)의 온라인 아카이브다.  

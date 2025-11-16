@@ -1,7 +1,7 @@
 ---
 title: contact
 extra:
-  doc_no: "2"
+  doc_no: 2
   category: "contact"
 ---
 **Jaehyeon Lee**  

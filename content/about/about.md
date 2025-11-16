@@ -1,7 +1,7 @@
 ---
 title: about
 extra:
-  doc_no: "1"
+  doc_no: 1
   category: "about"
 ---
 This web is my online archive.  

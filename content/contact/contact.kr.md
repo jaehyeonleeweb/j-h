@@ -1,7 +1,7 @@
 ---
 title: 연락처
 extra:
-  doc_no: "2"
+  doc_no: 2
   category: "연락처"
 ---
 **이재현**  

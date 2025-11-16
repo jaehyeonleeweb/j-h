@@ -52,18 +52,20 @@ FILE_URL_KEYS = {"thumbnail", "image", "poster"}
 MD_RE = re.compile(r"\.md$", re.IGNORECASE)
 
 # ★ title(옵션)까지 캡처하도록 수정
+# ★ 이미지/링크 마크다운을 더 느슨하게 잡도록 수정
 IMG_LINK_RE = re.compile(
-    r'!\[([^\]]*)\]\('
-    r'(?:\s*)(\/?media\/[^)\s]+)(?:\s*)'   # ← 선행 슬래시 허용
-    r'(?:\"([^\"]*)\")?'                   #  "title" (옵션)
+    r'!\[([^\]]*)\]\('          # ![alt](
+    r'\s*([^)"]+?)\s*'          # 경로: " 나 ) 나오기 전까지
+    r'(?:\"([^\"]*)\")?'        # "title" (옵션)
     r'\)'
 )
 
 LINK_RE = re.compile(
     r'\[([^\]]*)\]\('
-    r'(?:\s*)(\/?media\/[^)]+)(?:\s*)'     # ← 선행 슬래시 허용
+    r'\s*([^)]+?)\s*'           # 경로 전체를 받아옴
     r'\)'
 )
+
 
 DISABLED_LINK_RE = re.compile(r'\[([^\]]+)\]\(\s*#disabled\s*\)')
 
@@ -82,6 +84,9 @@ KEYVAL_LINE_YAML = re.compile(r'^\s*([A-Za-z0-9_\-]+)\s*:\s*(.+?)\s*$')
 # 상위에 유지할 프론트매터 키
 KEEP_TOPLEVEL = {"title", "date", "template", "draft", "weight", "slug", "taxonomies"}
 
+# 숫자로 다루고 싶은 커스텀 키 (따옴표 없이)
+NUMERIC_KEYS = {"doc_no", "date_year"}
+
 # ---------- 유틸 ----------
 def read_file(p):
     with open(p, "r", encoding="utf-8") as f:
@@ -99,30 +104,43 @@ def is_subsection(section_rel: str) -> bool:
 # ---------- 미디어 경로 재작성 ----------
 def to_web_media_path(doc_parent_rel: str, media_rel: str) -> str:
     """
-    'media/...' (상대) 또는 '/media/...' (절대)을 사이트 절대경로로 정규화.
-    그 외(http 등)는 그대로 반환.
+    'media/...' (상대), '/media/...' (절대), './media/...', '../media/...' 등을
+    사이트 절대 경로로 정규화.
+    그 외(http, data URL 등)는 그대로 반환.
     """
     s = (media_rel or "").strip()
     if not s:
         return s
 
-    # 1) 이미 사이트 절대 경로면 그대로 반환
+    # 0) 외부 URL은 손대지 않음
+    if s.startswith("http://") or s.startswith("https://") or s.startswith("data:"):
+        return s
+
+    # 1) 이미 사이트 절대 경로 '/media/...'면 거의 그대로 사용
     if s.startswith("/media/"):
         out = s
         if doc_parent_rel:
-            # 중복된 '/media/<parent>/media/' 패턴 정리
+            # '/media/<parent>/media/' 같은 중복 패턴 방지
             out = out.replace(f"/media/{doc_parent_rel}/media/", f"/media/{doc_parent_rel}/")
         return out
 
-    # 2) Vault 상대 경로 'media/...'
+    # 2) 그 외 상대 경로에서 'media/' 부분을 찾아 그 뒤만 사용
+    #    예: './media/pr-001/...' → 'media/pr-001/...'
+    #        '../x/media/pr-001/...' → 'media/pr-001/...'
+    idx = s.find("media/")
+    if idx != -1:
+        s = s[idx:]  # 'media/...'
+
+    # 3) Vault 기준 상대경로 'media/...'
     if s.startswith("media/"):
-        rel = s[len("media/"):]  # e.g. 'thumbnail/th_pr-001.webp'
+        rel = s[len("media/"):]  # e.g. 'pr-001/foo.webp'
         base = f"/media/{doc_parent_rel}/" if doc_parent_rel else "/media/"
         path = os.path.join(base, rel).replace("\\", "/")
-        return path.replace("//", "/")
+        return path.replace("\\", "/").replace("//", "/")
 
-    # 3) 외부 URL(http 등)은 손대지 않음
-    return s
+    # 4) 그 외는 건드리지 않음
+    return media_rel
+
 
 
 def rewrite_media_paths(doc_rel_dir: str, text: str) -> str:
@@ -388,24 +406,49 @@ def move_custom_fields_into_extra(text: str, doc_parent_rel: str) -> str:
         for ln in lines:
             m2 = KEYVAL_LINE_TOML.match(ln)
             if not m2:
-                keep_lines.append(ln); continue
+                keep_lines.append(ln)
+                continue
+
             k, v = m2.group(1), m2.group(2)
             k_low = k.lower()
-            if k_low in KEEP_TOPLEVEL:
-                keep_lines.append(ln); continue
 
+            # 상단 유지해야 하는 키들은 그대로 남김
+            if k_low in KEEP_TOPLEVEL:
+                keep_lines.append(ln)
+                continue
+
+            # 🔢 숫자 필드(doc_no, date_year 등)는 따옴표 없이 숫자로 저장
+            if k_low in NUMERIC_KEYS:
+                raw0 = _strip_quotes(v).strip()
+                if raw0 == "":
+                    val = "0"
+                else:
+                    try:
+                        val = str(int(raw0))
+                    except ValueError:
+                        mnum = re.search(r"\d+", raw0)
+                        val = mnum.group(0) if mnum else "0"
+                moved[k] = val
+                continue
+
+            # 링크 필드
             if k_low == "link":
                 href, label = handle_link_value(v)
                 moved["link"] = f'"{href}"'
                 moved["link_label"] = f'"{label}"'
+
+            # 썸네일/이미지/포스터 등 파일 경로 필드
             elif k_low in FILE_URL_KEYS:
                 href = media_href_from_value(v)
                 moved[k] = f'"{href}"'
+
+            # 그 외 커스텀 필드는 문자열로 extra에 넣기
             else:
                 label = label_from_wikilink_or_text(v)
                 if not (label.startswith('"') and label.endswith('"')):
                     label = f'"{label}"'
                 moved[k] = label
+
 
         head2 = "\n".join([l for l in keep_lines if l.strip() != ""])
         if re.search(r'^\s*\[extra\]\s*$', head2, re.M):
@@ -425,24 +468,49 @@ def move_custom_fields_into_extra(text: str, doc_parent_rel: str) -> str:
         for ln in lines:
             m2 = KEYVAL_LINE_YAML.match(ln)
             if not m2:
-                keep_lines.append(ln); continue
+                keep_lines.append(ln)
+                continue
+
             k, v = m2.group(1), m2.group(2)
             k_low = k.lower()
-            if k_low in KEEP_TOPLEVEL:
-                keep_lines.append(ln); continue
 
+            # 상단 유지해야 하는 키들은 그대로 두기
+            if k_low in KEEP_TOPLEVEL:
+                keep_lines.append(ln)
+                continue
+
+            # 🔢 숫자 필드(doc_no, date_year 등)는 따옴표 없이 숫자로 저장
+            if k_low in NUMERIC_KEYS:
+                raw0 = _strip_quotes(v).strip()
+                if raw0 == "":
+                    val = "0"
+                else:
+                    try:
+                        val = str(int(raw0))
+                    except ValueError:
+                        mnum = re.search(r"\d+", raw0)
+                        val = mnum.group(0) if mnum else "0"
+                moved[k] = val
+                continue
+
+            # link 필드: href/label 분리
             if k_low == "link":
                 href, label = handle_link_value(v)
                 moved["link"] = f'"{href}"'
                 moved["link_label"] = f'"{label}"'
+
+            # 파일 경로 필드(thumbnail, image, poster)
             elif k_low in FILE_URL_KEYS:
                 href = media_href_from_value(v)
                 moved[k] = f'"{href}"'
+
+            # 그 외 커스텀 필드 → 문자열로 extra에 넣기
             else:
                 label = label_from_wikilink_or_text(v)
                 if not (label.startswith('"') and label.endswith('"')):
                     label = f'"{label}"'
                 moved[k] = label
+
 
         head2 = "\n".join([l for l in keep_lines if l.strip() != ""])
         if re.search(r'^\s*extra\s*:\s*$', head2, re.M):

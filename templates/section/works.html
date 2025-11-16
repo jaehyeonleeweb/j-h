@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="grid thumbs">
-    {% set pages = section.pages | sort(attribute="extra.doc_no", default=0) %}
+    {% set pages = section.pages | sort(attribute="extra.doc_no", default=0) | reverse %}
     {% for p in pages %}
       {% set doc = p.extra.doc_no | default(value=0) %}
       {% if doc | int == 0 %}{% continue %}{% endif %}
