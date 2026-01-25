@@ -1,5 +1,5 @@
 base_url = "https://j-h-a-r-c-h-i-v-e.com"
-title = "j-h"
+title = "J-H"
 default_language = "en"
 build_search_index = true
 generate_feeds = false
@@ -12,5 +12,4 @@ footnotes = true
 
 [languages]
 [languages.kr]
-# 한국어는 /kr/ 경로로 출력
-title = "j-h"
+title = "제이대시에이치"

@@ -1,5 +1,4 @@
 +++
-title = "all archive"
+title = ""
 template = "section.html"
-# sort_by = "extra.date_sort"
 +++

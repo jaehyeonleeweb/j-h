@@ -1,416 +1,401 @@
-/* =========================================
-   RESET
-   ========================================= */
-   html, body { margin: 0; }
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
 
-   /* =========================================
-      GLOBAL VARS — j-h layout
-      ========================================= */
-   :root {
-     --nav-col: 120px;
-     --maxw: 1440px;
-   
-     /* Footer */
-     --footer-font-scale: 1;
-     --footer-line-gap: 6px;
-     --footer-pad-y: .4rem;
-     --footer-opacity: .6;
-   
-     /* viewport 기준 추정치가 아니라,
-        3단은 컨테이너 기반으로 계산할 거라
-        --content-w 는 2단 계산 외에는 사용하지 않음(남겨둠) */
-     --content-w: calc(
-       min(100%, var(--maxw))
-       - (2 * var(--pad-x))
-       - var(--nav-col)
-       - var(--gap-lg)
-     );
-   
-     /* === NEW: 전역 선/밑줄 두께 변수 === */
-     --rule: .5px;         /* 모든 보더/구분선 기본 두께 */
-     --u-thickness: .5px;  /* 밑줄/텍스트 데코 두께 */
-   }
-   
-   
-   /* =========================================
-      LAYOUT — SHELL (2단, 세로 꽉 채움)
-      ========================================= */
-   .shell {
-     display: grid;
-     grid-template-columns: var(--nav-col) 1fr;
-     max-width: var(--maxw);
-     min-height: 100dvh;
-     align-items: stretch;
-     column-gap: 0;
-     margin: 0;
-     padding: 0;
-     box-sizing: border-box;
-   }
-   
-   
-   /* =========================================
-      LAYOUT — NAV (좌측 영역)
-      ========================================= */
-   .site-nav {
-     position: sticky;
-     top: 0;
-     height: 100dvh;
-     box-sizing: border-box;
-     padding: 10px;
-   }
-   
-   
-   /* =========================================
-      LAYOUT — MAIN (우측 영역)
-      ========================================= */
-   .site-main {
-     padding: 10px;
-     border-left: var(--rule) solid #000; /* 0.5px → var(--rule) */
-     min-width: 0;
-     height: 100dvh;
-     box-sizing: border-box;
-     overflow: auto;
-     container-type: inline-size;
-   }
-   
-   /* page.html처럼 내부에 .page-two-col이 있을 때만 패딩/보더 OFF */
-   .site-main:has(.page-two-col) {
-     padding: 0;
-     border-left: 0;
-   }
-   
-   
-   /* =========================================
-      PAGE(내부 2단) — meta/body
-      ========================================= */
-   .page-two-col {
-     display: grid;
-     grid-template-columns: 2fr 8fr;
-     grid-template-areas: "meta body";
-     column-gap: 0;
-     row-gap: 0;
-     min-height: 100%;
-   }
-   
-   /* meta/body 내부 여백 + 구분선 */
-   .page-meta {
-     grid-area: meta;
-     box-sizing: border-box;
-     padding: 10px;
-     border-left: var(--rule) solid #000; /* 0.5px → var(--rule) */
-   }
-   .page-body {
-     grid-area: body;
-     min-width: 0;
-     box-sizing: border-box;
-     padding: 10px;
-     border-left: var(--rule) solid #000; /* 0.5px → var(--rule) */
-   }
-   
-   
-   /* =========================================
-      RESPONSIVE (≤900px)
-      — 세로 스택 전환 / 상단 보더 사용
-      ========================================= */
-   @media (max-width: 900px) {
-     .shell {
-       grid-template-columns: 1fr;
-       align-items: start;
-       align-content: start;
-       grid-auto-rows: min-content;
-     }
-   
-     .site-nav {
-       position: static;
-       height: auto;
-       padding: 10px;
-     }
-   
-     .site-main {
-       height: auto;
-       overflow: visible;
-       padding: 10px;
-       border-left: 0;
-       border-top: var(--rule) solid #000; /* 0.5px → var(--rule) */
-     }
-   
-     .page-two-col {
-       grid-template-columns: 1fr;
-       grid-template-areas:
-         "meta"
-         "body";
-     }
-   
-     .page-meta {
-       padding: 10px 10px 50px 10px;
-       border-left: 0;
-       border-top: 0;
-     }
-   
-     .page-body {
-       padding: 10px;
-       border-left: 0;
-       border-top: 0;
-     }
-   
-     /* meta 다음 body에만 상단선 추가 */
-     .page-two-col > * + * {
-       border-top: var(--rule) solid #000; /* 0.5px → var(--rule) */
-     }
-   }
-   
-   
-   /* =========================================
-      META LIST (정의/목록)
-      ========================================= */
-   .meta-list dt, .meta-list dd {
-     margin: 0;
-     padding: 0;
-   }
-   .meta-list dt { font-weight: 500; }
-   .meta-list dd {
-     margin-left: 0;
-     margin-block-start: 0;
-     margin-block-end: 0;
-   }
-   
-   
-   /* =========================================
-      section.html — 리스트 테이블
-      ========================================= */
-   .list-table {
-     width: 100%;
-     border-collapse: separate;
-     border-spacing: 0;
-     margin: 0;
-   }
-   
-   /* 열 폭 정의 */
-   .list-table col.col-doc   { width: 5%; }
-   .list-table col.col-title { width: auto; }
-   .list-table col.col-cat,
-   .list-table col.col-year  { width: auto; min-width: 50px; }
-   
-   /* thead 제거 */
-   .list-table thead,
-   .list-table thead th,
-   .list-table thead .sort {
-     font-size: 0;
-     line-height: 0;
-     border: 0;
-     padding: 0;
-     margin: 0;
-     height: 0;
-     background: none;
-     overflow: hidden;
-   }
-   
-   /* 셀 공통 */
-   .list-table td {
-     vertical-align: top;
-     text-align: left;
-     padding: 0;
-   }
-   
-   /* 칸 사이 간격 */
-   .list-table tbody tr > td:not(:last-child) {
-     padding-right: 10px;
-   }
-   
-   /* 타이틀 링크 */
-   .title-cell a {
-     text-decoration: none;
-     color: inherit;
-     transition: opacity 0.2s ease;
-   }
-   
-   /* 마지막 열 중앙정렬 */
-   .list-table tbody tr > td:last-child {
-     text-align: center;
-     padding-left: 0 !important;
-     padding-right: 0 !important;
-   }
-   
-   /* 행 hover: 밑줄 전체 */
-   .list-table tbody tr:hover td {
-     text-decoration-line: underline;
-     text-decoration-thickness: var(--u-thickness); /* 0.5px → var(--u-thickness) */
-     text-underline-offset: 3px;
-     text-decoration-color: currentColor;
-     text-decoration-skip-ink: auto;
-   }
-   
-   /* hover시 제목 링크 투명도 유지 */
-   .list-table tbody tr:hover .title-cell a {
-     opacity: 1;
-   }
-   
-   
-   /* =========================================
-      FOOTER — 화면 바닥 고정
-      ========================================= */
-   .site-footer {
-     position: fixed;
-     left: 10px; right: 0; bottom: 0;
-     display: flex;
-     justify-content: flex-start;
-     align-items: center;
-     padding: var(--footer-pad-y) var(--pad-x);
-     font-size: calc(1rem * var(--footer-font-scale));
-     line-height: 1.3;
-     background: transparent;
-     z-index: 1000;
-   }
-   .site-footer__text,
-   .site-footer__text--mobile {
-     position: relative;
-     width: 100%;
-     max-width: var(--maxw);
-     margin: 0;
-     color: #000;
-     background: transparent;
-     font-size: 1rem;
-   }
-   .site-footer__text--mobile { display: none; }
-   
-   /* MOBILE 푸터 전용 */
-   @media (max-width: 600px) {
-     .site-footer__text { display: none; }
-     .site-footer__text--mobile {
-       display: block;
-       margin-top: .4rem; /* ✅ 모바일 전용 여백 */
-     }
-   }
-   
-   
-   /* =========================================
-      GLOBAL INTERACTION — 링크 hover
-      ========================================= */
-   a:hover { opacity: 1 !important; }
-   
-   
-   /* =========================================
-      MOBILE NAVIGATION — 기본(데스크탑)
-      ========================================= */
-   .nav-bar { display: none; }
-   .site-nav .lang-toggle--desktop {
-     display: block;
-     margin-top: 1rem;
-     text-align: left;
-   }
-   .site-nav .lang-toggle--desktop a:hover {
-     text-decoration-line: underline;
-     text-decoration-thickness: var(--u-thickness); /* 0.5px → var(--u-thickness) */
-     text-underline-offset: 3px;
-     text-decoration-color: currentColor;
-     opacity: 1 !important;
-   }
-   
-   
-   /* =========================================
-      MOBILE (≤600px) — 네비/상단바/본문/리스트 등
-      ========================================= */
-   @media (max-width: 600px) {
-   
-     /* === NEW: 모바일에서 선/밑줄 두께만 2배로 상향 === */
-     :root{
-       --rule: 1px;        /* .5px × 2 */
-       --u-thickness: 1px; /* .5px × 2 */
-     }
-   
-     /* 전체 확대 */
-     html { font-size: calc(16px * 1.2); }
-   
-     /* 상단바 */
-     .nav-bar {
-       display: flex;
-       justify-content: space-between;
-       align-items: center;
-       padding: 0;
-     }
-   
-     /* 단일 문서 페이지: 상단선 제거 */
-     .page-template.site-main {
-       border-top: none !important;
-       padding-top: 0 !important;
-     }
-   
-     /* 메뉴 버튼 & 언어 토글 */
-     .nav-toggle,
-     .nav-bar .lang-toggle {
-       background: none;
-       border: none;
-       padding: 0;
-       margin: 0;
-       font: inherit;
-       color: inherit;
-       cursor: pointer;
-       text-decoration: none;
-     }
-   
-     /* 데스크탑용 토글 숨김 */
-     .site-nav .lang-toggle--desktop { display: none; }
-   
-     /* 메뉴 기본 숨김, open 시 표시 */
-     .site-nav nav {
-       display: none;
-       flex-direction: column;
-       padding: 10px 0;
-       border-top: var(--rule) solid currentColor; /* 0.5px → var(--rule) */
-     }
-     .site-nav nav.open { display: flex; }
-   
-     /* 메뉴 항목 스타일 */
-     .site-nav nav a,
-     .site-nav nav span {
-       display: block;
-       padding: 0;
-       margin: 0;
-       text-decoration: none;
-       color: inherit;
-     }
-   
-     /* 🔹 모바일에서는 <br> 제거 → 공백 방지 */
-     .site-nav nav br { display: none; }
-   
-     /* nav, main, body 구분선 */
-     .site-main { border-top: var(--rule) solid currentColor; } /* 0.5px → var(--rule) */
-     .page-body { border-top: var(--rule) solid currentColor; } /* 0.5px → var(--rule) */
-   
-     /* 리스트: 3번째 열 숨김 */
-     .list-table col.col-cat,
-     .list-table td:nth-child(3) { display: none; }
-   
-     /* ✅ 전역 강제 오버라이드(두께 변경) 제거됨 */
-     /* (기존) * { border-width: 1px !important; text-decoration-thickness: 1px !important; } */
-     /* 이제는 변수 --rule / --u-thickness 로 제어됨 */
-   
-     /* 리스트 최소폭 축소 */
-     .list-table col.col-year { min-width: 40px; }
-   }
-   
-   
-   /* =========================================
-      WORKS GRID — 단일 소스(컨테이너 기준 4→3→2→1)
-      ========================================= */
-   .site-main .grid.thumbs{
-     display: grid;
-     gap: 10px;
-     grid-auto-flow: row;
-     justify-items: stretch;
-     align-items: stretch;
-     grid-template-columns: repeat(4, 1fr); /* 기본: 4단 */
-   }
-   
-   /* 컨테이너(.site-main) 폭이 줄어들수록 단수 축소 */
-   @container (max-width: 1200px){
-     .site-main .grid.thumbs{ grid-template-columns: repeat(3, 1fr); }
-   }
-   @container (max-width: 900px){
-     .site-main .grid.thumbs{ grid-template-columns: repeat(2, 1fr); }
-   }
-   @container (max-width: 600px){
-     .site-main .grid.thumbs{ grid-template-columns: 1fr; }
-   }
-   
+ul {
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+img,
+video {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+iframe {
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+td:not([align]),
+th:not([align]) {
+  text-align: left;
+}
+
+html {
+  height: 100%;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background-color: white;
+}
+
+@media screen and (min-width: 1250px) {
+  html {
+    font-size: 1.28vw;
+  }
+}
+
+article,
+aside,
+figure,
+footer,
+header,
+hgroup,
+section {
+  display: block;
+}
+
+body,
+button,
+code,
+input,
+pre,
+select,
+textarea {
+  font-family: BlinkMacSystemFont, -apple-system, "Spoqa Han Sans", "Noto Sans TC", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  min-height: 100%;
+  font-size: 1rem;
+  letter-spacing: .0125em;
+  line-height: 1.75;
+  word-break: keep-all;
+  color: #222;
+  cursor: default;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+em {
+  font-weight: normal;
+  font-style: normal;
+  border-bottom: 1px solid #222;
+}
+
+.header {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  padding: .75rem 1.25rem 1.75rem;
+  text-align: center;
+}
+
+.header h1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+  .header div:not(:last-child) {
+    margin-right: 1.25rem;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .header div {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 calc(100% / 3);
+    flex: 1 1 calc(100% / 3);
+  }
+}
+
+.header .filtered {
+  border-bottom: 1px solid #222;
+}
+
+.main {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: .75rem 1.25rem 1.5rem;
+}
+
+.footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100vh;
+  flex: 0 0 100vh;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.list li {
+  margin-left: 1rem;
+  text-indent: -1rem;
+}
+
+.list .visible {
+  visibility: visible;
+}
+
+.list .hidden {
+  visibility: hidden;
+}
+
+.article {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-top: -1.25rem;
+  margin-right: -1.25rem;
+  margin-left: -1.25rem;
+}
+
+.article .column {
+  padding: 1.25rem;
+}
+
+@media screen and (min-width: 600px) {
+  .article {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .article .column {
+    width: 50%;
+  }
+
+  .article .sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: .75rem;
+  }
+}
+
+.article:not(:last-child) {
+  margin-bottom: 1.25rem;
+}
+
+.article .title {
+  margin-left: 1rem;
+  text-indent: -1rem;
+}
+
+.content:not(:last-child) {
+  margin-bottom: 3rem;
+}
+
+.content.hidden {
+  display: none;
+}
+
+.content a:not(.footnote-ref, .footnote-backref):hover {
+  border-bottom: 1px solid #222;
+}
+
+.content .footnote-ref {
+  font-weight: normal;
+}
+
+.content h1 {
+  font-weight: bold;
+}
+
+.content h2 {
+  margin-left: 1rem;
+  font-weight: normal;
+}
+
+.content small {
+  position: relative;
+  font-size: .95em;
+}
+
+.content small small {
+  font-size: .9em;
+}
+
+.content sup {
+  position: relative;
+  top: -.25em;
+  font-size: .75em;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+.content blockquote {
+  margin-left: 1rem;
+}
+
+.content ul li {
+  margin-left: 1rem;
+  text-indent: -1rem;
+}
+
+.content ol li {
+  margin-left: 1.5rem;
+}
+
+.content hr {
+  border: 0;
+  height: 1rem;
+  margin-top: -2rem;
+}
+
+.content figure:first-child {
+  margin-top: .5rem;
+}
+
+.content figure:not(:first-child) {
+  margin-top: 1.75rem;
+}
+
+.content figure:not(:last-child) {
+  margin-bottom: 1.75rem;
+}
+
+.content img {
+  border: 1px solid #222;
+}
+
+.content figcaption {
+  margin-top: 1em;
+  font-size: .75rem;
+}
+
+.content .video {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.content .video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.footnotes ol {
+  margin-left: 1.5em;
+  font-size: .75em;
+}
+
+.footnotes ol li {
+  margin-left: 0;
+  text-indent: 0;
+}
+
+.footnotes .footnote-backref {
+  visibility: hidden;
+}
+
+.footnotes li:hover .footnote-backref {
+  visibility: visible;
+}
+
+.title:not(:last-child),
+.content > *:not(:last-child),
+.footnotes > *:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.review:not(:last-child) {
+  margin-bottom: -1.25rem;
+}
+
+.review .title {
+  cursor: pointer;
+}
+
+.review .hidden {
+  display: none;
+}

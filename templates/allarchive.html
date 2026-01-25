@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% block content %}
+
+<table class="list-table" id="archive-table">
+  <colgroup>
+    <col class="col-doc">
+    <col class="col-title">
+    <col class="col-cat">
+    <col class="col-year">
+  </colgroup>
+
+  <thead>
+    <tr>
+      <th data-sort-key="doc">↓</th>
+      <th data-sort-key="title">↓</th>
+      <th data-sort-key="cat">↓</th>
+      <th data-sort-key="sort">↓</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    {% set section_names = ["works", "shop", "glossary", "method", "thought"] %}
+
+    {% for sec in section_names %}
+
+      {% set s = get_section(path=sec ~ "/_index.md") %}
+      {% set pages = s.pages | filter(attribute="lang", value=lang) %}
+
+      {% if lang == "kr" and pages | length == 0 %}
+        {% set s = get_section(path=sec ~ "/_index.kr.md") %}
+        {% set pages = s.pages | filter(attribute="lang", value=lang) %}
+      {% endif %}
+
+      {% for p in pages %}
+        {% set doc = p.extra.doc_no | default(value=0) %}
+        {% if doc | int == 0 %}{% continue %}{% endif %}
+
+        {% set date_sort = p.extra.date_sort | default(value="") %}
+        {% set date_display = p.extra.date_ym | default(value="") %}
+        {% set date_year = p.extra.date_year | default(value="") %}
+        {% set cat = p.extra.category | default(value=sec) %}
+        {% set display_title_src = p.extra.display_title | default(value=p.title) %}
+
+        <tr
+          data-title="{{ display_title_src | lower }}"
+          data-title-norm="{{ display_title_src | lower | replace(from='^[‘“(\\[{‹«〈《「『]+', to='') }}"
+          data-doc="{{ doc }}"
+          data-cat="{{ cat | lower }}"
+          data-sort="{{ date_sort }}"
+        >
+          <td>
+            <a href="{{ p.permalink }}">{{ doc }}</a>
+          </td>
+          <td
+            class="title-cell"
+            data-leading-punct="{% if display_title_src is starting_with('‘') or display_title_src is starting_with('“') or display_title_src is starting_with('(') or display_title_src is starting_with('[') or display_title_src is starting_with('{') or display_title_src is starting_with('‹') or display_title_src is starting_with('«') or display_title_src is starting_with('〈') or display_title_src is starting_with('《') or display_title_src is starting_with('「') or display_title_src is starting_with('『') %}true{% else %}false{% endif %}"
+          >
+            <a href="{{ p.permalink }}">
+              {{ display_title_src | markdown(inline=true) | safe }}
+            </a>
+          </td>
+          <td>
+            <a href="{{ p.permalink }}">{{ cat }}</a>
+          </td>
+          <td class="date-cell">
+            <a href="{{ p.permalink }}">
+              {% if date_display %}
+                <span class="date-ym">{{ date_display }}</span>
+                <span class="date-year">{{ date_year }}</span>
+              {% endif %}
+            </a>
+          </td>
+        </tr>
+
+      {% endfor %}
+    {% endfor %}
+
+    {% set single_page_names = ["about", "contact"] %}
+
+    {% for name in single_page_names %}
+
+      {% if lang == "kr" %}
+        {% set p = get_page(path=name ~ "/" ~ name ~ ".kr.md") %}
+      {% else %}
+        {% set p = get_page(path=name ~ "/" ~ name ~ ".md") %}
+      {% endif %}
+
+      {% if p %}
+        {% set doc = p.extra.doc_no | default(value=0) %}
+        {% if doc | int != 0 %}
+
+          {% set date_sort = p.extra.date_sort | default(value="") %}
+          {% set date_display = p.extra.date_ym | default(value="") %}
+          {% set date_year = p.extra.date_year | default(value="") %}
+          {% set cat = p.extra.category | default(value="") %}
+          {% set display_title_src = p.extra.display_title | default(value=p.title) %}
+
+          <tr
+            data-title="{{ display_title_src | lower }}"
+            data-title-norm="{{ display_title_src | lower | replace(from='^[‘“(\\[{‹«〈《「『]+', to='') }}"
+            data-doc="{{ doc }}"
+            data-cat="{{ cat | lower }}"
+            data-sort="{{ date_sort }}"
+          >
+            <td>
+              <a href="{{ p.permalink }}">{{ doc }}</a>
+            </td>
+            <td
+              class="title-cell"
+              data-leading-punct="{% if display_title_src is starting_with('‘') or display_title_src is starting_with('“') or display_title_src is starting_with('(') or display_title_src is starting_with('[') or display_title_src is starting_with('{') or display_title_src is starting_with('‹') or display_title_src is starting_with('«') or display_title_src is starting_with('〈') or display_title_src is starting_with('《') or display_title_src is starting_with('「') or display_title_src is starting_with('『') %}true{% else %}false{% endif %}"
+            >
+              <a href="{{ p.permalink }}">
+                {{ display_title_src | markdown(inline=true) | safe }}
+              </a>
+            </td>
+            <td>
+              <a href="{{ p.permalink }}">{{ cat }}</a>
+            </td>
+            <td class="date-cell">
+              <a href="{{ p.permalink }}">
+                {% if date_display %}
+                  <span class="date-ym">{{ date_display }}</span>
+                  <span class="date-year">{{ date_year }}</span>
+                {% endif %}
+              </a>
+            </td>
+          </tr>
+
+        {% endif %}
+      {% endif %}
+
+    {% endfor %}
+
+  </tbody>
+</table>
+
+<script>
+  (function () {
+    const table = document.getElementById('archive-table');
+    if (!table) return;
+  
+    const tbody = table.querySelector('tbody');
+    const headers = table.querySelectorAll('thead th[data-sort-key]');
+  
+    function inferType(k) {
+      if (k === 'doc') return 'num';
+      if (k === 'sort') return 'str';
+      return 'str';
+    }
+  
+    function sortRows(key, type, order) {
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      const dir = (order === 'desc') ? -1 : 1;
+  
+      rows.sort((a, b) => {
+        let va = a.dataset[key] ?? '';
+        let vb = b.dataset[key] ?? '';
+  
+        if (type === 'num') {
+          const na = parseInt(va, 10);
+          const nb = parseInt(vb, 10);
+          const aValid = Number.isFinite(na);
+          const bValid = Number.isFinite(nb);
+  
+          if (aValid && bValid) return (na - nb) * dir;
+          if (aValid && !bValid) return -1;
+          if (!aValid && bValid) return 1;
+          return 0;
+        } else {
+          const sa = (key === 'title') ? a.dataset.titleNorm : va.toString();
+          const sb = (key === 'title') ? b.dataset.titleNorm : vb.toString();
+          return sa.localeCompare(sb) * dir;
+        }
+      });
+  
+      rows.forEach(r => tbody.appendChild(r));
+    }
+  
+    headers.forEach(th => {
+      th.addEventListener('click', () => {
+        const key = th.dataset.sortKey;
+  
+        const arrow = th.textContent.trim();
+        const order = (arrow === '↓') ? 'desc' : 'asc';
+  
+        sortRows(key, inferType(key), order);
+  
+        th.textContent = (order === 'desc') ? '↑' : '↓';
+  
+        headers.forEach(h => {
+          if (h !== th) h.textContent = '↓';
+        });
+      });
+    });
+  
+    sortRows('doc', inferType('doc'), 'desc');
+  
+    headers.forEach(th => {
+      th.textContent = (th.dataset.sortKey === 'doc') ? '↑' : '↓';
+    });
+  })();
+</script>
+
+{% endblock content %}

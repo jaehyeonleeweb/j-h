@@ -1,8 +1,14 @@
 ---
-title: about
+title: "About"
 extra:
-  doc_no: 1
-  category: "about"
+  notes:
+    - id: "1"
+      text: "The practices can be verified in the *works*."
+    - id: "2"
+      text: "See the [Lipo: First Manifesto](/glossary/gl-001/)."
+    - id: "3"
+      text: "See the 11th item among [Sentences on Conceptual Art](/glossary/gl-002/). The statements by Sol LeWitt cited here separate the motif (idea) of the work from the production process, establishing an explicit hierarchy between the two. However, I prioritize the separation itself. The novelty created by the serendipity of the production process is always intriguing."
+  doc_no: "1"
 ---
 This web is my online archive.  
 [I](/contact/contact/) hope the materials archived here will intertwine like a net, forming a thicket-like structure.

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
+{#
 <div class="grid thumbs">
     {% set pages = section.pages | sort(attribute="extra.doc_no", default=0) | reverse %}
     {% for p in pages %}
@@ -25,6 +26,13 @@
         </div>
       </a>
     {% endfor %}
-  </div>
+</div>
+#}
+
+<div class="page-message">
+  <p>
+    Work In Progress...<br>
+  </p>
+</div>
 
 {% endblock content %}

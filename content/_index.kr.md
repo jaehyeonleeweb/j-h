@@ -1,5 +1,4 @@
 +++
-title = "아카이브"
+title = ""
 template = "section.html"
-# sort_by = "extra.date_sort"
 +++

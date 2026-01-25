@@ -1,5 +1,5 @@
 +++
-title = "방법론"
-template = "section.html"
+title = "방법"
+template = "allarchive.html"
 # sort_by = "extra.date_sort"
 +++

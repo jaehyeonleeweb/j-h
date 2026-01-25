@@ -1,8 +1,7 @@
 ---
-title: contact
+title: "Contact"
 extra:
-  doc_no: 2
-  category: "contact"
+  doc_no: "2"
 ---
 **Jaehyeon Lee**  
 Open for commissions.  

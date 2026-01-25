@@ -1,5 +1,5 @@
 +++
 title = "methodology"
-template = "section.html"
+template = "allarchive.html"
 # sort_by = "extra.date_sort"
 +++
