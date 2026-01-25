@@ -7,8 +7,8 @@ ignored_content = ["content/shop/**"]
 
 
 [markdown]
-hard_breaks = false 
-footnotes = true
+hard_breaks = false
+bottom_footnotes = true
 
 [languages]
 [languages.kr]
