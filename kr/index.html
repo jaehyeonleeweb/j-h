@@ -1,811 +1,258 @@
 <!DOCTYPE html>
 
+
   
-  
+
+
+<script>
+  console.log("current_path:", "/kr/");
+</script>
+
+<script>
+  console.log("lang:", "kr");
+  console.log("section.lang:", "kr");
+  console.log("page.lang:", "(no page)");
+</script>
 
 
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <title>j-h</title>
+    <title>제이대시에이치</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    
-    <!-- 0) 첫 페인트부터 폴백 감추기 (FOUT/FOIT 방지) -->
-    <style>
-      html:not(.wf-active):not(.wf-inactive) body { visibility: hidden; }
-      html.wf-loading body { visibility: hidden; }
-      html.wf-active body,
-      html.wf-inactive body { visibility: visible; }
-      html.wf-active body { animation: fontFadeIn .18s ease-out; }
-      @keyframes fontFadeIn { from { opacity: 0 } to { opacity: 1 } }
-    </style>
 
-    <!-- 1) 폰트 커넥션 선연결 -->
-    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-    <link rel="preconnect" href="https://p.typekit.net" crossorigin>
-
-    <!-- 2) Typekit 로더 -->
-    <script>
-      (function(d) {
-        var config = { kitId: 'efe0obd', scriptTimeout: 3000, async: true },
-            h = d.documentElement,
-            t = setTimeout(function() {
-              h.className = h.className.replace(/\bwf-loading\b/g,"") + " wf-inactive";
-            }, config.scriptTimeout),
-            tk = d.createElement("script"),
-            f = false,
-            s = d.getElementsByTagName("script")[0],
-            a;
-        h.className += " wf-loading";
-        tk.src = "https://use.typekit.net/" + config.kitId + ".js";
-        tk.async = true;
-        tk.onload = tk.onreadystatechange = function() {
-          a = this.readyState;
-          if (f || (a && a !== "complete" && a !== "loaded")) return;
-          f = true; clearTimeout(t);
-          try { Typekit.load(config); } catch (e) {}
-        };
-        s.parentNode.insertBefore(tk, s);
-      })(document);
-    </script>
-
-    <!-- (선택) 개발 중 편의 -->
-    <link rel="stylesheet" href="https://use.typekit.net/efe0obd.css">
     <link rel="stylesheet" href="/css/main.css">
   </head>
 
   <body>
-    <!-- 전체 2단 그리드 -->
-    <div class="shell">
-      <!-- 좌측: 세로 메뉴 -->
-      <aside class="site-nav">
-        <!-- ✅ 모바일 상단 바 (≤600px에서 보이도록 CSS 제어) -->
-        <div class="nav-bar" role="navigation" aria-label="mobile top bar">
-          <button class="nav-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-menu">menu</button>
-          
-            <a href="&#x2F;" class="lang-toggle">en</a>
-          
-        </div>
+    <header class="header" role="banner">
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        aria-expanded="false"
+        aria-controls="global-menu"
+      >
+       
+          메뉴
+       
+      </button>
 
-        <!-- ✅ 메인 메뉴: 데스크탑에서 항상 보이고, 모바일에선 토글 대상 -->
-        <nav id="nav-menu" aria-label="primary">
-          <a href="&#x2F;kr/">all archive</a><br>
-          <a href="&#x2F;kr/works/">works</a><br>
-          <a href="&#x2F;kr/about/">about</a><br>
-          <a href="&#x2F;kr/contact/">contact</a><br>
-        
-          <!-- ⛔️ 비활성: 링크 대신 span, 클릭 불가, 회색(60%) -->
-          <span class="nav-item nav-item--disabled" aria-disabled="true" title="Coming soon">shop</span>
-        </nav>
+      <a href="&#x2F;kr/" class="site-title" id="site-title"></a>
 
-        <!-- ✅ 데스크탑 전용 언어 토글: 메뉴 '아래 한 칸'에 표시 (모바일에선 CSS로 숨김) -->
-        <div class="lang-toggle--desktop">
-          
-            <a href="&#x2F;">en</a>
-          
-        </div>
-      </aside>
+      <span class="lang-toggle" data-lang="kr">
+        
+        <span class="ko">한</span>
+        <span class="sep"> / </span>
+        
+          <a href="/" class="en">EN</a>
+        
+        
+      </span>
+      
+    </header>
 
-      <!-- 우측: 콘텐츠 -->
-      <main class="site-main">
+    <nav
+      id="global-menu"
+      class="global-menu"
+      aria-label="primary"
+      hidden
+    >
+      
+        <a href="&#x2F;kr/allarchive/">모든 아카이브</a>
         
+        <a href="&#x2F;kr/about/">이 웹에 대하여</a>
+        <a href="&#x2F;kr/contact/">연락처</a>
+        <span class="menu-item--disabled" aria-disabled="true">구매</span>
+      
+    </nav>
 
-<table class="list-table" id="archive-table">
-  <colgroup>
-    <col class="col-doc">
-    <col class="col-title">
-    <col class="col-cat">
-    <col class="col-year">
-  </colgroup>
-
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    
-    
-    
-    
-    
-      
-      
-    
-    
-      
-      
-      
-      
-      <tr data-title="컨셉아트: 서울역 폭발" data-doc="8" data-cat="프로젝트"
-          data-year="2023">
-        <td>8</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;works&#x2F;project&#x2F;pr-002&#x2F;">
-    컨셉아트: 서울역 폭발
-  </a>
-</td>
-        <td>프로젝트</td>
-        <td>2023</td>
-      </tr>
-    
-      
-      
-      
-      
-      <tr data-title="동글 (데모)" data-doc="6" data-cat="프로젝트"
-          data-year="2024">
-        <td>6</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;works&#x2F;project&#x2F;pr-001&#x2F;">
-    동글 (데모)
-  </a>
-</td>
-        <td>프로젝트</td>
-        <td>2024</td>
-      </tr>
-    
-      
-      
-      
-      
-      <tr data-title="‘신시사이저’에 대한 워크샵: dct 신시사이징 i" data-doc="15" data-cat="워크샵 실천"
-          data-year="2025">
-        <td>15</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;works&#x2F;workshop-practice&#x2F;wsp-001&#x2F;">
-    ‘신시사이저’에 대한 워크샵: DCT 신시사이징 I
-  </a>
-</td>
-        <td>워크샵 실천</td>
-        <td>2025</td>
-      </tr>
-    
-      
-      
-      
-      
-      <tr data-title="열두 장의 꽃 사진에서 열두 개 실루엣의 조합으로" data-doc="14" data-cat="프로젝트"
-          data-year="2025">
-        <td>14</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;works&#x2F;project&#x2F;pr-004&#x2F;">
-    열두 장의 꽃 사진에서 열두 개 실루엣의 조합으로
-  </a>
-</td>
-        <td>프로젝트</td>
-        <td>2025</td>
-      </tr>
-    
-      
-      
-      
-      
-      <tr data-title="‘신시사이저’에 대한 워크샵" data-doc="12" data-cat="워크샵"
-          data-year="2025">
-        <td>12</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;works&#x2F;workshop&#x2F;ws-001&#x2F;">
-    ‘신시사이저’에 대한 워크샵
-  </a>
-</td>
-        <td>워크샵</td>
-        <td>2025</td>
-      </tr>
-    
-      
-      
-      
-      
-      <tr data-title="무작위 실루엣" data-doc="9" data-cat="프로젝트"
-          data-year="2024">
-        <td>9</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;works&#x2F;project&#x2F;pr-003&#x2F;">
-    무작위 실루엣
-  </a>
-</td>
-        <td>프로젝트</td>
-        <td>2024</td>
-      </tr>
-    
-
-    
-    
-    
-    
-    
-      
-      
-    
-    
-      
+    <main id="content">
       
 
-    
-    
-    
-    
-    
-      
-      
-    
-    
-      
-      
-      
-      
-      <tr data-title="프로-프로그래마틱" data-doc="11" data-cat="참조"
-          data-year="">
-        <td>11</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;glossary&#x2F;gl-003&#x2F;">
-    프로-프로그래마틱
-  </a>
-</td>
-        <td>참조</td>
-        <td>–</td>
-      </tr>
-    
-      
-      
-      
-      
-      <tr data-title="개념미술에 관한 문장들" data-doc="5" data-cat="참조"
-          data-year="">
-        <td>5</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;glossary&#x2F;gl-002&#x2F;">
-    개념미술에 관한 문장들
-  </a>
-</td>
-        <td>참조</td>
-        <td>–</td>
-      </tr>
-    
-      
-      
-      
-      
-      <tr data-title="잠재문학 제1선언문" data-doc="4" data-cat="참조"
-          data-year="">
-        <td>4</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;glossary&#x2F;gl-001&#x2F;">
-    잠재문학 제1선언문
-  </a>
-</td>
-        <td>참조</td>
-        <td>–</td>
-      </tr>
-    
+    </main>
 
+<footer class="footer" role="contentinfo">
+  <p class="footer__text">
+    © 2026 <span id="footer-site-title"></span><span class="footer-sep"></span>
     
+      <span class="footer-msg">이 웹사이트는 <span id="footer-variant">(당분간은)</span> 제작중이다.</span>
     
-    
-    
-    
-      
-      
-    
-    
-      
-      
-      
-      
-      <tr data-title="모듈" data-doc="7" data-cat="방법"
-          data-year="">
-        <td>7</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;method&#x2F;mt-001&#x2F;">
-    모듈
-  </a>
-</td>
-        <td>방법</td>
-        <td>–</td>
-      </tr>
-    
-      
-      
-      
-      
-      <tr data-title="이미지 트레이스" data-doc="10" data-cat="방법"
-          data-year="">
-        <td>10</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;method&#x2F;mt-002&#x2F;">
-    이미지 트레이스
-  </a>
-</td>
-        <td>방법</td>
-        <td>–</td>
-      </tr>
-    
+  </p>
 
-    
-    
-    
-    
-    
-      
-      
-    
-    
-      
-      
-      
-      
-      <tr data-title="잠재이미지" data-doc="3" data-cat="생각"
-          data-year="2025">
-        <td>3</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;thought&#x2F;th-001&#x2F;">
-    잠재이미지
-  </a>
-</td>
-        <td>생각</td>
-        <td>2025</td>
-      </tr>
-    
-      
-      
-      
-      
-      <tr data-title="저해상 이미지와 노스탤지어" data-doc="13" data-cat="생각"
-          data-year="2025">
-        <td>13</td>
-        
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;thought&#x2F;th-002&#x2F;">
-    저해상 이미지와 노스탤지어
-  </a>
-</td>
-        <td>생각</td>
-        <td>2025</td>
-      </tr>
-    
-
-    
-    
-      
-    
-    
-      
-      
-        
-        
-        <tr data-title="소개" data-doc="1" data-cat="소개"
-            data-year="">
-          <td>1</td>
-          
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;about&#x2F;about&#x2F;">
-    소개
-  </a>
-</td>
-          <td>소개</td>
-          <td>–</td>
-        </tr>
-      
-    
-
-    
-    
-      
-    
-    
-      
-      
-        
-        
-        <tr data-title="연락처" data-doc="2" data-cat="연락처"
-            data-year="">
-          <td>2</td>
-          
-<td class="title-cell">
-  <a href="https:&#x2F;&#x2F;j-h-a-r-c-h-i-v-e.com&#x2F;kr&#x2F;contact&#x2F;contact&#x2F;">
-    연락처
-  </a>
-</td>
-          <td>연락처</td>
-          <td>–</td>
-        </tr>
-      
-    
-  </tbody>
-</table>
-
-
+</footer>
 
 <script>
-(function () {
-  const table = document.getElementById('archive-table');
-  if (!table) return;
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("menu-toggle");
+    const menu = document.getElementById("global-menu");
+    if (!btn || !menu) return;
 
-  const tbody = table.querySelector('tbody');
+    const openMenu = () => {
+      menu.hidden = false;
+      btn.setAttribute("aria-expanded", "true");
+      document.body.classList.add("menu-open");
+    };
 
-  function sortRows(key, type, order) {
-    const rows = Array.from(tbody.querySelectorAll('tr'));
-    const dir = (order === 'desc') ? -1 : 1;
-    rows.sort((a, b) => {
-      let va = a.dataset[key] ?? '';
-      let vb = b.dataset[key] ?? '';
-      if (type === 'num') {
-        const na = parseInt(va, 10);
-        const nb = parseInt(vb, 10);
-        const aValid = Number.isFinite(na);
-        const bValid = Number.isFinite(nb);
-        if (aValid && bValid) return (na - nb) * dir;
-        if (aValid && !bValid) return -1;
-        if (!aValid && bValid) return 1;
-        return 0;
-      } else {
-        va = (va || '').toString();
-        vb = (vb || '').toString();
-        return va.localeCompare(vb) * dir;
+    const closeMenu = () => {
+      menu.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("menu-open");
+    };
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      expanded ? closeMenu() : openMenu();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        closeMenu();
       }
     });
-    rows.forEach(r => tbody.appendChild(r));
-  }
 
-  const qs = new URLSearchParams(location.search);
-  const initKey = qs.get('sort') || 'doc';
-  const initOrder = qs.get('order') || 'desc';
-  const inferType = (k) => (k === 'doc' || k === 'year') ? 'num' : 'str';
-  sortRows(initKey, inferType(initKey), initOrder);
-})();
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+  });
 </script>
 
-      </main>
-    </div>
 
-    <!-- Footer -->
-    <footer class="site-footer" role="contentinfo" aria-label="site footer">
-      <p class="site-footer__text">
-        j-h, jaydashaitch, online archive of jae hyeon lee. ©2025 jaehyeon lee
-      </p>
-      <p class="site-footer__text--mobile">
-        j-h, ©2025 jaehyeon lee
-      </p>
-    </footer>
-
-    <!-- Hangul span 래핑 스크립트 -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const HANGUL_RE = /([\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A3]+)/g;
-        const SKIP_SELECTOR = 'pre, code, kbd, samp, script, style';
-        const walker = document.createTreeWalker(
-          document.body,
-          NodeFilter.SHOW_TEXT,
-          {
-            acceptNode(node) {
-              if (!node.nodeValue || !HANGUL_RE.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
-              let p = node.parentNode;
-              while (p && p !== document.body) {
-                if (p.matches && p.matches(SKIP_SELECTOR)) return NodeFilter.FILTER_REJECT;
-                p = p.parentNode;
-              }
-              return NodeFilter.FILTER_ACCEPT;
-            }
-          }
-        );
-        const texts = [];
-        let n;
-        while (n = walker.nextNode()) texts.push(n);
-        for (const text of texts) {
-          const span = document.createElement('span');
-          span.innerHTML = text.nodeValue.replace(HANGUL_RE, '<span class="han">$1</span>');
-          text.parentNode.replaceChild(span, text);
-        }
-      });
-    </script>
-
-    <!-- ✅ Mobile Menu Script -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const btn = document.getElementById("menu-toggle");
-        const menu = document.getElementById("nav-menu");
-        if (!btn || !menu) return;
-
-        function closeMenu() {
-          menu.classList.remove("open");
-          btn.setAttribute("aria-expanded", "false");
-        }
-
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const isOpen = menu.classList.toggle("open");
-          btn.setAttribute("aria-expanded", String(isOpen));
-        });
-
-        document.addEventListener("click", (e) => {
-          if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
-        });
-
-        window.addEventListener("resize", () => {
-          if (window.innerWidth > 600) closeMenu();
-        });
+        const currentHost = window.location.hostname;
+        document
+          .querySelectorAll('a[href^="http"]')
+          .forEach(link => {
+            const url = new URL(link.href);
+            if (url.hostname !== currentHost) {
+              link.setAttribute("target", "_blank");
+              link.setAttribute("rel", "noopener noreferrer");
+            }
+          });
       });
     </script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.__FN_WIRED__) return;
-    window.__FN_WIRED__ = true;
-  
-    /* =========================
-       설정값
-       ========================= */
-    const SCROLL_MS   = 300;   // 부드럽지만 빠르게
-    const HL_IN_MS    = 200;   // 페이드 인
-    const HL_OUT_MS   = 700;   // 페이드 아웃(느리게)
-    const HL_HOLD_MS  = 800;   // 유지 시간(짧게 유지 후 서서히 사라짐)
-  
-/* =========================
-   스크롤 유틸 (컨테이너 대응, quintic S-curve + out-bias)
-   ========================= */
-   const isScrollable = (el) => {
-  if (!el) return false;
-  const s = getComputedStyle(el);
-  const oy = s.overflowY;
-  return (oy === "auto" || oy === "scroll") && el.scrollHeight > el.clientHeight;
-};
+    <script>
+      const SITE_TITLES = [
+      "J—H",
+      "j—h",
+      "Jaydashaitch",
+      "제이대시에이치",
+      "제이에이치",
+      "제이(대시)에이치",
+      "JAY(DASH)AITCH",
+      "재현",
+      "재(대시)현",
+      "JH ARCHIVE",
+      "JAEHYEON LEE",
+      "JAEHYEON",
+      "jay—aitch",
+      "JAE(DASH)HYEON"
+      ];
 
-const getScrollContainer = (el) => {
-  let node = el.parentElement;
-  while (node && node !== document.body && node !== document.documentElement) {
-    if (isScrollable(node)) return node;
-    node = node.parentElement;
-  }
-  return document.scrollingElement || document.documentElement || document.body;
-};
-
-/* =========================
-   스크롤 애니메이션 (quintic S-curve + out-bias)
-   - 부드러운 시작, 끈적한 감속
-   ========================= */
-const easeInOutSticky = (t) => {
-  // Quintic smoothstep (C2 연속, S-curve)
-  const t2 = t * t, t3 = t2 * t, t4 = t2 * t2, t5 = t4 * t;
-  const base = 6 * t5 - 15 * t4 + 10 * t3; // 기본 S-curve
-  const OUT_BIAS = 1.12; // 1.0~1.2 권장 (↑ = 더 끈적한 감속)
-  return 1 - Math.pow(1 - base, OUT_BIAS);
-};
-
-const scrollToTarget = (container, target, ms = SCROLL_MS, offsetY = 0) =>
-  new Promise((resolve) => {
-    const containerIsDoc =
-      container === document.scrollingElement ||
-      container === document.documentElement ||
-      container === document.body;
-
-    const containerRect = containerIsDoc
-      ? { top: 0 }
-      : container.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
-
-    const start = containerIsDoc
-      ? window.pageYOffset || document.documentElement.scrollTop
-      : container.scrollTop;
-
-    const targetY = start + (targetRect.top - containerRect.top) + offsetY;
-
-    if (ms <= 0) {
-      if (containerIsDoc) window.scrollTo(0, targetY);
-      else container.scrollTop = targetY;
-      resolve();
-      return;
-    }
-
-    const startTime = performance.now();
-    const step = (now) => {
-      const t = Math.min(1, (now - startTime) / ms);
-      const eased = easeInOutSticky(t);
-      const y = start + (targetY - start) * eased;
-
-      if (containerIsDoc) window.scrollTo(0, y);
-      else container.scrollTop = y;
-
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else {
-        if (containerIsDoc) window.scrollTo(0, targetY);
-        else container.scrollTop = targetY;
-        resolve();
+      function pickRandom(list) {
+        return list[Math.floor(Math.random() * list.length)];
       }
-    };
 
-    requestAnimationFrame(step);
-  });
+      function pickRandomDifferent(list, current) {
+        const pool = list.filter(item => item !== current);
+        return pool.length
+          ? pool[Math.floor(Math.random() * pool.length)]
+          : current;
+      }
 
-  
-    /* =========================
-       하이라이트 (빠른 IN → 유지 → 느린 OUT)
-       ========================= */
-    const highlight = (host, hold = HL_HOLD_MS) => {
-      if (!host) return;
-      host.classList.add('fn-hl');  // 초기 상태(투명) + 트랜지션 규칙
-      // 다음 프레임에 ON
-      requestAnimationFrame(() => {
-        host.style.setProperty('--fn-hl-in',  `${HL_IN_MS}ms`);
-        host.style.setProperty('--fn-hl-out', `${HL_OUT_MS}ms`);
-        host.classList.add('is-on');           // 빠르게 켜짐
-        setTimeout(() => {
-          host.classList.add('is-fading');     // 느리게 꺼짐
-          host.classList.remove('is-on');
-          setTimeout(() => host.classList.remove('fn-hl', 'is-fading'), HL_OUT_MS + 30);
-        }, hold);
-      });
-    };
-  
-    /* =========================
-       매핑: 본문 참조 ↔ 각주 블록
-       ========================= */
-    const allIds = new Set([...document.querySelectorAll('[id]')].map(el => el.id));
-    const bodyLinks = [...document.querySelectorAll('.page-content a[href^="#"]')]
-      .filter(a => !a.closest('.footnote-definition') && !a.closest('.footnotes'));
-  
-    const footnoteIds = new Set(
-      bodyLinks
-        .map(a => (a.getAttribute('href') || '').slice(1))
-        .filter(id => id && allIds.has(id))
-    );
-  
-    const getFootnoteBlock = (id) => {
-      const el = document.getElementById(id);
-      return el
-        ? (el.closest('.footnote-definition') || el.closest('.footnotes li[id^="fn"]') || el)
-        : null;
-    };
-  
-    const backMap = new Map();
-    bodyLinks
-      .filter(a => footnoteIds.has((a.getAttribute('href') || '').slice(1)))
-      .forEach(a => {
-        const id = a.getAttribute('href').slice(1);
-        const sup = a.closest('sup[id^="fnref"]') || a.closest('sup');
-        const target = sup || a;
-        if (!target.id) {
-          let base = `fnref-auto-${id}`, i = 1, uid = base;
-          while (document.getElementById(uid)) uid = `${base}-${i++}`;
-          target.id = uid;
+      (function () {
+        const titleEl = document.getElementById("site-title");
+        const footerEl = document.getElementById("footer-site-title");
+        if (!titleEl || !footerEl) return;
+
+        const KEY = "jh_site_title";
+
+        const applyTitle = (value) => {
+          titleEl.textContent = value;
+          footerEl.textContent = value;
+        };
+
+        if (!sessionStorage.getItem(KEY)) {
+          sessionStorage.setItem(KEY, pickRandom(SITE_TITLES));
         }
-        backMap.set(id, target.id);
-      });
-  
-    /* =========================
-       이벤트: 본문 → 각주
-       ========================= */
-    document.addEventListener('click', async (e) => {
-      const ref = e.target.closest('.page-content a[href^="#"]');
-      if (!ref || ref.closest('.footnote-definition') || ref.closest('.footnotes')) return;
-  
-      const hash = ref.getAttribute('href') || '';
-      if (!hash.startsWith('#')) return;
-  
-      const id = hash.slice(1);
-      if (!footnoteIds.has(id)) return;
-  
-      e.preventDefault();
-      const fnBlock = getFootnoteBlock(id);
-      if (!fnBlock) return;
-  
-      const container = getScrollContainer(fnBlock);
-      await scrollToTarget(container, fnBlock, SCROLL_MS, 0);
-      history.pushState(null, '', `#${id}`);
-      highlight(fnBlock, HL_HOLD_MS);
-    });
-  
-    /* =========================
-       이벤트: 각주 → 본문
-       ========================= */
-    document.addEventListener('click', async (e) => {
-      const a = e.target.closest('a');
-      if (a) {
-        const href = a.getAttribute('href') || '';
-        if (href && !href.startsWith('#')) return; // 외부 링크는 방해하지 않음
-      }
-  
-      let node = e.target.closest('[id]');
-      while (node) {
-        const id = node.id;
-        if (footnoteIds.has(id)) {
-          const backId = backMap.get(id);
-          if (backId) {
-            e.preventDefault();
-            const backEl = document.getElementById(backId) || document.querySelector(`a[href="#${id}"]`);
-            if (!backEl) return;
-            const container = getScrollContainer(backEl);
-            await scrollToTarget(container, backEl, SCROLL_MS, 0);
-            history.pushState(null, '', `#${backId}`);
-            highlight(backEl, HL_HOLD_MS);
-          }
-          return;
-        }
-        node = node.parentElement;
-      }
-    });
-  
-    /* =========================
-       해시 진입/변경 시 하이라이트
-       ========================= */
-    const flashFromHash = async () => {
-      const id = location.hash.slice(1);
-      if (!id) return;
-      const el = document.getElementById(id);
-      if (!el) return;
-      const target = el.closest('.footnote-definition') || el.closest('.footnotes li[id^="fn"]') || el;
-      const container = getScrollContainer(target);
-  
-      // 뷰포트 안에 대략 보이는지 검사
-      const viewTop = (container === document.scrollingElement || container === document.documentElement || container === document.body)
-        ? 0
-        : container.getBoundingClientRect().top;
-      const r = target.getBoundingClientRect();
-      const inView = (r.top - viewTop) >= 0 && (r.bottom - viewTop) <= (container.clientHeight || window.innerHeight);
-  
-      if (!inView) await scrollToTarget(container, target, SCROLL_MS, 0);
-      highlight(target, HL_HOLD_MS);
-    };
-  
-    window.addEventListener('hashchange', () => setTimeout(flashFromHash, 30));
-    if (location.hash) setTimeout(flashFromHash, 60);
-  });
-  </script>
-  
-  
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.page-content ol > li').forEach(li => {
-        // 이미 래퍼가 있으면 생략
-        if (li.querySelector(':scope > .li-body')) return;
-    
-        const body = document.createElement('span'); // inline semantics 유지
-        body.className = 'li-body';
-    
-        // 숫자 마커(::before) 외 모든 노드를 li-body로 이동
-        while (li.firstChild) body.appendChild(li.firstChild);
-        li.appendChild(body);
-      });
-    });
+        applyTitle(sessionStorage.getItem(KEY));
+
+        titleEl.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          const current = sessionStorage.getItem(KEY);
+          const next = pickRandomDifferent(SITE_TITLES, current);
+
+          sessionStorage.setItem(KEY, next);
+          applyTitle(next);
+
+          setTimeout(() => {
+            window.location.href = titleEl.href;
+          }, 80);
+        });
+      })();
     </script>
 
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const currentHost = window.location.hostname;
-    const links = document.querySelectorAll('a[href^="http"]');
-  
-    links.forEach(link => {
-      const url = new URL(link.href);
-      if (url.hostname !== currentHost) {
-        link.setAttribute("target", "_blank");
-        link.setAttribute("rel", "noopener noreferrer");
-      }
-    });
-  });
-  </script>
-
-
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const target = document.getElementById("footer-variant");
+        if (!target) return;
+      
+        const lang = document.documentElement.lang;
+      
+        const variants = lang === "ko"
+          ? [
+              "(한동안은)",
+              "(당분간은)",
+              "(얼마간은)",
+              "(현재로서는)",
+              "(일단은)",
+              "(우선은)",
+              "(잠시나마)",
+              "(당장까지는)",
+              "(지금으로서는)",
+              "(일정 기간동안은)",
+              "(잠정적으로)",
+              "(잠시 동안은)",
+              "(지금은 계속)"
+            ]
+          : [
+              "(for a while)",
+              "(for now)",
+              "(for the time being)",
+              "(temporarily)",
+              "(for the moment)",
+              "(in the meantime)",
+              "(for some time)",
+              "(briefly)",
+              "(until further notice)",
+              "(as of now)",
+              "(for a certain period)",
+              "(still)",
+              "(for a short while)"
+            ];
+      
+        let current = target.textContent;
+      
+        const pickNext = () => {
+          let next;
+          do {
+            next = variants[Math.floor(Math.random() * variants.length)];
+          } while (next === current);
+      
+          current = next;
+          target.textContent = next;
+        };
+      
+        setInterval(pickNext, 1000);
+      });
+      </script>
   
   </body>
 </html>

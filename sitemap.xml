@@ -10,6 +10,9 @@
         <loc>https://j-h-a-r-c-h-i-v-e.com/about/about/</loc>
     </url>
     <url>
+        <loc>https://j-h-a-r-c-h-i-v-e.com/allarchive/</loc>
+    </url>
+    <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/contact/</loc>
     </url>
     <url>
@@ -37,6 +40,9 @@
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/about/about/</loc>
     </url>
     <url>
+        <loc>https://j-h-a-r-c-h-i-v-e.com/kr/allarchive/</loc>
+    </url>
+    <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/contact/</loc>
     </url>
     <url>
@@ -59,9 +65,11 @@
     </url>
     <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/method/mt-001/</loc>
+        <lastmod>2025-10-01</lastmod>
     </url>
     <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/method/mt-002/</loc>
+        <lastmod>2025-11-01</lastmod>
     </url>
     <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/shop/</loc>
@@ -121,9 +129,11 @@
     </url>
     <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/method/mt-001/</loc>
+        <lastmod>2025-10-01</lastmod>
     </url>
     <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/method/mt-002/</loc>
+        <lastmod>2025-11-01</lastmod>
     </url>
     <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/shop/</loc>

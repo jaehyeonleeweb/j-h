@@ -1,156 +1,277 @@
 <!DOCTYPE html>
 
+
   
-  
+
+
+<script>
+  console.log("current_path:", "/kr/works/workshop-practice/wsp-001/");
+</script>
+
+<script>
+  console.log("lang:", "kr");
+  console.log("section.lang:", "(no section)");
+  console.log("page.lang:", "kr");
+</script>
 
 
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <title>‘신시사이저’에 대한 워크샵: DCT 신시사이징 I · j-h</title>
+    <title>‘신시사이저’에 대한 워크샵: DCT 신시사이징 I, 제이대시에이치</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    
-    <!-- 0) 첫 페인트부터 폴백 감추기 (FOUT/FOIT 방지) -->
-    <style>
-      html:not(.wf-active):not(.wf-inactive) body { visibility: hidden; }
-      html.wf-loading body { visibility: hidden; }
-      html.wf-active body,
-      html.wf-inactive body { visibility: visible; }
-      html.wf-active body { animation: fontFadeIn .18s ease-out; }
-      @keyframes fontFadeIn { from { opacity: 0 } to { opacity: 1 } }
-    </style>
 
-    <!-- 1) 폰트 커넥션 선연결 -->
-    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-    <link rel="preconnect" href="https://p.typekit.net" crossorigin>
-
-    <!-- 2) Typekit 로더 -->
-    <script>
-      (function(d) {
-        var config = { kitId: 'efe0obd', scriptTimeout: 3000, async: true },
-            h = d.documentElement,
-            t = setTimeout(function() {
-              h.className = h.className.replace(/\bwf-loading\b/g,"") + " wf-inactive";
-            }, config.scriptTimeout),
-            tk = d.createElement("script"),
-            f = false,
-            s = d.getElementsByTagName("script")[0],
-            a;
-        h.className += " wf-loading";
-        tk.src = "https://use.typekit.net/" + config.kitId + ".js";
-        tk.async = true;
-        tk.onload = tk.onreadystatechange = function() {
-          a = this.readyState;
-          if (f || (a && a !== "complete" && a !== "loaded")) return;
-          f = true; clearTimeout(t);
-          try { Typekit.load(config); } catch (e) {}
-        };
-        s.parentNode.insertBefore(tk, s);
-      })(document);
-    </script>
-
-    <!-- (선택) 개발 중 편의 -->
-    <link rel="stylesheet" href="https://use.typekit.net/efe0obd.css">
     <link rel="stylesheet" href="/css/main.css">
   </head>
 
   <body>
-    <!-- 전체 2단 그리드 -->
-    <div class="shell">
-      <!-- 좌측: 세로 메뉴 -->
-      <aside class="site-nav">
-        <!-- ✅ 모바일 상단 바 (≤600px에서 보이도록 CSS 제어) -->
-        <div class="nav-bar" role="navigation" aria-label="mobile top bar">
-          <button class="nav-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-menu">menu</button>
+    <header class="header" role="banner">
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        aria-expanded="false"
+        aria-controls="global-menu"
+      >
+       
+          메뉴
+       
+      </button>
+
+      <a href="&#x2F;kr/" class="site-title" id="site-title"></a>
+
+      <span class="lang-toggle" data-lang="kr">
+        
+        <span class="ko">한</span>
+        <span class="sep"> / </span>
+        
+          <a href="&#x2F;works&#x2F;workshop-practice&#x2F;wsp-001&#x2F;" class="en">EN</a>
+        
+        
+      </span>
+      
+    </header>
+
+    <nav
+      id="global-menu"
+      class="global-menu"
+      aria-label="primary"
+      hidden
+    >
+      
+        <a href="&#x2F;kr/allarchive/">모든 아카이브</a>
+        
+        <a href="&#x2F;kr/about/">이 웹에 대하여</a>
+        <a href="&#x2F;kr/contact/">연락처</a>
+        <span class="menu-item--disabled" aria-disabled="true">구매</span>
+      
+    </nav>
+
+    <main id="content">
+      
+
+<article class="page-two-col" role="article">
+
+  <aside class="page-meta" role="complementary">
+
+    <div class="meta-block meta-title">
+      <strong>‘신시사이저’에 대한 워크샵: DCT 신시사이징 I</strong>
+    </div>
+
+    <div class="meta-block meta-data">
+
+      
+        <div class="meta-line">
           
-            <a href="&#x2F;works&#x2F;workshop-practice&#x2F;wsp-001&#x2F;" class="lang-toggle">en</a>
+            문서 번호 → [15]
           
         </div>
-
-        <!-- ✅ 메인 메뉴: 데스크탑에서 항상 보이고, 모바일에선 토글 대상 -->
-        <nav id="nav-menu" aria-label="primary">
-          <a href="&#x2F;kr/">all archive</a><br>
-          <a href="&#x2F;kr/works/">works</a><br>
-          <a href="&#x2F;kr/about/">about</a><br>
-          <a href="&#x2F;kr/contact/">contact</a><br>
-        
-          <!-- ⛔️ 비활성: 링크 대신 span, 클릭 불가, 회색(60%) -->
-          <span class="nav-item nav-item--disabled" aria-disabled="true" title="Coming soon">shop</span>
-        </nav>
-
-        <!-- ✅ 데스크탑 전용 언어 토글: 메뉴 '아래 한 칸'에 표시 (모바일에선 CSS로 숨김) -->
-        <div class="lang-toggle--desktop">
+      
+    
+      
+        <div class="meta-line">
           
-            <a href="&#x2F;works&#x2F;workshop-practice&#x2F;wsp-001&#x2F;">en</a>
+            카테고리 → [워크샵 실천]
           
         </div>
-      </aside>
-
-      <!-- 우측: 콘텐츠 -->
-      <main class="site-main">
+      
+    
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <div class="meta-line">
         
-
-
-<article class="page-two-col">
-  
-  <aside class="page-meta">
-    <dl class="meta-list">
-      
-        <dt><h1>document no.:</h1></dt>
-        <dd>15</dd>
-      
-  
-      
-        <dt><h1>category:</h1></dt>
-        <dd>워크샵 실천</dd>
-      
-  
-      
-        <dt><h1>date:</h1></dt>
-        <dd>2025년 12월</dd>
-      
-  
-      
-  
-      
-      <dt><h1>link:</h1></dt>
-      <dd class="meta-link">
-        <a href="&#x2F;kr&#x2F;works&#x2F;workshop&#x2F;ws-001&#x2F;">
-          ‘신시사이저’에 대한 워크샵
-        </a>
-      </dd>
-      
-  
-      
+          날짜 →
+        
+    
+        
+        
+          [2025년 12월]
+        
+      </div>
+    
 
       
+      
+    
+      <div class="meta-line">
+        
+          
+            관련한 문서 →
+          
+        
+    
+        
+          
+            [<a href="&#x2F;kr&#x2F;works&#x2F;workshop&#x2F;ws-001&#x2F;">‘신시사이저’에 대한 워크샵</a>]
+          
+        
+      </div>
+    
+  
+  
+    
+    </div>
+    
 
-    </dl>
+    
+    <div class="meta-block meta-desc">
+      
+        <div class="meta-line">
+          → 이 실천은 <a href="/kr/works/workshop/ws-001/">‘신시사이저’에 대한 워크샵</a>을 따른다.
+        </div>
+      
+        <div class="meta-line">
+          → (워크샵과 실천의 관계는 <a href="/about/about/">이 웹에 대하여</a>를 참고.)
+        </div>
+      
+    </div>
+    
+    
+
+    
+    <div class="meta-block meta-notes">
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="1"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">1</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            이 글에서 이미지란 우선 2차원의 평면 이미지를 뜻하는 것으로 한정한다.
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="2"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">2</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            이미지의 3가지 속성은 국민대학교 시각디자인학과 성재혁 교수의 의견을 따른다.
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="3"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">3</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            JPG에 대한 설명을 담은, 이 실천을 위해 도움받은 영상: <a rel="external" href="https://youtu.be/Kv1Hiv3ox8I?si=iVc1zerfmSAGd9qW">youtu.be/Kv1Hiv3ox8I?si=iVc1zerfmSAGd9qW</a>
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="4"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">4</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            64가지의 DCT 패턴은 가로와 세로 주파수의 조합으로 이루어진다. JPG가 다루는 이미지는 2차원의 평면 이미지이므로 가로와 세로 2개의 축이 필요하기 때문이다. 또한 8×8 픽셀에서 나올 수 있는 가로, 세로의 주파수는 각 8종류이기 때문에 모든 경우의 수는 64가지 패턴이 된다.
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="5"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">5</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            엄밀하게는 JPG의 역과정이 온전히 성립하지는 않는다. 디지털 이미지의 압축방식은 크게 손실 압축과 무손실 압축으로 나뉘는데, JPG는 전자의 대표적 예시이고 PNG와 GIF등이 후자의 대표적 예이다. (통상 디지털 이미지를 다뤄본 사람이라면 경험적으로 전자의 포맷이 후자보다 가볍다는 사실을 알거나 느끼고 있다.) 즉, JPG는 압축 전의 원본 정보를 온전히 가지지 못한다. <br>하지만 이는 JPG의 양자화 과정에서 일어나는 손실일 뿐, DCT 자체는 온전한 역이 성립할 수 있다. JPG로 압축된 이미지를 원본으로 되돌리기 위해서는 역 이산 코사인 변환(이하 IDCT)과정을 거쳐야 하는데, 이 경우 IDCT는 손실을 동반하지 않는다. 이는 DCT가 푸리에 변환에 근거한 변환 방식이기 때문이다. 이러한 근거로, 나는 DCT의 원리가 이미지 신시사이징 응용에 적용하기 적절한 소재라고 판단하게 되었다.
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="6"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">6</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            이미지 생성 작업은 모두 파이썬 스크립트를 통해 제작되었다. 각 주파수 가중치를 1과 0으로 할당하여 이미지를 생성했으며, 4×4 픽셀의 결과 이미지를 보기 편하도록 40×40 픽셀의 크기로 확대시켰다. 이 글에 첨부된 형상 이미지는 모두 40×40 픽셀로 업스케일링된 이미지다.
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="7"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">7</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            모든 칸이 다른 패턴으로 채워진 이미지의 경우의 수는 배제한다. 이 경우만으로 43,680가지의 이미지가 형성되는데, 구조적 중요성에 비해 지나치게 많은 수라 일단 제외했다. A부터 D까지의 이미지만으로도 이미지 합성의 원리를 탐구하기에는 충분하다고 판단했다.
+          </span>
+        </div>
+      
+    </div>
+    
+    
+
   </aside>
 
   <div class="page-body page-content">
-    
-    <h1 class="display-title">
-      ‘신시사이저’에 대한 워크샵: DCT 신시사이징 I
-    </h1>
-    <hr />
-<h3 id="i-silceoneun-sinsisaijeo-e-daehan-weokeusyabeul-ddareunda">이 실천은 <a href="/kr/works/workshop/ws-001/">‘신시사이저’에 대한 워크샵</a>을 따른다.</h3>
-<br>
-<hr />
-<p><strong>0. 이미지 합성에 대하여</strong><br>
+
+    <p><strong>0. 이미지 합성에 대하여</strong><br>
 <a href="/kr/works/workshop/ws-001/">‘신시사이저’에 대한 워크샵</a>에서 이야기한 대로 신시사이저의 합성 원리는 주파수의 합을 기반으로 확장된다. 나는 이 원리를 오디오의 측면이 아니라 시각 이미지의 영역으로 끌어들이고자 한다. 이에 앞서 몇 가지 조건을 짚고 넘어가자.
 <br><br></p>
 <p><strong>1. 이미지의 기본 요소</strong><br>
-오디오의 합성의 기본 요소가 사인파로 간단히 정의되는 반면, 이미지의 세계에서 바탕이 될만한 기본 요소는 쉽사리 떠오르지 않는다. 어떻게 찾을 수 있을까?<sup class="footnote-reference"><a href="#1">1</a></sup>
+오디오의 합성의 기본 요소가 사인파로 간단히 정의되는 반면, 이미지의 세계에서 바탕이 될만한 기본 요소는 쉽사리 떠오르지 않는다. 어떻게 찾을 수 있을까?<sup class="footnote-reference" id="fr-1-1"><a href="#fn-1">1</a></sup>
 <br><br>
 먼저, 이미지를 다루는 것은 소리에 비해 복잡한 일이라는 점을 짚고 넘어가자. 1차원의 파동으로만 이루어지는 소리에 반해, 이미지는 x축과 y축을 가진 2차원의 공간적 개념이다. 따라서 시각적 정보의 주파수는 그 방향이 더욱 복잡해진다. 또한, 눈의 분해능은 귀보다 훨씬 높다. 다시말해 해상도가 더 높다는 것이다. 이러한 두 가지 사실은 우리가 시각 이미지에서 해석해내야 할—혹은 전달해야 할—정보의 양이 소리보다 더 많다는 것을 의미한다.
 <br><br>
 본 실천의 목적은 이미지의 모든 속성을 명확하게 밝히는 데에 있지 않다. 그것은 너무나 방대한 주제다. 한정된 범위 내에서 이미지의 합성이 어떻게 작동할 수 있을지 사변해보는 것으로 충분하다. 실례로, 세상에 존재하는 어떤 신시사이저도 사인파의 합성만으로 모든 소리를 제작할 수 있다는 근본원리를 엄격히 따르지는 않는다. 세계의 복잡도를 온전히 담아낼만한 무수한 오실레이터를 마련하는 것이 불가능에 가깝기 때문이다. 따라서 본 실천은 이미지 합성에 대한 한 가지 접근방식을 취해보고 그 잠재성을 탐구하는 것을 목표로 한다.
 <br><br></p>
 <p><strong>2. 이미지의 속성</strong><br>
-먼저 이미지의 속성을 3가지로 구분하자.<sup class="footnote-reference"><a href="#2">2</a></sup></p>
+먼저 이미지의 속성을 3가지로 구분하자.<sup class="footnote-reference" id="fr-2-1"><a href="#fn-2">2</a></sup></p>
 <blockquote>
 <ol>
 <li>색</li>
@@ -161,11 +282,11 @@
 <p>이 중에서 색은 비교적 다른 속성과 명확히 구분되는 속성이지만, 나머지 둘은 그렇지 않다. 형태를 이미지 내의 특정한 형상 혹은 경계라고 하자면 질감은 이미지 내의 특정한 부위의 패턴 혹은 밀도의 변화라 할 수 있을 테다. 이러한 정의는 인간 직관의 영역에서는 꽤나 명확한 편이지만 기계적인 기준을 설정하기에는 까다롭다. 이에 따라 본 실천에서 응용하게 될 JPEG 압축의 원리를 따르는 과정에서 질감과 형태는 얼마간 구분되지 않은 채 정의될 것이다. 색에 대한 논의를 배제하고 형상—형태와 질감을 합쳐 이렇게 지칭해보자.—만의 합성으로 범위를 한정해두고자 한다.
 <br><br></p>
 <p><strong>3. JPEG 압축과 DCT</strong><br>
-JPEG 압축 방식(이하 JPG)은 디지털 이미지의 파일 크기를 줄여 저장하는 손실 압축(Lossy Compression) 방식 중 가장 널리 쓰이는 표준이다.<sup class="footnote-reference"><a href="#3">3</a></sup> 간단히 말하자면, JPG는 사람의 눈이 잘 인식하지 못하는 정보들은 중요하지 않은 것으로 간주하여 뭉개거나 삭제하는 방식—손실—으로 저장 용량을 줄인다. 이 과정에서 JPG는 이미지 정보를 크게 두 범주로 나누어 처리한다. 하나는 색이고 다른 하나는 형상이다.
+JPEG 압축 방식(이하 JPG)은 디지털 이미지의 파일 크기를 줄여 저장하는 손실 압축(Lossy Compression) 방식 중 가장 널리 쓰이는 표준이다.<sup class="footnote-reference" id="fr-3-1"><a href="#fn-3">3</a></sup> 간단히 말하자면, JPG는 사람의 눈이 잘 인식하지 못하는 정보들은 중요하지 않은 것으로 간주하여 뭉개거나 삭제하는 방식—손실—으로 저장 용량을 줄인다. 이 과정에서 JPG는 이미지 정보를 크게 두 범주로 나누어 처리한다. 하나는 색이고 다른 하나는 형상이다.
 <br><br>
 JPG는 색을 밝기 정보(Luminance)와 색상 정보(Chrominance)로 나누어 처리한다. 이 과정에서 밝기 정보는 색상 정보보다 중요한 것으로 간주되는데, 사람의 눈이 밝기 변화에 더 민감하기 때문이다. 이에 따라 JPG는 색상 정보를 희생(Subsampling)해 저장 공간을 줄인다. 압축된 디지털 이미지는 실제 색 정보를 일부 잃게 되지만 이 차이를 육안으로 명확히 구별하기는 어렵다. 결과적으로 JPG는 원본 이미지의 시각적인 품질 저하를 방어하면서 실제 데이터는 줄이는 효율적인 압축 방식이 된다.
 <br><br>
-JPG가 형상을 다루는 과정은 보다 복잡하다. 먼저, JPG는 전체 이미지를 8x8 픽셀의 블록으로 나누어 처리한다. 그리고 각 블록은 독립적으로 압축된다. (JPG 풍화 현상이라고 일컫는 디지털 이미지의 블록무늬는 이 과정에서 생겨난다.) 압축의 과정에서, 8x8 픽셀의 블록들은 이산 코사인 변환(이하 DCT)이라는 방식을 통해 64가지 기본 패턴들의 조합으로 변환된다. 이는 공간 영역의 정보를 주파수 영역의 정보로 변환하기 위함인데, 이 또한 사람의 눈이 판별하는 정보의 위계와 관련이 있다. 우리는 이미지의 큰 구조를 구성하는 저주파 성분을 잘 인식하는 반면, 세부적이고 형상의 변화가 복잡한 고주파 성분은 잘 인식하지 못한다. 때문에 JPG는 변환된 8x8 픽셀의 주파수 영역의 고주파 성분을 희생하는 방식으로 압축률을 높인다.
+JPG가 형상을 다루는 과정은 보다 복잡하다. 먼저, JPG는 전체 이미지를 8×8 픽셀의 블록으로 나누어 처리한다. 그리고 각 블록은 독립적으로 압축된다. (JPG 풍화 현상이라고 일컫는 디지털 이미지의 블록무늬는 이 과정에서 생겨난다.) 압축의 과정에서, 8×8 픽셀의 블록들은 이산 코사인 변환(이하 DCT)이라는 방식을 통해 64가지 기본 패턴들의 조합으로 변환된다. 이는 공간 영역의 정보를 주파수 영역의 정보로 변환하기 위함인데, 이 또한 사람의 눈이 판별하는 정보의 위계와 관련이 있다. 우리는 이미지의 큰 구조를 구성하는 저주파 성분을 잘 인식하는 반면, 세부적이고 형상의 변화가 복잡한 고주파 성분은 잘 인식하지 못한다. 때문에 JPG는 변환된 8×8 픽셀의 주파수 영역의 고주파 성분을 희생하는 방식으로 압축률을 높인다.
 <br><br></p>
 <figure class="img--fixed" style="max-width:240px;">
   <img src="/media/works/workshop-practice/wsp-001/jpg image.webp" alt="JPG Image">
@@ -176,486 +297,505 @@ JPG가 형상을 다루는 과정은 보다 복잡하다. 먼저, JPG는 전체 
 JPG의 DCT는 다음과 같은 과정을 거친다.</p>
 <blockquote>
 <ol>
-<li>8x8 픽셀 블록은 64가지 기본 패턴(주파수 계수)을 가진다.<sup class="footnote-reference"><a href="#4">4</a></sup></li>
-<li>원본 이미지를 8x8 픽셀의 블록으로 쪼개어 각 블록의 정보를 읽는다.</li>
+<li>8×8 픽셀 블록은 64가지 기본 패턴(주파수 계수)을 가진다.<sup class="footnote-reference" id="fr-4-1"><a href="#fn-4">4</a></sup></li>
+<li>원본 이미지를 8×8 픽셀의 블록으로 쪼개어 각 블록의 정보를 읽는다.</li>
 <li>블록의 정보는 DCT를 통해 64가지 패턴의 가중치 계수로 변환된다.</li>
 <li>가중치에 따라 64가지의 패턴은 조합되어 블록의 이미지를 구성한다.</li>
 <li>이 때 얼마나 많은 고주파를 희생하느냐에 따라 압축률이 달라진다.</li>
 </ol>
 </blockquote>
 <br>
-<figure class="img--bordered img--fixed" style="max-width:480px;">
-  <img src="/media/works/workshop-practice/wsp-001/dct 8x8.webp" alt="DCT 8x8">
+<figure class="img--fixed" style="max-width:480px;">
+  <img src="/media/works/workshop-practice/wsp-001/dct 8x8.webp" alt="DCT 8×8">
   <figcaption>DCT 블록의 기본 패턴 (8x8)</figcaption>
 </figure>
 <br><br>
 <p><strong>5. DCT를 응용한 이미지 생성(DCT 신시사이징)</strong><br>
-DCT가 이미지를 압축하는 방식이라면 이를 역으로 활용해 이미지를 생성해내는 것도 가능할 것이다. 본 실천은 이러한 아이디어에서 출발하게 되었다.<sup class="footnote-reference"><a href="#5">5</a></sup>
+DCT가 이미지를 압축하는 방식이라면 이를 역으로 활용해 이미지를 생성해내는 것도 가능할 것이다. 본 실천은 이러한 아이디어에서 출발하게 되었다.<sup class="footnote-reference" id="fr-5-1"><a href="#fn-5">5</a></sup>
 <br><br>
-이산 코사인 변환은 앞서 살펴본 대로 64가지의 주파수 계수를 가진다. 궁극적인 목표는 이를 조합해 형상 이미지를 얻어내는 것인데, 8x8은 실험의 대상으로 삼기에 너무 많은 경우의 수를 동반한다. 따라서, 실험을 위해 변수들을 통제하기로 했다. 실험의 조건은 아래와 같다.<sup class="footnote-reference"><a href="#6">6</a></sup></p>
+이산 코사인 변환은 앞서 살펴본 대로 64가지의 주파수 계수를 가진다. 궁극적인 목표는 이를 조합해 형상 이미지를 얻어내는 것인데, 8×8은 실험의 대상으로 삼기에 너무 많은 경우의 수를 동반한다. 따라서, 실험을 위해 변수들을 통제하기로 했다. 실험의 조건은 아래와 같다.<sup class="footnote-reference" id="fr-6-1"><a href="#fn-6">6</a></sup></p>
 <blockquote>
 <ol>
-<li>생성할 형상 이미지의 포맷을 4x4 픽셀로 한다.</li>
-<li>생성할 형상 이미지는 2x2 픽셀 블록 4개의 조합으로 구성한다.</li>
-<li>따라서 2x2 픽셀 블록은 4가지의 기본 패턴(주파수 계수)을 가진다.</li>
+<li>생성할 형상 이미지의 포맷을 4×4 픽셀로 한다.</li>
+<li>생성할 형상 이미지는 2×2 픽셀 블록 4개의 조합으로 구성한다.</li>
+<li>따라서 2×2 픽셀 블록은 4가지의 기본 패턴(주파수 계수)을 가진다.</li>
 <li>가중치를 0과 1로 한정하여, (조건 내의)가능한 모든 경우의 이미지를 생성한다.</li>
 </ol>
 </blockquote>
 <br>
 <p>이에 따라, 나는 4가지 기본패턴과 1808장의 형상 이미지를 얻을 수 있었다. 이는 실험의 조건에 따른 모든 경우의 이미지다.
 <br><br></p>
-<figure class="img--bordered img--fixed" style="max-width:370px;">
-  <img src="/media/works/workshop-practice/wsp-001/dct 2x2 Basics.webp" alt="dct 2x2 basics">
-  <figcaption>4가지의 기본 패턴 (2x2 픽셀 블록의 주파수 계수는 가중치 0과 1을 기준으로 총 4가지의 경우의 수를 가진다.)</figcaption>
+<figure class="img--fixed" style="max-width:370px;">
+  <img src="/media/works/workshop-practice/wsp-001/dct 2x2 Basics.webp" alt="dct 2×2 basics">
+  <figcaption>4가지의 기본 패턴 (2×2 픽셀 블록의 주파수 계수는 가중치 0과 1을 기준으로 총 4가지의 경우의 수를 가진다.)</figcaption>
 </figure>
 <br><br>
-2x2 주파수 계수를 조합해 4x4 이미지를 만드는 경우의 수는 다음과 같이 정리할 수 있다.
+2×2 주파수 계수를 조합해 4×4 이미지를 만드는 경우의 수는 다음과 같이 정리할 수 있다.
 <blockquote>
 <p>A: 모든 칸이 같은 기본 2×2 패턴으로 채워진 이미지<br>
 B: 서로 다른 두 패턴으로 절반씩 채워진 이미지<br>
 C: 하나의 패턴이 3칸, 다른 패턴이 1칸 채워진 이미지<br>
-D: 하나의 패턴이 2칸, 다른 패턴이 1칸, 또 다른 패턴이 1칸 채워진 이미지<sup class="footnote-reference"><a href="#7">7</a></sup></p>
+D: 하나의 패턴이 2칸, 다른 패턴이 1칸, 또 다른 패턴이 1칸 채워진 이미지<sup class="footnote-reference" id="fr-7-1"><a href="#fn-7">7</a></sup></p>
 </blockquote>
 <p><br><br></p>
-<figure class="img--bordered img--fixed" style="max-width:410px;">
+<figure class="img--fixed" style="max-width:410px;">
   <img src="/media/works/workshop-practice/wsp-001/dct images A.webp" alt="dct images A">
   <figcaption>형상 이미지 조합 A, 8가지 (조합쌍 16가지 중 중복 이미지 제거)</figcaption>
 </figure>
 <br>
-<figure class="img--bordered img--fixed" style="max-width:810px;">
+<figure class="img--fixed" style="max-width:810px;">
   <img src="/media/works/workshop-practice/wsp-001/dct images B.webp" alt="dct images B">
   <figcaption>형상 이미지 조합 B, 96가지 (조합쌍 120가지 중 중복 이미지 제거)</figcaption>
 </figure>
 <br>
-<figure class="img--bordered img--fixed" style="max-width:810px;">
+<figure class="img--fixed" style="max-width:810px;">
   <img src="/media/works/workshop-practice/wsp-001/dct images C.webp" alt="dct images C">
   <figcaption>형상 이미지 조합 C, 192가지 (조합쌍 240가지 중 중복 이미지 제거)</figcaption>
 </figure>
 <br>
-<figure class="img--bordered img--fixed" style="max-width:810px;">
+<figure class="img--fixed" style="max-width:810px;">
   <img src="/media/works/workshop-practice/wsp-001/dct images D.webp" alt="dct images D">
   <figcaption>형상 이미지 조합 D, 1512가지 (조합쌍 1680가지 중 중복 이미지 제거)</figcaption>
 </figure>
 <br><br>
 <p><strong>6. 실천 후기</strong><br>
 일련의 과정을 통해, 나는 추상적인 기본 요소의 합성으로 구체적인 이미지를 생성해낼 수 있음을 밝히고자 했다. 하지만 본 실천의 결과로 생성된 형상 이미지들은 아직 추상성을 크게 벗어나지는 못했다는 한계점을 가진다. 그러나 나는 이 이미지들이 DCT의 원리를 이미지 합성에 대한 잠재적인 방법론으로 예증하고 있다는 걸 확신한다. 이어지는 실천에서는 방법론을 보다 발전시켜 더욱 구체적이고 유용한 형상 이미지를 얻어낼 것이다. 뿐만 아니라 이렇게 생성될 형상 이미지는 다양한 맥락과 연결될 수 있다. 예를들어, 특정 방식의 방법론을 통해 주파수의 합으로 생성된 형상 이미지는 스테이블 디퓨전 방식의 AI 생성형 이미지와 어떻게 다른가? 학습된 데이터에 기반한 스테이블 디퓨전또한 ‘합성’의 일종으로 볼 수 있을까? 이러한 질문들은 분명 <a href="/kr/thought/th-001/">잠재 이미지</a>의 잠재성을 상기시킨다.</p>
-<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
-<p>이 글에서 이미지란 우선 2차원의 평면 이미지를 뜻하는 것으로 한정한다.</p>
-</div>
-<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
-<p>이미지의 3가지 속성은 국민대학교 시각디자인학과 성재혁 교수의 의견을 따른다.</p>
-</div>
-<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
-<p>JPG에 대한 설명을 담은, 이 실천을 위해 도움받은 영상: https://youtu.be/Kv1Hiv3ox8I?si=iVc1zerfmSAGd9qW</p>
-</div>
-<div class="footnote-definition" id="4"><sup class="footnote-definition-label">4</sup>
-<p>64가지의 DCT 패턴은 가로와 세로 주파수의 조합으로 이루어진다. JPG가 다루는 이미지는 2차원의 평면 이미지이므로 가로와 세로 2개의 축이 필요하기 때문이다. 또한 8x8 픽셀에서 나올 수 있는 가로, 세로의 주파수는 각 8종류이기 때문에 모든 경우의 수는 64가지 패턴이 된다.</p>
-</div>
-<div class="footnote-definition" id="5"><sup class="footnote-definition-label">5</sup>
-<p>엄밀하게는 JPG의 역과정이 온전히 성립하지는 않는다. 디지털 이미지의 압축방식은 크게 손실 압축과 무손실 압축으로 나뉘는데, JPG는 전자의 대표적 예시이고 PNG와 GIF등이 후자의 대표적 예이다. (통상 디지털 이미지를 다뤄본 사람이라면 경험적으로 전자의 포맷이 후자보다 가볍다는 사실을 알거나 느끼고 있다.) 즉, JPG는 압축 전의 원본 정보를 온전히 가지지 못한다. <br>하지만 이는 JPG의 양자화 과정에서 일어나는 손실일 뿐, DCT 자체는 온전한 역이 성립할 수 있다. JPG로 압축된 이미지를 원본으로 되돌리기 위해서는 역 이산 코사인 변환(이하 IDCT)과정을 거쳐야 하는데, 이 경우 IDCT는 손실을 동반하지 않는다. 이는 DCT가 푸리에 변환에 근거한 변환 방식이기 때문이다. 이러한 근거로, 나는 DCT의 원리가 이미지 신시사이징 응용에 적용하기 적절한 소재라고 판단하게 되었다.</p>
-</div>
-<div class="footnote-definition" id="6"><sup class="footnote-definition-label">6</sup>
-<p>이미지 생성 작업은 모두 파이썬 스크립트를 통해 제작되었다. 각 주파수 가중치를 1과 0으로 할당하여 이미지를 생성했으며, 4x4 픽셀의 결과 이미지를 보기 편하도록 40x40 픽셀의 크기로 확대시켰다. 이 글에 첨부된 형상 이미지는 모두 40x40 픽셀로 업스케일링된 이미지다.</p>
-</div>
-<div class="footnote-definition" id="7"><sup class="footnote-definition-label">7</sup>
-<p>모든 칸이 다른 패턴으로 채워진 이미지의 경우의 수는 배제한다. 이 경우만으로 43,680가지의 이미지가 형성되는데, 구조적 중요성에 비해 지나치게 많은 수라서 일단 제외했다. A부터 D까지의 이미지만으로도 이미지 합성의 원리를 탐구하기에는 충분할 것이다.</p>
-</div>
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn-1">
+<p>이 글에서 이미지란 우선 2차원의 평면 이미지를 뜻하는 것으로 한정한다. <a href="#fr-1-1">↩</a></p>
+</li>
+<li id="fn-2">
+<p>이미지의 3가지 속성은 국민대학교 시각디자인학과 성재혁 교수의 의견을 따른다. <a href="#fr-2-1">↩</a></p>
+</li>
+<li id="fn-3">
+<p>JPG에 대한 설명을 담은, 이 실천을 위해 도움받은 영상: <a rel="external" href="https://youtu.be/Kv1Hiv3ox8I?si=iVc1zerfmSAGd9qW">youtu.be/Kv1Hiv3ox8I?si=iVc1zerfmSAGd9qW</a> <a href="#fr-3-1">↩</a></p>
+</li>
+<li id="fn-4">
+<p>64가지의 DCT 패턴은 가로와 세로 주파수의 조합으로 이루어진다. JPG가 다루는 이미지는 2차원의 평면 이미지이므로 가로와 세로 2개의 축이 필요하기 때문이다. 또한 8×8 픽셀에서 나올 수 있는 가로, 세로의 주파수는 각 8종류이기 때문에 모든 경우의 수는 64가지 패턴이 된다. <a href="#fr-4-1">↩</a></p>
+</li>
+<li id="fn-5">
+<p>엄밀하게는 JPG의 역과정이 온전히 성립하지는 않는다. 디지털 이미지의 압축방식은 크게 손실 압축과 무손실 압축으로 나뉘는데, JPG는 전자의 대표적 예시이고 PNG와 GIF등이 후자의 대표적 예이다. (통상 디지털 이미지를 다뤄본 사람이라면 경험적으로 전자의 포맷이 후자보다 가볍다는 사실을 알거나 느끼고 있다.) 즉, JPG는 압축 전의 원본 정보를 온전히 가지지 못한다. <br>하지만 이는 JPG의 양자화 과정에서 일어나는 손실일 뿐, DCT 자체는 온전한 역이 성립할 수 있다. JPG로 압축된 이미지를 원본으로 되돌리기 위해서는 역 이산 코사인 변환(이하 IDCT)과정을 거쳐야 하는데, 이 경우 IDCT는 손실을 동반하지 않는다. 이는 DCT가 푸리에 변환에 근거한 변환 방식이기 때문이다. 이러한 근거로, 나는 DCT의 원리가 이미지 신시사이징 응용에 적용하기 적절한 소재라고 판단하게 되었다. <a href="#fr-5-1">↩</a></p>
+</li>
+<li id="fn-6">
+<p>이미지 생성 작업은 모두 파이썬 스크립트를 통해 제작되었다. 각 주파수 가중치를 1과 0으로 할당하여 이미지를 생성했으며, 4×4 픽셀의 결과 이미지를 보기 편하도록 40×40 픽셀의 크기로 확대시켰다. 이 글에 첨부된 형상 이미지는 모두 40×40 픽셀로 업스케일링된 이미지다. <a href="#fr-6-1">↩</a></p>
+</li>
+<li id="fn-7">
+<p>모든 칸이 다른 패턴으로 채워진 이미지의 경우의 수는 배제한다. 이 경우만으로 43,680가지의 이미지가 형성되는데, 구조적 중요성에 비해 지나치게 많은 수라 일단 제외했다. A부터 D까지의 이미지만으로도 이미지 합성의 원리를 탐구하기에는 충분하다고 판단했다. <a href="#fr-7-1">↩</a></p>
+</li>
+</ol>
+</section>
 
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const content = document.querySelector('.page-content');
-        if (!content) return;
-      
-        /* ---------------------------------------------
-         * 1) 흩어진 각주 아이템을 .footnotes 컨테이너로 래핑
-         *    - 대상: .footnote-definition, li[id^="fn"]
-         *    - 이미 .footnotes가 있으면 건너뜀
-         * --------------------------------------------- */
-        let wrap = content.querySelector('.footnotes');
-        if (!wrap) {
-          const items = Array.from(
-            content.querySelectorAll('.footnote-definition, li[id^="fn"]')
-          );
-          if (items.length) {
-            const parent = items[0].parentElement;
-            const group = items.filter(el => el.parentElement === parent);
-            if (group.length) {
-              wrap = document.createElement('div');
-              wrap.className = 'footnotes';
-              wrap.setAttribute('role', 'doc-endnotes');
-              wrap.setAttribute('aria-label', 'Footnotes');
-              parent.insertBefore(wrap, group[0]);
-              group.forEach(el => wrap.appendChild(el));
-            }
-          }
-        }
-      
-        /* ---------------------------------------------
-         * 2) 각주 본문(p) 내 URL을 <a>로 자동 변환
-         *    - 호환: http/https/www
-         *    - 말미의 쉼표/마침표/괄호 등은 제외
-         * --------------------------------------------- */
-        if (wrap) {
-          const URL_RE = /((?:https?:\/\/|www\.)[^\s<>()]+?)(?=[\s<>()]|$)/g;
-      
-          wrap.querySelectorAll('.footnote-definition > p, li[id^="fn"] > p')
-            .forEach(p => {
-              if (p.dataset.autolinked === '1') return;
-              p.innerHTML = p.innerHTML.replace(URL_RE, (m, url) => {
-                const href = url.startsWith('http') ? url : `https://${url}`;
-                return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-              });
-              p.dataset.autolinked = '1';
-            });
-      
-          // 안전: 링크 rel 보정
-          wrap.querySelectorAll('a').forEach(a => {
-            const rel = (a.getAttribute('rel') || '').split(/\s+/);
-            ['noopener','noreferrer'].forEach(tok => { if (!rel.includes(tok)) rel.push(tok); });
-            a.setAttribute('rel', rel.join(' ').trim());
-          });
-        }
-      });
-      </script>
-      
   </div>
 
 </article>
 
-
-      </main>
-    </div>
-
-    <!-- Footer -->
-    <footer class="site-footer" role="contentinfo" aria-label="site footer">
-      <p class="site-footer__text">
-        j-h, jaydashaitch, online archive of jae hyeon lee. ©2025 jaehyeon lee
-      </p>
-      <p class="site-footer__text--mobile">
-        j-h, ©2025 jaehyeon lee
-      </p>
-    </footer>
-
-    <!-- Hangul span 래핑 스크립트 -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const HANGUL_RE = /([\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A3]+)/g;
-        const SKIP_SELECTOR = 'pre, code, kbd, samp, script, style';
-        const walker = document.createTreeWalker(
-          document.body,
-          NodeFilter.SHOW_TEXT,
-          {
-            acceptNode(node) {
-              if (!node.nodeValue || !HANGUL_RE.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
-              let p = node.parentNode;
-              while (p && p !== document.body) {
-                if (p.matches && p.matches(SKIP_SELECTOR)) return NodeFilter.FILTER_REJECT;
-                p = p.parentNode;
-              }
-              return NodeFilter.FILTER_ACCEPT;
-            }
-          }
-        );
-        const texts = [];
-        let n;
-        while (n = walker.nextNode()) texts.push(n);
-        for (const text of texts) {
-          const span = document.createElement('span');
-          span.innerHTML = text.nodeValue.replace(HANGUL_RE, '<span class="han">$1</span>');
-          text.parentNode.replaceChild(span, text);
-        }
-      });
-    </script>
-
-    <!-- ✅ Mobile Menu Script -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const btn = document.getElementById("menu-toggle");
-        const menu = document.getElementById("nav-menu");
-        if (!btn || !menu) return;
-
-        function closeMenu() {
-          menu.classList.remove("open");
-          btn.setAttribute("aria-expanded", "false");
-        }
-
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const isOpen = menu.classList.toggle("open");
-          btn.setAttribute("aria-expanded", String(isOpen));
-        });
-
-        document.addEventListener("click", (e) => {
-          if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
-        });
-
-        window.addEventListener("resize", () => {
-          if (window.innerWidth > 600) closeMenu();
-        });
-      });
-    </script>
-
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.__FN_WIRED__) return;
-    window.__FN_WIRED__ = true;
+  (function () {
   
-    /* =========================
-       설정값
-       ========================= */
-    const SCROLL_MS   = 300;   // 부드럽지만 빠르게
-    const HL_IN_MS    = 200;   // 페이드 인
-    const HL_OUT_MS   = 700;   // 페이드 아웃(느리게)
-    const HL_HOLD_MS  = 800;   // 유지 시간(짧게 유지 후 서서히 사라짐)
-  
-/* =========================
-   스크롤 유틸 (컨테이너 대응, quintic S-curve + out-bias)
-   ========================= */
-   const isScrollable = (el) => {
-  if (!el) return false;
-  const s = getComputedStyle(el);
-  const oy = s.overflowY;
-  return (oy === "auto" || oy === "scroll") && el.scrollHeight > el.clientHeight;
-};
-
-const getScrollContainer = (el) => {
-  let node = el.parentElement;
-  while (node && node !== document.body && node !== document.documentElement) {
-    if (isScrollable(node)) return node;
-    node = node.parentElement;
-  }
-  return document.scrollingElement || document.documentElement || document.body;
-};
-
-/* =========================
-   스크롤 애니메이션 (quintic S-curve + out-bias)
-   - 부드러운 시작, 끈적한 감속
-   ========================= */
-const easeInOutSticky = (t) => {
-  // Quintic smoothstep (C2 연속, S-curve)
-  const t2 = t * t, t3 = t2 * t, t4 = t2 * t2, t5 = t4 * t;
-  const base = 6 * t5 - 15 * t4 + 10 * t3; // 기본 S-curve
-  const OUT_BIAS = 1.12; // 1.0~1.2 권장 (↑ = 더 끈적한 감속)
-  return 1 - Math.pow(1 - base, OUT_BIAS);
-};
-
-const scrollToTarget = (container, target, ms = SCROLL_MS, offsetY = 0) =>
-  new Promise((resolve) => {
-    const containerIsDoc =
-      container === document.scrollingElement ||
-      container === document.documentElement ||
-      container === document.body;
-
-    const containerRect = containerIsDoc
-      ? { top: 0 }
-      : container.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
-
-    const start = containerIsDoc
-      ? window.pageYOffset || document.documentElement.scrollTop
-      : container.scrollTop;
-
-    const targetY = start + (targetRect.top - containerRect.top) + offsetY;
-
-    if (ms <= 0) {
-      if (containerIsDoc) window.scrollTo(0, targetY);
-      else container.scrollTop = targetY;
-      resolve();
-      return;
+    function isVisible(el) {
+      return !!(el && el.offsetParent !== null);
     }
-
-    const startTime = performance.now();
-    const step = (now) => {
-      const t = Math.min(1, (now - startTime) / ms);
-      const eased = easeInOutSticky(t);
-      const y = start + (targetY - start) * eased;
-
-      if (containerIsDoc) window.scrollTo(0, y);
-      else container.scrollTop = y;
-
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else {
-        if (containerIsDoc) window.scrollTo(0, targetY);
-        else container.scrollTop = targetY;
-        resolve();
+  
+    function isInViewport(el) {
+      if (!el) return false;
+      const r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    }
+  
+    function scrollToRef(el, block) {
+      if (!el) return;
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: block
+      });
+    }
+  
+    function scrollDocumentToRevealMeta() {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth"
+      });
+    }
+  
+    function setActiveFootnote(id) {
+      history.pushState(null, "", "#fn-" + id);
+  
+      document.querySelectorAll(".meta-note").forEach(el => {
+        el.classList.toggle("is-active", el.dataset.fnid === id);
+      });
+  
+      document.querySelectorAll(".footnote-definition").forEach(el => {
+        el.classList.toggle("is-active", el.id === id);
+      });
+    }
+  
+    const mqDesktop = window.matchMedia("(min-width: 600px)");
+  
+    document.addEventListener("click", function (e) {
+  
+      const meta = e.target.closest(".meta-note[data-fnid]");
+      if (meta) {
+        if (e.target.closest("a")) return;
+  
+        const id = meta.dataset.fnid;
+        if (!id) return;
+  
+        const ref = document.querySelector(
+          '.footnote-reference a[href="#' + id + '"]'
+        );
+        if (!ref) return;
+  
+        scrollToRef(ref, "start");
+        setActiveFootnote(id);
+        return;
       }
-    };
-
-    requestAnimationFrame(step);
-  });
-
   
-    /* =========================
-       하이라이트 (빠른 IN → 유지 → 느린 OUT)
-       ========================= */
-    const highlight = (host, hold = HL_HOLD_MS) => {
-      if (!host) return;
-      host.classList.add('fn-hl');  // 초기 상태(투명) + 트랜지션 규칙
-      // 다음 프레임에 ON
-      requestAnimationFrame(() => {
-        host.style.setProperty('--fn-hl-in',  `${HL_IN_MS}ms`);
-        host.style.setProperty('--fn-hl-out', `${HL_OUT_MS}ms`);
-        host.classList.add('is-on');           // 빠르게 켜짐
-        setTimeout(() => {
-          host.classList.add('is-fading');     // 느리게 꺼짐
-          host.classList.remove('is-on');
-          setTimeout(() => host.classList.remove('fn-hl', 'is-fading'), HL_OUT_MS + 30);
-        }, hold);
-      });
-    };
+      const def = e.target.closest(".footnote-definition[id]");
+      if (def) {
+        if (e.target.closest("a")) return;
   
-    /* =========================
-       매핑: 본문 참조 ↔ 각주 블록
-       ========================= */
-    const allIds = new Set([...document.querySelectorAll('[id]')].map(el => el.id));
-    const bodyLinks = [...document.querySelectorAll('.page-content a[href^="#"]')]
-      .filter(a => !a.closest('.footnote-definition') && !a.closest('.footnotes'));
+        const id = def.id;
+        if (!id) return;
   
-    const footnoteIds = new Set(
-      bodyLinks
-        .map(a => (a.getAttribute('href') || '').slice(1))
-        .filter(id => id && allIds.has(id))
-    );
+        const ref = document.querySelector(
+          '.footnote-reference a[href="#' + id + '"]'
+        );
+        if (!ref) return;
   
-    const getFootnoteBlock = (id) => {
-      const el = document.getElementById(id);
-      return el
-        ? (el.closest('.footnote-definition') || el.closest('.footnotes li[id^="fn"]') || el)
-        : null;
-    };
+        scrollToRef(ref, "start");
+        setActiveFootnote(id);
+        return;
+      }
   
-    const backMap = new Map();
-    bodyLinks
-      .filter(a => footnoteIds.has((a.getAttribute('href') || '').slice(1)))
-      .forEach(a => {
-        const id = a.getAttribute('href').slice(1);
-        const sup = a.closest('sup[id^="fnref"]') || a.closest('sup');
-        const target = sup || a;
-        if (!target.id) {
-          let base = `fnref-auto-${id}`, i = 1, uid = base;
-          while (document.getElementById(uid)) uid = `${base}-${i++}`;
-          target.id = uid;
-        }
-        backMap.set(id, target.id);
-      });
-  
-    /* =========================
-       이벤트: 본문 → 각주
-       ========================= */
-    document.addEventListener('click', async (e) => {
-      const ref = e.target.closest('.page-content a[href^="#"]');
-      if (!ref || ref.closest('.footnote-definition') || ref.closest('.footnotes')) return;
-  
-      const hash = ref.getAttribute('href') || '';
-      if (!hash.startsWith('#')) return;
-  
-      const id = hash.slice(1);
-      if (!footnoteIds.has(id)) return;
+      const refLink = e.target.closest(".footnote-reference a[href^='#']");
+      if (!refLink) return;
   
       e.preventDefault();
-      const fnBlock = getFootnoteBlock(id);
-      if (!fnBlock) return;
   
-      const container = getScrollContainer(fnBlock);
-      await scrollToTarget(container, fnBlock, SCROLL_MS, 0);
-      history.pushState(null, '', `#${id}`);
-      highlight(fnBlock, HL_HOLD_MS);
-    });
+      const id = refLink.getAttribute("href").slice(1);
+      if (!id) return;
   
-    /* =========================
-       이벤트: 각주 → 본문
-       ========================= */
-    document.addEventListener('click', async (e) => {
-      const a = e.target.closest('a');
-      if (a) {
-        const href = a.getAttribute('href') || '';
-        if (href && !href.startsWith('#')) return; // 외부 링크는 방해하지 않음
-      }
+      setActiveFootnote(id);
   
-      let node = e.target.closest('[id]');
-      while (node) {
-        const id = node.id;
-        if (footnoteIds.has(id)) {
-          const backId = backMap.get(id);
-          if (backId) {
-            e.preventDefault();
-            const backEl = document.getElementById(backId) || document.querySelector(`a[href="#${id}"]`);
-            if (!backEl) return;
-            const container = getScrollContainer(backEl);
-            await scrollToTarget(container, backEl, SCROLL_MS, 0);
-            history.pushState(null, '', `#${backId}`);
-            highlight(backEl, HL_HOLD_MS);
+      if (mqDesktop.matches) {
+        const metaTarget = document.querySelector(
+          ".meta-note[data-fnid='" + id + "']"
+        );
+  
+        if (metaTarget && isVisible(metaTarget)) {
+          if (!isInViewport(metaTarget)) {
+            scrollDocumentToRevealMeta(metaTarget);
           }
           return;
         }
-        node = node.parentElement;
+      }
+  
+      const footTarget = document.getElementById(id);
+      if (footTarget && isVisible(footTarget)) {
+        scrollToRef(footTarget, "end");
       }
     });
   
-    /* =========================
-       해시 진입/변경 시 하이라이트
-       ========================= */
-    const flashFromHash = async () => {
-      const id = location.hash.slice(1);
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!location.hash.startsWith("#fn-")) return;
+  
+      const id = location.hash.replace("#fn-", "");
       if (!id) return;
-      const el = document.getElementById(id);
-      if (!el) return;
-      const target = el.closest('.footnote-definition') || el.closest('.footnotes li[id^="fn"]') || el;
-      const container = getScrollContainer(target);
   
-      // 뷰포트 안에 대략 보이는지 검사
-      const viewTop = (container === document.scrollingElement || container === document.documentElement || container === document.body)
-        ? 0
-        : container.getBoundingClientRect().top;
-      const r = target.getBoundingClientRect();
-      const inView = (r.top - viewTop) >= 0 && (r.bottom - viewTop) <= (container.clientHeight || window.innerHeight);
+      setActiveFootnote(id);
   
-      if (!inView) await scrollToTarget(container, target, SCROLL_MS, 0);
-      highlight(target, HL_HOLD_MS);
-    };
+      if (mqDesktop.matches) {
+        const metaTarget = document.querySelector(
+          ".meta-note[data-fnid='" + id + "']"
+        );
+        if (metaTarget && isVisible(metaTarget)) {
+          if (!isInViewport(metaTarget)) {
+            scrollDocumentToRevealMeta(metaTarget);
+          }
+          return;
+        }
+      }
   
-    window.addEventListener('hashchange', () => setTimeout(flashFromHash, 30));
-    if (location.hash) setTimeout(flashFromHash, 60);
-  });
-  </script>
+      const footTarget = document.getElementById(id);
+      if (footTarget && isVisible(footTarget)) {
+        scrollToRef(footTarget, "end");
+      }
+    });
   
+  })();
+  </script>  
   
-
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.page-content ol > li').forEach(li => {
-        // 이미 래퍼가 있으면 생략
-        if (li.querySelector(':scope > .li-body')) return;
+    document.addEventListener("DOMContentLoaded", () => {
+      const PUNCTS = `"'\u2018\u201C([{‹«〈《「『`;
     
-        const body = document.createElement('span'); // inline semantics 유지
-        body.className = 'li-body';
+        const targets = document.querySelectorAll(
+  '.page-meta .meta-title, \
+   .page-meta .meta-line, \
+   .page-body .page-content p, \
+   .page-body .page-content li'
+);
+
     
-        // 숫자 마커(::before) 외 모든 노드를 li-body로 이동
-        while (li.firstChild) body.appendChild(li.firstChild);
-        li.appendChild(body);
+      targets.forEach(el => {
+        const text = (el.textContent || '').trimStart();
+        if (!text) return;
+    
+        const firstChar = text[0];
+        if (!PUNCTS.includes(firstChar)) return;
+    
+        el.classList.add('hang-punct');
       });
     });
     </script>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const superscriptMap = {
+          "0": "⁰",
+          "1": "¹",
+          "2": "²",
+          "3": "³",
+          "4": "⁴",
+          "5": "⁵",
+          "6": "⁶",
+          "7": "⁷",
+          "8": "⁸",
+          "9": "⁹"
+        };
+      
+        document
+          .querySelectorAll("sup.footnote-reference a")
+          .forEach(el => {
+            const text = el.textContent.trim();
+      
+            // 숫자만 처리
+            if (!/^\d+$/.test(text)) return;
+      
+            const superscript = [...text]
+              .map(d => superscriptMap[d] || d)
+              .join("");
+      
+            el.textContent = superscript;
+            el.setAttribute("aria-label", `Footnote ${text}`);
+          });
+      });
+      </script>
+      
+      <script>
+        (function () {
+          const root = document.querySelector(".page-body.page-content");
+          if (!root) return;
 
+          root.querySelectorAll("blockquote ol > li").forEach(li => {
+            if (li.querySelector(":scope > .li-body")) return;
+
+            const body = document.createElement("span");
+            body.className = "li-body";
+
+            const nodes = Array.from(li.childNodes);
+
+            nodes.forEach(node => {
+              // 🔑 숫자용 ::before는 건드리지 말고
+              // 🔑 실제 DOM 자식만 이동
+              if (
+                node.nodeType === Node.ELEMENT_NODE ||
+                (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "")
+              ) {
+                body.appendChild(node);
+              }
+            });
+
+            li.appendChild(body);
+          });
+        })();
+        </script>
+        
+
+
+    </main>
+
+<footer class="footer" role="contentinfo">
+  <p class="footer__text">
+    © 2026 <span id="footer-site-title"></span><span class="footer-sep"></span>
+    
+      <span class="footer-msg">이 웹사이트는 <span id="footer-variant">(당분간은)</span> 제작중이다.</span>
+    
+  </p>
+
+</footer>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const currentHost = window.location.hostname;
-    const links = document.querySelectorAll('a[href^="http"]');
-  
-    links.forEach(link => {
-      const url = new URL(link.href);
-      if (url.hostname !== currentHost) {
-        link.setAttribute("target", "_blank");
-        link.setAttribute("rel", "noopener noreferrer");
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("menu-toggle");
+    const menu = document.getElementById("global-menu");
+    if (!btn || !menu) return;
+
+    const openMenu = () => {
+      menu.hidden = false;
+      btn.setAttribute("aria-expanded", "true");
+      document.body.classList.add("menu-open");
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("menu-open");
+    };
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      expanded ? closeMenu() : openMenu();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        closeMenu();
       }
     });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
   });
-  </script>
+</script>
 
 
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const currentHost = window.location.hostname;
+        document
+          .querySelectorAll('a[href^="http"]')
+          .forEach(link => {
+            const url = new URL(link.href);
+            if (url.hostname !== currentHost) {
+              link.setAttribute("target", "_blank");
+              link.setAttribute("rel", "noopener noreferrer");
+            }
+          });
+      });
+    </script>
+
+    <script>
+      const SITE_TITLES = [
+      "J—H",
+      "j—h",
+      "Jaydashaitch",
+      "제이대시에이치",
+      "제이에이치",
+      "제이(대시)에이치",
+      "JAY(DASH)AITCH",
+      "재현",
+      "재(대시)현",
+      "JH ARCHIVE",
+      "JAEHYEON LEE",
+      "JAEHYEON",
+      "jay—aitch",
+      "JAE(DASH)HYEON"
+      ];
+
+      function pickRandom(list) {
+        return list[Math.floor(Math.random() * list.length)];
+      }
+
+      function pickRandomDifferent(list, current) {
+        const pool = list.filter(item => item !== current);
+        return pool.length
+          ? pool[Math.floor(Math.random() * pool.length)]
+          : current;
+      }
+
+      (function () {
+        const titleEl = document.getElementById("site-title");
+        const footerEl = document.getElementById("footer-site-title");
+        if (!titleEl || !footerEl) return;
+
+        const KEY = "jh_site_title";
+
+        const applyTitle = (value) => {
+          titleEl.textContent = value;
+          footerEl.textContent = value;
+        };
+
+        if (!sessionStorage.getItem(KEY)) {
+          sessionStorage.setItem(KEY, pickRandom(SITE_TITLES));
+        }
+
+        applyTitle(sessionStorage.getItem(KEY));
+
+        titleEl.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          const current = sessionStorage.getItem(KEY);
+          const next = pickRandomDifferent(SITE_TITLES, current);
+
+          sessionStorage.setItem(KEY, next);
+          applyTitle(next);
+
+          setTimeout(() => {
+            window.location.href = titleEl.href;
+          }, 80);
+        });
+      })();
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const target = document.getElementById("footer-variant");
+        if (!target) return;
+      
+        const lang = document.documentElement.lang;
+      
+        const variants = lang === "ko"
+          ? [
+              "(한동안은)",
+              "(당분간은)",
+              "(얼마간은)",
+              "(현재로서는)",
+              "(일단은)",
+              "(우선은)",
+              "(잠시나마)",
+              "(당장까지는)",
+              "(지금으로서는)",
+              "(일정 기간동안은)",
+              "(잠정적으로)",
+              "(잠시 동안은)",
+              "(지금은 계속)"
+            ]
+          : [
+              "(for a while)",
+              "(for now)",
+              "(for the time being)",
+              "(temporarily)",
+              "(for the moment)",
+              "(in the meantime)",
+              "(for some time)",
+              "(briefly)",
+              "(until further notice)",
+              "(as of now)",
+              "(for a certain period)",
+              "(still)",
+              "(for a short while)"
+            ];
+      
+        let current = target.textContent;
+      
+        const pickNext = () => {
+          let next;
+          do {
+            next = variants[Math.floor(Math.random() * variants.length)];
+          } while (next === current);
+      
+          current = next;
+          target.textContent = next;
+        };
+      
+        setInterval(pickNext, 1000);
+      });
+      </script>
   
   </body>
 </html>

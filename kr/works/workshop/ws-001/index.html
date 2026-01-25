@@ -1,145 +1,155 @@
 <!DOCTYPE html>
 
+
   
-  
+
+
+<script>
+  console.log("current_path:", "/kr/works/workshop/ws-001/");
+</script>
+
+<script>
+  console.log("lang:", "kr");
+  console.log("section.lang:", "(no section)");
+  console.log("page.lang:", "kr");
+</script>
 
 
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <title>‘신시사이저’에 대한 워크샵 · j-h</title>
+    <title>‘신시사이저’에 대한 워크샵, 제이대시에이치</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    
-    <!-- 0) 첫 페인트부터 폴백 감추기 (FOUT/FOIT 방지) -->
-    <style>
-      html:not(.wf-active):not(.wf-inactive) body { visibility: hidden; }
-      html.wf-loading body { visibility: hidden; }
-      html.wf-active body,
-      html.wf-inactive body { visibility: visible; }
-      html.wf-active body { animation: fontFadeIn .18s ease-out; }
-      @keyframes fontFadeIn { from { opacity: 0 } to { opacity: 1 } }
-    </style>
 
-    <!-- 1) 폰트 커넥션 선연결 -->
-    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-    <link rel="preconnect" href="https://p.typekit.net" crossorigin>
-
-    <!-- 2) Typekit 로더 -->
-    <script>
-      (function(d) {
-        var config = { kitId: 'efe0obd', scriptTimeout: 3000, async: true },
-            h = d.documentElement,
-            t = setTimeout(function() {
-              h.className = h.className.replace(/\bwf-loading\b/g,"") + " wf-inactive";
-            }, config.scriptTimeout),
-            tk = d.createElement("script"),
-            f = false,
-            s = d.getElementsByTagName("script")[0],
-            a;
-        h.className += " wf-loading";
-        tk.src = "https://use.typekit.net/" + config.kitId + ".js";
-        tk.async = true;
-        tk.onload = tk.onreadystatechange = function() {
-          a = this.readyState;
-          if (f || (a && a !== "complete" && a !== "loaded")) return;
-          f = true; clearTimeout(t);
-          try { Typekit.load(config); } catch (e) {}
-        };
-        s.parentNode.insertBefore(tk, s);
-      })(document);
-    </script>
-
-    <!-- (선택) 개발 중 편의 -->
-    <link rel="stylesheet" href="https://use.typekit.net/efe0obd.css">
     <link rel="stylesheet" href="/css/main.css">
   </head>
 
   <body>
-    <!-- 전체 2단 그리드 -->
-    <div class="shell">
-      <!-- 좌측: 세로 메뉴 -->
-      <aside class="site-nav">
-        <!-- ✅ 모바일 상단 바 (≤600px에서 보이도록 CSS 제어) -->
-        <div class="nav-bar" role="navigation" aria-label="mobile top bar">
-          <button class="nav-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-menu">menu</button>
+    <header class="header" role="banner">
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        aria-expanded="false"
+        aria-controls="global-menu"
+      >
+       
+          메뉴
+       
+      </button>
+
+      <a href="&#x2F;kr/" class="site-title" id="site-title"></a>
+
+      <span class="lang-toggle" data-lang="kr">
+        
+        <span class="ko">한</span>
+        <span class="sep"> / </span>
+        
+          <a href="&#x2F;works&#x2F;workshop&#x2F;ws-001&#x2F;" class="en">EN</a>
+        
+        
+      </span>
+      
+    </header>
+
+    <nav
+      id="global-menu"
+      class="global-menu"
+      aria-label="primary"
+      hidden
+    >
+      
+        <a href="&#x2F;kr/allarchive/">모든 아카이브</a>
+        
+        <a href="&#x2F;kr/about/">이 웹에 대하여</a>
+        <a href="&#x2F;kr/contact/">연락처</a>
+        <span class="menu-item--disabled" aria-disabled="true">구매</span>
+      
+    </nav>
+
+    <main id="content">
+      
+
+<article class="page-two-col" role="article">
+
+  <aside class="page-meta" role="complementary">
+
+    <div class="meta-block meta-title">
+      <strong>‘신시사이저’에 대한 워크샵</strong>
+    </div>
+
+    <div class="meta-block meta-data">
+
+      
+        <div class="meta-line">
           
-            <a href="&#x2F;works&#x2F;workshop&#x2F;ws-001&#x2F;" class="lang-toggle">en</a>
+            문서 번호 → [12]
           
         </div>
-
-        <!-- ✅ 메인 메뉴: 데스크탑에서 항상 보이고, 모바일에선 토글 대상 -->
-        <nav id="nav-menu" aria-label="primary">
-          <a href="&#x2F;kr/">all archive</a><br>
-          <a href="&#x2F;kr/works/">works</a><br>
-          <a href="&#x2F;kr/about/">about</a><br>
-          <a href="&#x2F;kr/contact/">contact</a><br>
-        
-          <!-- ⛔️ 비활성: 링크 대신 span, 클릭 불가, 회색(60%) -->
-          <span class="nav-item nav-item--disabled" aria-disabled="true" title="Coming soon">shop</span>
-        </nav>
-
-        <!-- ✅ 데스크탑 전용 언어 토글: 메뉴 '아래 한 칸'에 표시 (모바일에선 CSS로 숨김) -->
-        <div class="lang-toggle--desktop">
+      
+    
+      
+        <div class="meta-line">
           
-            <a href="&#x2F;works&#x2F;workshop&#x2F;ws-001&#x2F;">en</a>
+            카테고리 → [워크샵]
           
         </div>
-      </aside>
-
-      <!-- 우측: 콘텐츠 -->
-      <main class="site-main">
+      
+    
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <div class="meta-line">
         
-
-
-<article class="page-two-col">
-  
-  <aside class="page-meta">
-    <dl class="meta-list">
-      
-        <dt><h1>document no.:</h1></dt>
-        <dd>12</dd>
-      
-  
-      
-        <dt><h1>category:</h1></dt>
-        <dd>워크샵</dd>
-      
-  
-      
-        <dt><h1>date:</h1></dt>
-        <dd>2025년 11월</dd>
-      
-  
-      
-  
-      
-  
-      
+          날짜 →
+        
+    
+        
+        
+          [2025년 11월]
+        
+      </div>
+    
 
       
+  
+  
+    
+    </div>
+    
 
-    </dl>
+    
+    <div class="meta-block meta-desc">
+      
+        <div class="meta-line">
+          → 이 워크샵에 대한 실천: <a href="/kr/works/workshop-practice/wsp-001/">‘신시사이저’에 대한 워크샵: DCT 신시사이징 I</a>
+        </div>
+      
+    </div>
+    
+    
+
+    
+    
+
   </aside>
 
   <div class="page-body page-content">
-    
-    <h1 class="display-title">
-      ‘신시사이저’에 대한 워크샵
-    </h1>
-    <hr />
-<h3 id="i-weokeusyabe-daehan-silceon">이 워크샵에 대한 실천:</h3>
-<ol>
-<li><a href="/kr/works/workshop-practice/wsp-001/">‘신시사이저’에 대한 워크샵: DCT 신시사이징 I</a></li>
-</ol>
-<br>
-<hr />
-<p>대중매체에서 흔히 전자피아노와 비슷한 악기로 묘사되곤 하는 신시사이저<em>Synthesizer</em>의 본질은 말그대로의 합성을 통해 소리를 만들어내는 기계-합성기-에 가깝다. (사실 건반은 신시사이저의 필수적인 구성요소도 아니다.) 합성 장치로서의 신시사이저가 어떤 잠재성을 가지고 있는지 생각해보자.
+
+    <p>대중매체에서 흔히 전자피아노와 비슷한 악기로 묘사되곤 하는 신시사이저<em>Synthesizer</em>의 본질은 말그대로의 합성을 통해 소리를 만들어내는 기계-합성기-에 가깝다. (사실 건반은 신시사이저의 필수적인 구성요소도 아니다.) 합성 장치로서의 신시사이저가 어떤 잠재성을 가지고 있는지 생각해보자.
 <br><br>
 신시사이저의 탄생에는 유토피아적 상상력이 자리한다. 19세기 초의 프랑스 수학자 조제프 푸리에는 푸리에 변환<em>Fourier Transform</em>을 통해 모든 복잡한 주기 신호가 단순한 사인파들의 합으로 분해될 수 있다는 사실을 증명한다. 이 아이디어는 이후 전자공학의 발전과 함께 음향기기로 물화되어 음악가와 엔지니어에게 새로운 세계를 가져다 주었다. 그들은 이제 현실의 소리를 기계로 모사할 뿐 아니라 이상의 새로운 소리까지 설계해낼 수 있게 되었다. 그렇게 탄생한 전자음악은 특유의 추상성과 개방성을 무기로 자유로운 발전을 거듭하며 오늘날 거의 모든 음악의 구현을 매개하는 지배적인 장르로 자리매김했다.
 <br><br></p>
-<figure class="img--bordered img--fixed" style="max-width:600px;">
+<figure class="img--fixed" style="max-width:600px;">
   <img src="/media/works/workshop/analog synth 101.webp" alt="Analog Synth 101 Diagram">
   <figcaption>“Analog Synth 101.” Designed by Ray Wilson. © Music From Outer Space LLC 2011.<br>(Source: musicfromouterspace.com)</figcaption>
 </figure>
@@ -157,400 +167,415 @@
 <br><br>
 ‘신시사이저’에 대한 워크샵은 이와같은 구조를 개념적으로 돌아보는 데에 목적을 둔다. 궁극적으로는 기계장치를 설계하는 것을 염두에 두고 있지만, 우선 본 워크샵은 여러 실천을 통해 개념을 고찰하는 데에 목적을 두도록 한다.
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const content = document.querySelector('.page-content');
-        if (!content) return;
-      
-        /* ---------------------------------------------
-         * 1) 흩어진 각주 아이템을 .footnotes 컨테이너로 래핑
-         *    - 대상: .footnote-definition, li[id^="fn"]
-         *    - 이미 .footnotes가 있으면 건너뜀
-         * --------------------------------------------- */
-        let wrap = content.querySelector('.footnotes');
-        if (!wrap) {
-          const items = Array.from(
-            content.querySelectorAll('.footnote-definition, li[id^="fn"]')
-          );
-          if (items.length) {
-            const parent = items[0].parentElement;
-            const group = items.filter(el => el.parentElement === parent);
-            if (group.length) {
-              wrap = document.createElement('div');
-              wrap.className = 'footnotes';
-              wrap.setAttribute('role', 'doc-endnotes');
-              wrap.setAttribute('aria-label', 'Footnotes');
-              parent.insertBefore(wrap, group[0]);
-              group.forEach(el => wrap.appendChild(el));
-            }
-          }
-        }
-      
-        /* ---------------------------------------------
-         * 2) 각주 본문(p) 내 URL을 <a>로 자동 변환
-         *    - 호환: http/https/www
-         *    - 말미의 쉼표/마침표/괄호 등은 제외
-         * --------------------------------------------- */
-        if (wrap) {
-          const URL_RE = /((?:https?:\/\/|www\.)[^\s<>()]+?)(?=[\s<>()]|$)/g;
-      
-          wrap.querySelectorAll('.footnote-definition > p, li[id^="fn"] > p')
-            .forEach(p => {
-              if (p.dataset.autolinked === '1') return;
-              p.innerHTML = p.innerHTML.replace(URL_RE, (m, url) => {
-                const href = url.startsWith('http') ? url : `https://${url}`;
-                return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-              });
-              p.dataset.autolinked = '1';
-            });
-      
-          // 안전: 링크 rel 보정
-          wrap.querySelectorAll('a').forEach(a => {
-            const rel = (a.getAttribute('rel') || '').split(/\s+/);
-            ['noopener','noreferrer'].forEach(tok => { if (!rel.includes(tok)) rel.push(tok); });
-            a.setAttribute('rel', rel.join(' ').trim());
-          });
-        }
-      });
-      </script>
-      
   </div>
 
 </article>
 
-
-      </main>
-    </div>
-
-    <!-- Footer -->
-    <footer class="site-footer" role="contentinfo" aria-label="site footer">
-      <p class="site-footer__text">
-        j-h, jaydashaitch, online archive of jae hyeon lee. ©2025 jaehyeon lee
-      </p>
-      <p class="site-footer__text--mobile">
-        j-h, ©2025 jaehyeon lee
-      </p>
-    </footer>
-
-    <!-- Hangul span 래핑 스크립트 -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const HANGUL_RE = /([\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A3]+)/g;
-        const SKIP_SELECTOR = 'pre, code, kbd, samp, script, style';
-        const walker = document.createTreeWalker(
-          document.body,
-          NodeFilter.SHOW_TEXT,
-          {
-            acceptNode(node) {
-              if (!node.nodeValue || !HANGUL_RE.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
-              let p = node.parentNode;
-              while (p && p !== document.body) {
-                if (p.matches && p.matches(SKIP_SELECTOR)) return NodeFilter.FILTER_REJECT;
-                p = p.parentNode;
-              }
-              return NodeFilter.FILTER_ACCEPT;
-            }
-          }
-        );
-        const texts = [];
-        let n;
-        while (n = walker.nextNode()) texts.push(n);
-        for (const text of texts) {
-          const span = document.createElement('span');
-          span.innerHTML = text.nodeValue.replace(HANGUL_RE, '<span class="han">$1</span>');
-          text.parentNode.replaceChild(span, text);
-        }
-      });
-    </script>
-
-    <!-- ✅ Mobile Menu Script -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const btn = document.getElementById("menu-toggle");
-        const menu = document.getElementById("nav-menu");
-        if (!btn || !menu) return;
-
-        function closeMenu() {
-          menu.classList.remove("open");
-          btn.setAttribute("aria-expanded", "false");
-        }
-
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const isOpen = menu.classList.toggle("open");
-          btn.setAttribute("aria-expanded", String(isOpen));
-        });
-
-        document.addEventListener("click", (e) => {
-          if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
-        });
-
-        window.addEventListener("resize", () => {
-          if (window.innerWidth > 600) closeMenu();
-        });
-      });
-    </script>
-
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.__FN_WIRED__) return;
-    window.__FN_WIRED__ = true;
+  (function () {
   
-    /* =========================
-       설정값
-       ========================= */
-    const SCROLL_MS   = 300;   // 부드럽지만 빠르게
-    const HL_IN_MS    = 200;   // 페이드 인
-    const HL_OUT_MS   = 700;   // 페이드 아웃(느리게)
-    const HL_HOLD_MS  = 800;   // 유지 시간(짧게 유지 후 서서히 사라짐)
-  
-/* =========================
-   스크롤 유틸 (컨테이너 대응, quintic S-curve + out-bias)
-   ========================= */
-   const isScrollable = (el) => {
-  if (!el) return false;
-  const s = getComputedStyle(el);
-  const oy = s.overflowY;
-  return (oy === "auto" || oy === "scroll") && el.scrollHeight > el.clientHeight;
-};
-
-const getScrollContainer = (el) => {
-  let node = el.parentElement;
-  while (node && node !== document.body && node !== document.documentElement) {
-    if (isScrollable(node)) return node;
-    node = node.parentElement;
-  }
-  return document.scrollingElement || document.documentElement || document.body;
-};
-
-/* =========================
-   스크롤 애니메이션 (quintic S-curve + out-bias)
-   - 부드러운 시작, 끈적한 감속
-   ========================= */
-const easeInOutSticky = (t) => {
-  // Quintic smoothstep (C2 연속, S-curve)
-  const t2 = t * t, t3 = t2 * t, t4 = t2 * t2, t5 = t4 * t;
-  const base = 6 * t5 - 15 * t4 + 10 * t3; // 기본 S-curve
-  const OUT_BIAS = 1.12; // 1.0~1.2 권장 (↑ = 더 끈적한 감속)
-  return 1 - Math.pow(1 - base, OUT_BIAS);
-};
-
-const scrollToTarget = (container, target, ms = SCROLL_MS, offsetY = 0) =>
-  new Promise((resolve) => {
-    const containerIsDoc =
-      container === document.scrollingElement ||
-      container === document.documentElement ||
-      container === document.body;
-
-    const containerRect = containerIsDoc
-      ? { top: 0 }
-      : container.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
-
-    const start = containerIsDoc
-      ? window.pageYOffset || document.documentElement.scrollTop
-      : container.scrollTop;
-
-    const targetY = start + (targetRect.top - containerRect.top) + offsetY;
-
-    if (ms <= 0) {
-      if (containerIsDoc) window.scrollTo(0, targetY);
-      else container.scrollTop = targetY;
-      resolve();
-      return;
+    function isVisible(el) {
+      return !!(el && el.offsetParent !== null);
     }
-
-    const startTime = performance.now();
-    const step = (now) => {
-      const t = Math.min(1, (now - startTime) / ms);
-      const eased = easeInOutSticky(t);
-      const y = start + (targetY - start) * eased;
-
-      if (containerIsDoc) window.scrollTo(0, y);
-      else container.scrollTop = y;
-
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else {
-        if (containerIsDoc) window.scrollTo(0, targetY);
-        else container.scrollTop = targetY;
-        resolve();
+  
+    function isInViewport(el) {
+      if (!el) return false;
+      const r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    }
+  
+    function scrollToRef(el, block) {
+      if (!el) return;
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: block
+      });
+    }
+  
+    function scrollDocumentToRevealMeta() {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth"
+      });
+    }
+  
+    function setActiveFootnote(id) {
+      history.pushState(null, "", "#fn-" + id);
+  
+      document.querySelectorAll(".meta-note").forEach(el => {
+        el.classList.toggle("is-active", el.dataset.fnid === id);
+      });
+  
+      document.querySelectorAll(".footnote-definition").forEach(el => {
+        el.classList.toggle("is-active", el.id === id);
+      });
+    }
+  
+    const mqDesktop = window.matchMedia("(min-width: 600px)");
+  
+    document.addEventListener("click", function (e) {
+  
+      const meta = e.target.closest(".meta-note[data-fnid]");
+      if (meta) {
+        if (e.target.closest("a")) return;
+  
+        const id = meta.dataset.fnid;
+        if (!id) return;
+  
+        const ref = document.querySelector(
+          '.footnote-reference a[href="#' + id + '"]'
+        );
+        if (!ref) return;
+  
+        scrollToRef(ref, "start");
+        setActiveFootnote(id);
+        return;
       }
-    };
-
-    requestAnimationFrame(step);
-  });
-
   
-    /* =========================
-       하이라이트 (빠른 IN → 유지 → 느린 OUT)
-       ========================= */
-    const highlight = (host, hold = HL_HOLD_MS) => {
-      if (!host) return;
-      host.classList.add('fn-hl');  // 초기 상태(투명) + 트랜지션 규칙
-      // 다음 프레임에 ON
-      requestAnimationFrame(() => {
-        host.style.setProperty('--fn-hl-in',  `${HL_IN_MS}ms`);
-        host.style.setProperty('--fn-hl-out', `${HL_OUT_MS}ms`);
-        host.classList.add('is-on');           // 빠르게 켜짐
-        setTimeout(() => {
-          host.classList.add('is-fading');     // 느리게 꺼짐
-          host.classList.remove('is-on');
-          setTimeout(() => host.classList.remove('fn-hl', 'is-fading'), HL_OUT_MS + 30);
-        }, hold);
-      });
-    };
+      const def = e.target.closest(".footnote-definition[id]");
+      if (def) {
+        if (e.target.closest("a")) return;
   
-    /* =========================
-       매핑: 본문 참조 ↔ 각주 블록
-       ========================= */
-    const allIds = new Set([...document.querySelectorAll('[id]')].map(el => el.id));
-    const bodyLinks = [...document.querySelectorAll('.page-content a[href^="#"]')]
-      .filter(a => !a.closest('.footnote-definition') && !a.closest('.footnotes'));
+        const id = def.id;
+        if (!id) return;
   
-    const footnoteIds = new Set(
-      bodyLinks
-        .map(a => (a.getAttribute('href') || '').slice(1))
-        .filter(id => id && allIds.has(id))
-    );
+        const ref = document.querySelector(
+          '.footnote-reference a[href="#' + id + '"]'
+        );
+        if (!ref) return;
   
-    const getFootnoteBlock = (id) => {
-      const el = document.getElementById(id);
-      return el
-        ? (el.closest('.footnote-definition') || el.closest('.footnotes li[id^="fn"]') || el)
-        : null;
-    };
+        scrollToRef(ref, "start");
+        setActiveFootnote(id);
+        return;
+      }
   
-    const backMap = new Map();
-    bodyLinks
-      .filter(a => footnoteIds.has((a.getAttribute('href') || '').slice(1)))
-      .forEach(a => {
-        const id = a.getAttribute('href').slice(1);
-        const sup = a.closest('sup[id^="fnref"]') || a.closest('sup');
-        const target = sup || a;
-        if (!target.id) {
-          let base = `fnref-auto-${id}`, i = 1, uid = base;
-          while (document.getElementById(uid)) uid = `${base}-${i++}`;
-          target.id = uid;
-        }
-        backMap.set(id, target.id);
-      });
-  
-    /* =========================
-       이벤트: 본문 → 각주
-       ========================= */
-    document.addEventListener('click', async (e) => {
-      const ref = e.target.closest('.page-content a[href^="#"]');
-      if (!ref || ref.closest('.footnote-definition') || ref.closest('.footnotes')) return;
-  
-      const hash = ref.getAttribute('href') || '';
-      if (!hash.startsWith('#')) return;
-  
-      const id = hash.slice(1);
-      if (!footnoteIds.has(id)) return;
+      const refLink = e.target.closest(".footnote-reference a[href^='#']");
+      if (!refLink) return;
   
       e.preventDefault();
-      const fnBlock = getFootnoteBlock(id);
-      if (!fnBlock) return;
   
-      const container = getScrollContainer(fnBlock);
-      await scrollToTarget(container, fnBlock, SCROLL_MS, 0);
-      history.pushState(null, '', `#${id}`);
-      highlight(fnBlock, HL_HOLD_MS);
-    });
+      const id = refLink.getAttribute("href").slice(1);
+      if (!id) return;
   
-    /* =========================
-       이벤트: 각주 → 본문
-       ========================= */
-    document.addEventListener('click', async (e) => {
-      const a = e.target.closest('a');
-      if (a) {
-        const href = a.getAttribute('href') || '';
-        if (href && !href.startsWith('#')) return; // 외부 링크는 방해하지 않음
-      }
+      setActiveFootnote(id);
   
-      let node = e.target.closest('[id]');
-      while (node) {
-        const id = node.id;
-        if (footnoteIds.has(id)) {
-          const backId = backMap.get(id);
-          if (backId) {
-            e.preventDefault();
-            const backEl = document.getElementById(backId) || document.querySelector(`a[href="#${id}"]`);
-            if (!backEl) return;
-            const container = getScrollContainer(backEl);
-            await scrollToTarget(container, backEl, SCROLL_MS, 0);
-            history.pushState(null, '', `#${backId}`);
-            highlight(backEl, HL_HOLD_MS);
+      if (mqDesktop.matches) {
+        const metaTarget = document.querySelector(
+          ".meta-note[data-fnid='" + id + "']"
+        );
+  
+        if (metaTarget && isVisible(metaTarget)) {
+          if (!isInViewport(metaTarget)) {
+            scrollDocumentToRevealMeta(metaTarget);
           }
           return;
         }
-        node = node.parentElement;
+      }
+  
+      const footTarget = document.getElementById(id);
+      if (footTarget && isVisible(footTarget)) {
+        scrollToRef(footTarget, "end");
       }
     });
   
-    /* =========================
-       해시 진입/변경 시 하이라이트
-       ========================= */
-    const flashFromHash = async () => {
-      const id = location.hash.slice(1);
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!location.hash.startsWith("#fn-")) return;
+  
+      const id = location.hash.replace("#fn-", "");
       if (!id) return;
-      const el = document.getElementById(id);
-      if (!el) return;
-      const target = el.closest('.footnote-definition') || el.closest('.footnotes li[id^="fn"]') || el;
-      const container = getScrollContainer(target);
   
-      // 뷰포트 안에 대략 보이는지 검사
-      const viewTop = (container === document.scrollingElement || container === document.documentElement || container === document.body)
-        ? 0
-        : container.getBoundingClientRect().top;
-      const r = target.getBoundingClientRect();
-      const inView = (r.top - viewTop) >= 0 && (r.bottom - viewTop) <= (container.clientHeight || window.innerHeight);
+      setActiveFootnote(id);
   
-      if (!inView) await scrollToTarget(container, target, SCROLL_MS, 0);
-      highlight(target, HL_HOLD_MS);
-    };
+      if (mqDesktop.matches) {
+        const metaTarget = document.querySelector(
+          ".meta-note[data-fnid='" + id + "']"
+        );
+        if (metaTarget && isVisible(metaTarget)) {
+          if (!isInViewport(metaTarget)) {
+            scrollDocumentToRevealMeta(metaTarget);
+          }
+          return;
+        }
+      }
   
-    window.addEventListener('hashchange', () => setTimeout(flashFromHash, 30));
-    if (location.hash) setTimeout(flashFromHash, 60);
-  });
-  </script>
+      const footTarget = document.getElementById(id);
+      if (footTarget && isVisible(footTarget)) {
+        scrollToRef(footTarget, "end");
+      }
+    });
   
+  })();
+  </script>  
   
-
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.page-content ol > li').forEach(li => {
-        // 이미 래퍼가 있으면 생략
-        if (li.querySelector(':scope > .li-body')) return;
+    document.addEventListener("DOMContentLoaded", () => {
+      const PUNCTS = `"'\u2018\u201C([{‹«〈《「『`;
     
-        const body = document.createElement('span'); // inline semantics 유지
-        body.className = 'li-body';
+        const targets = document.querySelectorAll(
+  '.page-meta .meta-title, \
+   .page-meta .meta-line, \
+   .page-body .page-content p, \
+   .page-body .page-content li'
+);
+
     
-        // 숫자 마커(::before) 외 모든 노드를 li-body로 이동
-        while (li.firstChild) body.appendChild(li.firstChild);
-        li.appendChild(body);
+      targets.forEach(el => {
+        const text = (el.textContent || '').trimStart();
+        if (!text) return;
+    
+        const firstChar = text[0];
+        if (!PUNCTS.includes(firstChar)) return;
+    
+        el.classList.add('hang-punct');
       });
     });
     </script>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const superscriptMap = {
+          "0": "⁰",
+          "1": "¹",
+          "2": "²",
+          "3": "³",
+          "4": "⁴",
+          "5": "⁵",
+          "6": "⁶",
+          "7": "⁷",
+          "8": "⁸",
+          "9": "⁹"
+        };
+      
+        document
+          .querySelectorAll("sup.footnote-reference a")
+          .forEach(el => {
+            const text = el.textContent.trim();
+      
+            // 숫자만 처리
+            if (!/^\d+$/.test(text)) return;
+      
+            const superscript = [...text]
+              .map(d => superscriptMap[d] || d)
+              .join("");
+      
+            el.textContent = superscript;
+            el.setAttribute("aria-label", `Footnote ${text}`);
+          });
+      });
+      </script>
+      
+      <script>
+        (function () {
+          const root = document.querySelector(".page-body.page-content");
+          if (!root) return;
 
+          root.querySelectorAll("blockquote ol > li").forEach(li => {
+            if (li.querySelector(":scope > .li-body")) return;
+
+            const body = document.createElement("span");
+            body.className = "li-body";
+
+            const nodes = Array.from(li.childNodes);
+
+            nodes.forEach(node => {
+              // 🔑 숫자용 ::before는 건드리지 말고
+              // 🔑 실제 DOM 자식만 이동
+              if (
+                node.nodeType === Node.ELEMENT_NODE ||
+                (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "")
+              ) {
+                body.appendChild(node);
+              }
+            });
+
+            li.appendChild(body);
+          });
+        })();
+        </script>
+        
+
+
+    </main>
+
+<footer class="footer" role="contentinfo">
+  <p class="footer__text">
+    © 2026 <span id="footer-site-title"></span><span class="footer-sep"></span>
+    
+      <span class="footer-msg">이 웹사이트는 <span id="footer-variant">(당분간은)</span> 제작중이다.</span>
+    
+  </p>
+
+</footer>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const currentHost = window.location.hostname;
-    const links = document.querySelectorAll('a[href^="http"]');
-  
-    links.forEach(link => {
-      const url = new URL(link.href);
-      if (url.hostname !== currentHost) {
-        link.setAttribute("target", "_blank");
-        link.setAttribute("rel", "noopener noreferrer");
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("menu-toggle");
+    const menu = document.getElementById("global-menu");
+    if (!btn || !menu) return;
+
+    const openMenu = () => {
+      menu.hidden = false;
+      btn.setAttribute("aria-expanded", "true");
+      document.body.classList.add("menu-open");
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("menu-open");
+    };
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      expanded ? closeMenu() : openMenu();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        closeMenu();
       }
     });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
   });
-  </script>
+</script>
 
 
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const currentHost = window.location.hostname;
+        document
+          .querySelectorAll('a[href^="http"]')
+          .forEach(link => {
+            const url = new URL(link.href);
+            if (url.hostname !== currentHost) {
+              link.setAttribute("target", "_blank");
+              link.setAttribute("rel", "noopener noreferrer");
+            }
+          });
+      });
+    </script>
+
+    <script>
+      const SITE_TITLES = [
+      "J—H",
+      "j—h",
+      "Jaydashaitch",
+      "제이대시에이치",
+      "제이에이치",
+      "제이(대시)에이치",
+      "JAY(DASH)AITCH",
+      "재현",
+      "재(대시)현",
+      "JH ARCHIVE",
+      "JAEHYEON LEE",
+      "JAEHYEON",
+      "jay—aitch",
+      "JAE(DASH)HYEON"
+      ];
+
+      function pickRandom(list) {
+        return list[Math.floor(Math.random() * list.length)];
+      }
+
+      function pickRandomDifferent(list, current) {
+        const pool = list.filter(item => item !== current);
+        return pool.length
+          ? pool[Math.floor(Math.random() * pool.length)]
+          : current;
+      }
+
+      (function () {
+        const titleEl = document.getElementById("site-title");
+        const footerEl = document.getElementById("footer-site-title");
+        if (!titleEl || !footerEl) return;
+
+        const KEY = "jh_site_title";
+
+        const applyTitle = (value) => {
+          titleEl.textContent = value;
+          footerEl.textContent = value;
+        };
+
+        if (!sessionStorage.getItem(KEY)) {
+          sessionStorage.setItem(KEY, pickRandom(SITE_TITLES));
+        }
+
+        applyTitle(sessionStorage.getItem(KEY));
+
+        titleEl.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          const current = sessionStorage.getItem(KEY);
+          const next = pickRandomDifferent(SITE_TITLES, current);
+
+          sessionStorage.setItem(KEY, next);
+          applyTitle(next);
+
+          setTimeout(() => {
+            window.location.href = titleEl.href;
+          }, 80);
+        });
+      })();
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const target = document.getElementById("footer-variant");
+        if (!target) return;
+      
+        const lang = document.documentElement.lang;
+      
+        const variants = lang === "ko"
+          ? [
+              "(한동안은)",
+              "(당분간은)",
+              "(얼마간은)",
+              "(현재로서는)",
+              "(일단은)",
+              "(우선은)",
+              "(잠시나마)",
+              "(당장까지는)",
+              "(지금으로서는)",
+              "(일정 기간동안은)",
+              "(잠정적으로)",
+              "(잠시 동안은)",
+              "(지금은 계속)"
+            ]
+          : [
+              "(for a while)",
+              "(for now)",
+              "(for the time being)",
+              "(temporarily)",
+              "(for the moment)",
+              "(in the meantime)",
+              "(for some time)",
+              "(briefly)",
+              "(until further notice)",
+              "(as of now)",
+              "(for a certain period)",
+              "(still)",
+              "(for a short while)"
+            ];
+      
+        let current = target.textContent;
+      
+        const pickNext = () => {
+          let next;
+          do {
+            next = variants[Math.floor(Math.random() * variants.length)];
+          } while (next === current);
+      
+          current = next;
+          target.textContent = next;
+        };
+      
+        setInterval(pickNext, 1000);
+      });
+      </script>
   
   </body>
 </html>

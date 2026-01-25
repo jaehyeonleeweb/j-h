@@ -1,156 +1,278 @@
 <!DOCTYPE html>
 
+
   
-  
+
+
+<script>
+  console.log("current_path:", "/works/workshop-practice/wsp-001/");
+</script>
+
+<script>
+  console.log("lang:", "en");
+  console.log("section.lang:", "(no section)");
+  console.log("page.lang:", "en");
+</script>
 
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Workshop about “Synthesizer”: DCT Synthesizing I · j-h</title>
+    <title>Workshop about “Synthesizer”: DCT Synthesizing I, J-H</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    
-    <!-- 0) 첫 페인트부터 폴백 감추기 (FOUT/FOIT 방지) -->
-    <style>
-      html:not(.wf-active):not(.wf-inactive) body { visibility: hidden; }
-      html.wf-loading body { visibility: hidden; }
-      html.wf-active body,
-      html.wf-inactive body { visibility: visible; }
-      html.wf-active body { animation: fontFadeIn .18s ease-out; }
-      @keyframes fontFadeIn { from { opacity: 0 } to { opacity: 1 } }
-    </style>
 
-    <!-- 1) 폰트 커넥션 선연결 -->
-    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-    <link rel="preconnect" href="https://p.typekit.net" crossorigin>
-
-    <!-- 2) Typekit 로더 -->
-    <script>
-      (function(d) {
-        var config = { kitId: 'efe0obd', scriptTimeout: 3000, async: true },
-            h = d.documentElement,
-            t = setTimeout(function() {
-              h.className = h.className.replace(/\bwf-loading\b/g,"") + " wf-inactive";
-            }, config.scriptTimeout),
-            tk = d.createElement("script"),
-            f = false,
-            s = d.getElementsByTagName("script")[0],
-            a;
-        h.className += " wf-loading";
-        tk.src = "https://use.typekit.net/" + config.kitId + ".js";
-        tk.async = true;
-        tk.onload = tk.onreadystatechange = function() {
-          a = this.readyState;
-          if (f || (a && a !== "complete" && a !== "loaded")) return;
-          f = true; clearTimeout(t);
-          try { Typekit.load(config); } catch (e) {}
-        };
-        s.parentNode.insertBefore(tk, s);
-      })(document);
-    </script>
-
-    <!-- (선택) 개발 중 편의 -->
-    <link rel="stylesheet" href="https://use.typekit.net/efe0obd.css">
     <link rel="stylesheet" href="/css/main.css">
   </head>
 
   <body>
-    <!-- 전체 2단 그리드 -->
-    <div class="shell">
-      <!-- 좌측: 세로 메뉴 -->
-      <aside class="site-nav">
-        <!-- ✅ 모바일 상단 바 (≤600px에서 보이도록 CSS 제어) -->
-        <div class="nav-bar" role="navigation" aria-label="mobile top bar">
-          <button class="nav-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-menu">menu</button>
+    <header class="header" role="banner">
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        aria-expanded="false"
+        aria-controls="global-menu"
+      >
+       
+          MENU
+       
+      </button>
+
+      <a href="/" class="site-title" id="site-title"></a>
+
+      <span class="lang-toggle" data-lang="en">
+        
+          <a
+            href="/kr&#x2F;works&#x2F;workshop-practice&#x2F;wsp-001&#x2F;"
+            class="ko"
+          >한</a>
+          <span class="sep"> / </span>
+          <span class="en">EN</span>
+        
+      </span>
+      
+    </header>
+
+    <nav
+      id="global-menu"
+      class="global-menu"
+      aria-label="primary"
+      hidden
+    >
+      
+        <a href="/allarchive/">All Archive</a>
+        
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+        <span class="menu-item--disabled" aria-disabled="true">Shop</span>
+      
+    </nav>
+
+    <main id="content">
+      
+
+<article class="page-two-col" role="article">
+
+  <aside class="page-meta" role="complementary">
+
+    <div class="meta-block meta-title">
+      <strong>Workshop about “Synthesizer”: DCT Synthesizing I</strong>
+    </div>
+
+    <div class="meta-block meta-data">
+
+      
+        <div class="meta-line">
           
-            <a href="/kr&#x2F;works&#x2F;workshop-practice&#x2F;wsp-001&#x2F;" class="lang-toggle">kr</a>
+            Document No. → [15]
           
         </div>
-
-        <!-- ✅ 메인 메뉴: 데스크탑에서 항상 보이고, 모바일에선 토글 대상 -->
-        <nav id="nav-menu" aria-label="primary">
-          <a href="/">all archive</a><br>
-          <a href="/works/">works</a><br>
-          <a href="/about/">about</a><br>
-          <a href="/contact/">contact</a><br>
-        
-          <!-- ⛔️ 비활성: 링크 대신 span, 클릭 불가, 회색(60%) -->
-          <span class="nav-item nav-item--disabled" aria-disabled="true" title="Coming soon">shop</span>
-        </nav>
-
-        <!-- ✅ 데스크탑 전용 언어 토글: 메뉴 '아래 한 칸'에 표시 (모바일에선 CSS로 숨김) -->
-        <div class="lang-toggle--desktop">
+      
+    
+      
+        <div class="meta-line">
           
-            <a href="/kr&#x2F;works&#x2F;workshop-practice&#x2F;wsp-001&#x2F;">kr</a>
+            Category → [Workshop Practice]
           
         </div>
-      </aside>
-
-      <!-- 우측: 콘텐츠 -->
-      <main class="site-main">
+      
+    
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <div class="meta-line">
         
-
-
-<article class="page-two-col">
-  
-  <aside class="page-meta">
-    <dl class="meta-list">
-      
-        <dt><h1>document no.:</h1></dt>
-        <dd>15</dd>
-      
-  
-      
-        <dt><h1>category:</h1></dt>
-        <dd>workshop practice</dd>
-      
-  
-      
-        <dt><h1>date:</h1></dt>
-        <dd>Dec 2025</dd>
-      
-  
-      
-  
-      
-      <dt><h1>link:</h1></dt>
-      <dd class="meta-link">
-        <a href="&#x2F;works&#x2F;workshop&#x2F;ws-001&#x2F;">
-          Workshop about “Synthesizer”
-        </a>
-      </dd>
-      
-  
-      
+          Date →
+        
+    
+        
+        
+          [Dec 2025]
+        
+      </div>
+    
 
       
+      
+    
+      <div class="meta-line">
+        
+          
+            Related documents →
+          
+        
+    
+        
+          
+            [<a href="&#x2F;works&#x2F;workshop&#x2F;ws-001&#x2F;">Workshop about “Synthesizer”</a>]
+          
+        
+      </div>
+    
+  
+  
+    
+    </div>
+    
 
-    </dl>
+    
+    <div class="meta-block meta-desc">
+      
+        <div class="meta-line">
+          → This practice follows the <a href="/works/workshop/ws-001/">Workshop about “Synthesizer”</a>.
+        </div>
+      
+        <div class="meta-line">
+          → (For the relationship between workshops and practice, see <a href="/about/about/">About</a>.)
+        </div>
+      
+    </div>
+    
+    
+
+    
+    <div class="meta-block meta-notes">
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="1"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">1</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            In this text, “image” is limited to mean two-dimensional flat images.
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="2"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">2</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            The three attributes of an image follow the viewpoint of Professor Jae-Hyouk Sung from the Department of Visual Communication Design, College of Design, Kookmin University.
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="3"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">3</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            Video explaining JPG, helpful for this practice: <a rel="external" href="https://youtu.be/Kv1Hiv3ox8I?si=iVc1zerfmSAGd9qW">youtu.be/Kv1Hiv3ox8I?si=iVc1zerfmSAGd9qW</a>
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="4"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">4</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            The 64 DCT patterns are composed of combinations of horizontal and vertical frequencies. This is because JPG handles two-dimensional planar images, requiring both horizontal and vertical axes. Furthermore, since an 8×8 pixel grid can yield 8 types of horizontal and 8 types of vertical frequencies, the total number of possible combinations results in 64 patterns.
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="5"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">5</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            Strictly speaking, the inverse process of JPG compression does not fully hold. Digital image compression methods are broadly divided into lossy compression and lossless compression. JPG is a prime example of the former, while PNG and GIF are representative examples of the latter. (Typically, anyone who has worked with digital images knows or feels intuitively that the former format is lighter than the latter.) That is, JPG does not retain the original information from before compression in its entirety. <br>However, this loss occurs only during the quantization process of JPG; the DCT itself can be perfectly reversed. To restore a JPG-compressed image to its original state, the inverse discrete cosine transform (IDCT) process must be applied, which does not introduce loss. This is because DCT is a transform method based on the Fourier transform. Based on this reasoning, I concluded that the principles of DCT are well-suited for application in image resizing.
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="6"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">6</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            All image generation tasks were produced using Python scripts. Images were generated by assigning each frequency weight either 1 or 0, and the resulting 4×4 pixel images were enlarged to 40×40 pixels for easier viewing. All shape images attached to this article are upscaled to 40×40 pixels.
+          </span>
+        </div>
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="7"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">7</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            The number of cases where every cell is filled with a different pattern is excluded. This alone would form 43,680 distinct images, an excessively large number relative to their structural significance, so they were excluded for now. The images from A to D alone should suffice to explore the principles of image synthesis.
+          </span>
+        </div>
+      
+    </div>
+    
+    
+
   </aside>
 
   <div class="page-body page-content">
-    
-    <h1 class="display-title">
-      Workshop about “Synthesizer”: DCT Synthesizing I
-    </h1>
-    <hr />
-<h3 id="this-practice-follows-the-workshop-about-synthesizer">This practice follows the <a href="/works/workshop/ws-001/">Workshop about “Synthesizer”</a>.</h3>
-<br>
-<hr />
-<p><strong>0. On Image Synthesis</strong><br>
-As discussed in the <a href="/works/workshop/ws-001/">Workshop about “Synthesizer”</a>, the synthesis principle of synthesizers is based on the sum of frequencies. I aim to bring this principle into the realm of visual images rather than audio. Before proceeding, let's address a few conditions.
+
+    <p><strong>0. On Image Synthesis</strong><br>
+As discussed in the <a href="/works/workshop/ws-001/">Workshop about “Synthesizer”</a>, the synthesis principle of synthesizers is based on the sum of frequencies. I aim to bring this principle into the realm of visual images rather than audio. Before proceeding, let’s address a few conditions.
 <br><br></p>
 <p><strong>1. Fundamental Elements of Images</strong><br>
-While the basic element of audio synthesis can be simply defined as a sine wave, no such foundational element readily comes to mind in the world of images. How should we find it?<sup class="footnote-reference"><a href="#1">1</a></sup>
+While the basic element of audio synthesis can be simply defined as a sine wave, no such foundational element readily comes to mind in the world of images. How should we find it?<sup class="footnote-reference" id="fr-1-1"><a href="#fn-1">1</a></sup>
 <br><br>
-Let's acknowledge that dealing with images is more complex than dealing with sound. Unlike sound, which consists solely of one-dimensional waves, an image is a two-dimensional spatial concept with x and y axes. Therefore, the frequency of visual information becomes more complex in its directionality. Furthermore, the eye's resolution is far higher than that of the ear. In other words, it has higher resolution. These two facts mean that the amount of information we must interpret—or convey—from visual images is greater than that from sound.
+Let’s acknowledge that dealing with images is more complex than dealing with sound. Unlike sound, which consists solely of one-dimensional waves, an image is a two-dimensional spatial concept with x and y axes. Therefore, the frequency of visual information becomes more complex in its directionality. Furthermore, the eye’s resolution is far higher than that of the ear. In other words, it has higher resolution. These two facts mean that the amount of information we must interpret—or convey—from visual images is greater than that from sound.
 <br><br>
-The purpose of this practice is not to clearly define every attribute of an image. That is far too vast a subject. It suffices to speculate within limited scope on how image synthesis might function. For example, no synthesizer in the world strictly adheres to the fundamental principle that all sounds can be produced solely through the synthesis of sine waves. This is because it is nearly impossible to prepare the countless oscillators needed to fully capture the world's complexity. Therefore, this practice aims to adopt one approach to image synthesis and explore its potential.
+The purpose of this practice is not to clearly define every attribute of an image. That is far too vast a subject. It suffices to speculate within limited scope on how image synthesis might function. For example, no synthesizer in the world strictly adheres to the fundamental principle that all sounds can be produced solely through the synthesis of sine waves. This is because it is nearly impossible to prepare the countless oscillators needed to fully capture the world’s complexity. Therefore, this practice aims to adopt one approach to image synthesis and explore its potential.
 <br><br></p>
 <p><strong>2. Image Attributes</strong><br>
-First, let us categorize image attributes into three types.<sup class="footnote-reference"><a href="#2">2</a></sup></p>
+First, let us categorize image attributes into three types.<sup class="footnote-reference" id="fr-2-1"><a href="#fn-2">2</a></sup></p>
 <blockquote>
 <ol>
 <li>Color</li>
@@ -161,11 +283,11 @@ First, let us categorize image attributes into three types.<sup class="footnote-
 <p>Among these, color is relatively distinct from the other attributes, but the remaining two are not. If form refers to specific shapes or boundaries within an image, texture could be defined as patterns or variations in density within specific areas of the image. While these definitions are fairly clear within the realm of human intuition, they are challenging to translate into precise mechanical criteria. Consequently, in the process of applying the principles of JPEG compression used in this practice, texture and form will be defined somewhat indistinctly. We will exclude discussions on color and limit our scope to the synthesis of shape alone—combining form and texture under this term.
 <br><br></p>
 <p><strong>3. JPEG Compression and DCT</strong><br>
-The JPEG compression method (hereafter JPG) is the most widely used standard among lossy compression techniques for reducing the file size of digital images.<sup class="footnote-reference"><a href="#3">3</a></sup> Simply put, JPG reduces storage capacity by treating information poorly recognized by the human eye as unimportant—blurring or deleting it—a process known as lossy compression. In this process, JPG divides image information into two major categories for processing: color and shape.
+The JPEG compression method (hereafter JPG) is the most widely used standard among lossy compression techniques for reducing the file size of digital images.<sup class="footnote-reference" id="fr-3-1"><a href="#fn-3">3</a></sup> Simply put, JPG reduces storage capacity by treating information poorly recognized by the human eye as unimportant—blurring or deleting it—a process known as lossy compression. In this process, JPG divides image information into two major categories for processing: color and shape.
 <br><br>
 JPG processes color by separating it into luminance (brightness) and chrominance (color) information. Brightness information is considered more important than color information because the human eye is more sensitive to changes in brightness. Consequently, JPG reduces storage space by sacrificing (subsampling) color information. Compressed digital images lose some actual color information, but this difference is difficult to discern clearly with the naked eye. Consequently, JPG becomes an efficient compression method that defends against visual quality degradation of the original image while reducing actual data.
 <br><br>
-The process by which JPG handles shape is more complex. First, JPG divides the entire image into 8x8 pixel blocks for processing. Each block is then compressed independently. (The blocky appearance in digital images, often called JPEG artifacts, arises during this process.) During compression, these 8x8 pixel blocks are converted into a combination of 64 basic patterns using a method called the Discrete Cosine Transform (DCT). This converts spatial domain information into frequency domain information, which is also related to the hierarchy of information discernible by the human eye. We perceive low-frequency components, which form the large structures of an image, well, but we do not perceive high-frequency components, which are detailed and have complex shape changes, as well. Therefore, JPG increases compression efficiency by sacrificing the high-frequency components in the transformed 8x8 pixel frequency domain.
+The process by which JPG handles shape is more complex. First, JPG divides the entire image into 8×8 pixel blocks for processing. Each block is then compressed independently. (The blocky appearance in digital images, often called JPEG artifacts, arises during this process.) During compression, these 8×8 pixel blocks are converted into a combination of 64 basic patterns using a method called the Discrete Cosine Transform (DCT). This converts spatial domain information into frequency domain information, which is also related to the hierarchy of information discernible by the human eye. We perceive low-frequency components, which form the large structures of an image, well, but we do not perceive high-frequency components, which are detailed and have complex shape changes, as well. Therefore, JPG increases compression efficiency by sacrificing the high-frequency components in the transformed 8×8 pixel frequency domain.
 <br><br></p>
 <figure class="img--fixed" style="max-width:360px;">
   <img src="/media/works/workshop-practice/wsp-001/jpg image.webp" alt="JPG Image">
@@ -173,489 +295,508 @@ The process by which JPG handles shape is more complex. First, JPG divides the e
 </figure>
 <br><br>
 <p><strong>4. Discrete Cosine Transform</strong><br>
-JPG's DCT follows these steps:</p>
+JPG’s DCT follows these steps:</p>
 <blockquote>
 <ol>
-<li>An 8x8 pixel block has 64 basic patterns (DCT coefficients). <sup class="footnote-reference"><a href="#4">4</a></sup></li>
-<li>The original image is divided into 8x8 pixel blocks, and the information from each block is read.</li>
-<li>The block's information is converted into 64 weighted coefficients for the patterns via DCT.</li>
-<li>The 64 patterns are combined according to these weights to reconstruct the block's image.</li>
+<li>An 8×8 pixel block has 64 basic patterns (DCT coefficients). <sup class="footnote-reference" id="fr-4-1"><a href="#fn-4">4</a></sup></li>
+<li>The original image is divided into 8×8 pixel blocks, and the information from each block is read.</li>
+<li>The block’s information is converted into 64 weighted coefficients for the patterns via DCT.</li>
+<li>The 64 patterns are combined according to these weights to reconstruct the block’s image.</li>
 <li>The compression ratio varies depending on how much high-frequency information is sacrificed.</li>
 </ol>
 </blockquote>
 <br>
-<figure class="img--bordered img--fixed" style="max-width:360px;">
-  <img src="/media/works/workshop-practice/wsp-001/dct 8x8.webp" alt="DCT 8x8">
-  <figcaption>Basic patterns in a DCT block (8x8)</figcaption>
+<figure class="img--fixed" style="max-width:360px;">
+  <img src="/media/works/workshop-practice/wsp-001/dct 8x8.webp" alt="DCT 8×8">
+  <figcaption>Basic patterns in a DCT block (8×8)</figcaption>
 </figure>
 <br><br>
 <p><strong>5. Image Generation Using DCT (DCT Resynthesis)</strong><br>
-If DCT compresses images, it should also be possible to reverse this process to generate images. This practice originated from this idea.<sup class="footnote-reference"><a href="#5">5</a></sup>
+If DCT compresses images, it should also be possible to reverse this process to generate images. This practice originated from this idea.<sup class="footnote-reference" id="fr-5-1"><a href="#fn-5">5</a></sup>
 <br><br>
-As previously noted, the Discrete Cosine Transform yields 64 DCT coefficients. The ultimate goal is to combine these to obtain a shape image, but an 8x8 grid presents too many possibilities for experimentation. Therefore, we decided to control the variables for the experiment. The experimental conditions are as follows. <sup class="footnote-reference"><a href="#6">6</a></sup></p>
+As previously noted, the Discrete Cosine Transform yields 64 DCT coefficients. The ultimate goal is to combine these to obtain a shape image, but an 8×8 grid presents too many possibilities for experimentation. Therefore, we decided to control the variables for the experiment. The experimental conditions are as follows. <sup class="footnote-reference" id="fr-6-1"><a href="#fn-6">6</a></sup></p>
 <blockquote>
 <ol>
-<li>The format of the generated shape image is set to 4x4 pixels.</li>
-<li>The generated shape image is composed of a combination of four 2x2 pixel blocks.</li>
-<li>Consequently, each 2x2 pixel block possesses one of four basic patterns (DCT coefficients).</li>
+<li>The format of the generated shape image is set to 4×4 pixels.</li>
+<li>The generated shape image is composed of a combination of four 2×2 pixel blocks.</li>
+<li>Consequently, each 2×2 pixel block possesses one of four basic patterns (DCT coefficients).</li>
 <li>By limiting weights to 0 and 1, generate all possible images within these constraints.</li>
 </ol>
 </blockquote>
 <br>
 <p>Accordingly, I obtained 4 basic patterns and 1,808 shape images. These represent all possible images under the experimental conditions.
 <br><br></p>
-<figure class="img--bordered img--fixed" style="max-width:370px;">
-  <img src="/media/works/workshop-practice/wsp-001/dct 2x2 Basics.webp" alt="dct 2x2 basics">
-  <figcaption>Four basic patterns (A 2x2 pixel block's DCT coefficient has four possible cases based on weights 0 and 1.)</figcaption>
+<figure class="img--fixed" style="max-width:370px;">
+  <img src="/media/works/workshop-practice/wsp-001/dct 2x2 Basics.webp" alt="dct 2×2 basics">
+  <figcaption>Four basic patterns (A 2×2 pixel block’s DCT coefficient has four possible cases based on weights 0 and 1.)</figcaption>
 </figure>
 <br><br>
-The number of ways to combine 2x2 DCT coefficients to create a 4x4 image can be summarized as follows:
+The number of ways to combine 2×2 DCT coefficients to create a 4×4 image can be summarized as follows:
 <blockquote>
-<p>A: An image filled entirely with the same basic 2x2 pattern<br>
+<p>A: An image filled entirely with the same basic 2×2 pattern<br>
 B: Image filled with two different patterns, each occupying half the space<br>
 C: Image filled with one pattern occupying 3 cells and another pattern occupying 1 cell<br>
-D: Image filled with one pattern occupying 2 cells, another pattern occupying 1 cell, and yet another pattern occupying 1 cell<sup class="footnote-reference"><a href="#7">7</a></sup></p>
+D: Image filled with one pattern occupying 2 cells, another pattern occupying 1 cell, and yet another pattern occupying 1 cell<sup class="footnote-reference" id="fr-7-1"><a href="#fn-7">7</a></sup></p>
 </blockquote>
 <p><br><br></p>
-<figure class="img--bordered img--fixed" style="max-width:410px;">
+<figure class="img--fixed" style="max-width:410px;">
   <img src="/media/works/workshop-practice/wsp-001/dct images A.webp" alt="dct images A">
   <figcaption>Shape Image Combination A, 8 types (16 combinations minus duplicate images)</figcaption>
 </figure>
 <br>
-<figure class="img--bordered img--fixed" style="max-width:810px;">
+<figure class="img--fixed" style="max-width:810px;">
   <img src="/media/works/workshop-practice/wsp-001/dct images B.webp" alt="dct images B">
   <figcaption>Shape Image Combination B, 96 types (removing duplicate images from 120 combination pairs)</figcaption>
 </figure>
 <br>
-<figure class="img--bordered img--fixed" style="max-width:810px;">
+<figure class="img--fixed" style="max-width:810px;">
   <img src="/media/works/workshop-practice/wsp-001/dct images C.webp" alt="dct images C">
   <figcaption>Shape Image Combination C, 192 types (removing duplicate images from 240 combination pairs)</figcaption>
 </figure>
 <br>
-<figure class="img--bordered img--fixed" style="max-width:810px;">
+<figure class="img--fixed" style="max-width:810px;">
   <img src="/media/works/workshop-practice/wsp-001/dct images D.webp" alt="dct images D">
   <figcaption>Shape Image Combination D, 1512 types (removing duplicate images from 1680 combination pairs)</figcaption>
 </figure>
 <br><br>
 <p><strong>6. Practice Postscript</strong><br>
 Through this series of processes, I sought to demonstrate that concrete images can be generated through the synthesis of abstract fundamental elements. However, the shape images produced as a result of this practice still have the limitation of not significantly departing from abstraction. Nevertheless, I am confident that these images exemplify the DCT principle as a potential methodology for image synthesis. In subsequent practices, I will further develop this methodology to obtain more concrete and useful form images. Moreover, the form images generated in this way can be connected to various contexts. For example, how do form images generated as the sum of frequencies through a specific methodology differ from AI-generated images using the Stable Diffusion method? Can Stable Diffusion, which is also based on learned data, be considered a form of “synthesis”? These questions clearly remind us of the potential inherent in <a href="/thought/th-001/">potential images</a>.</p>
-<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
-<p>In this text, “image” is limited to mean two-dimensional flat images.</p>
-</div>
-<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
-<p>The three attributes of an image follow the viewpoint of Professor Jae-Hyouk Sung from the Department of Visual Communication Design, College of Design, Kookmin University.</p>
-</div>
-<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
-<p>Video explaining JPG, helpful for this practice: https://youtu.be/Kv1Hiv3ox8I?si=iVc1zerfmSAGd9qW</p>
-</div>
-<div class="footnote-definition" id="4"><sup class="footnote-definition-label">4</sup>
-<p>The 64 DCT patterns are composed of combinations of horizontal and vertical frequencies. This is because JPG handles two-dimensional planar images, requiring both horizontal and vertical axes. Furthermore, since an 8x8 pixel grid can yield 8 types of horizontal and 8 types of vertical frequencies, the total number of possible combinations results in 64 patterns.</p>
-</div>
-<div class="footnote-definition" id="5"><sup class="footnote-definition-label">5</sup>
-<p>Strictly speaking, the inverse process of JPG compression does not fully hold. Digital image compression methods are broadly divided into lossy compression and lossless compression. JPG is a prime example of the former, while PNG and GIF are representative examples of the latter. (Typically, anyone who has worked with digital images knows or feels intuitively that the former format is lighter than the latter.) That is, JPG does not retain the original information from before compression in its entirety. <br>However, this loss occurs only during the quantization process of JPG; the DCT itself can be perfectly reversed. To restore a JPG-compressed image to its original state, the inverse discrete cosine transform (IDCT) process must be applied, which does not introduce loss. This is because DCT is a transform method based on the Fourier transform. Based on this reasoning, I concluded that the principles of DCT are well-suited for application in image resizing.</p>
-</div>
-<div class="footnote-definition" id="6"><sup class="footnote-definition-label">6</sup>
-<p>All image generation tasks were produced using Python scripts. Images were generated by assigning each frequency weight either 1 or 0, and the resulting 4x4 pixel images were enlarged to 40x40 pixels for easier viewing. All shape images attached to this article are upscaled to 40x40 pixels.</p>
-</div>
-<div class="footnote-definition" id="7"><sup class="footnote-definition-label">7</sup>
-<p>The number of cases where every cell is filled with a different pattern is excluded. This alone would form 43,680 distinct images, an excessively large number relative to their structural significance, so they were excluded for now. The images from A to D alone should suffice to explore the principles of image synthesis.</p>
-</div>
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn-1">
+<p>In this text, “image” is limited to mean two-dimensional flat images. <a href="#fr-1-1">↩</a></p>
+</li>
+<li id="fn-2">
+<p>The three attributes of an image follow the viewpoint of Professor Jae-Hyouk Sung from the Department of Visual Communication Design, College of Design, Kookmin University. <a href="#fr-2-1">↩</a></p>
+</li>
+<li id="fn-3">
+<p>Video explaining JPG, helpful for this practice: <a rel="external" href="https://youtu.be/Kv1Hiv3ox8I?si=iVc1zerfmSAGd9qW">youtu.be/Kv1Hiv3ox8I?si=iVc1zerfmSAGd9qW</a> <a href="#fr-3-1">↩</a></p>
+</li>
+<li id="fn-4">
+<p>The 64 DCT patterns are composed of combinations of horizontal and vertical frequencies. This is because JPG handles two-dimensional planar images, requiring both horizontal and vertical axes. Furthermore, since an 8×8 pixel grid can yield 8 types of horizontal and 8 types of vertical frequencies, the total number of possible combinations results in 64 patterns. <a href="#fr-4-1">↩</a></p>
+</li>
+<li id="fn-5">
+<p>Strictly speaking, the inverse process of JPG compression does not fully hold. Digital image compression methods are broadly divided into lossy compression and lossless compression. JPG is a prime example of the former, while PNG and GIF are representative examples of the latter. (Typically, anyone who has worked with digital images knows or feels intuitively that the former format is lighter than the latter.) That is, JPG does not retain the original information from before compression in its entirety. <br>However, this loss occurs only during the quantization process of JPG; the DCT itself can be perfectly reversed. To restore a JPG-compressed image to its original state, the inverse discrete cosine transform (IDCT) process must be applied, which does not introduce loss. This is because DCT is a transform method based on the Fourier transform. Based on this reasoning, I concluded that the principles of DCT are well-suited for application in image resizing. <a href="#fr-5-1">↩</a></p>
+</li>
+<li id="fn-6">
+<p>All image generation tasks were produced using Python scripts. Images were generated by assigning each frequency weight either 1 or 0, and the resulting 4×4 pixel images were enlarged to 40×40 pixels for easier viewing. All shape images attached to this article are upscaled to 40×40 pixels. <a href="#fr-6-1">↩</a></p>
+</li>
+<li id="fn-7">
+<p>The number of cases where every cell is filled with a different pattern is excluded. This alone would form 43,680 distinct images, an excessively large number relative to their structural significance, so they were excluded for now. The images from A to D alone should suffice to explore the principles of image synthesis. <a href="#fr-7-1">↩</a></p>
+</li>
+</ol>
+</section>
 
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const content = document.querySelector('.page-content');
-        if (!content) return;
-      
-        /* ---------------------------------------------
-         * 1) 흩어진 각주 아이템을 .footnotes 컨테이너로 래핑
-         *    - 대상: .footnote-definition, li[id^="fn"]
-         *    - 이미 .footnotes가 있으면 건너뜀
-         * --------------------------------------------- */
-        let wrap = content.querySelector('.footnotes');
-        if (!wrap) {
-          const items = Array.from(
-            content.querySelectorAll('.footnote-definition, li[id^="fn"]')
-          );
-          if (items.length) {
-            const parent = items[0].parentElement;
-            const group = items.filter(el => el.parentElement === parent);
-            if (group.length) {
-              wrap = document.createElement('div');
-              wrap.className = 'footnotes';
-              wrap.setAttribute('role', 'doc-endnotes');
-              wrap.setAttribute('aria-label', 'Footnotes');
-              parent.insertBefore(wrap, group[0]);
-              group.forEach(el => wrap.appendChild(el));
-            }
-          }
-        }
-      
-        /* ---------------------------------------------
-         * 2) 각주 본문(p) 내 URL을 <a>로 자동 변환
-         *    - 호환: http/https/www
-         *    - 말미의 쉼표/마침표/괄호 등은 제외
-         * --------------------------------------------- */
-        if (wrap) {
-          const URL_RE = /((?:https?:\/\/|www\.)[^\s<>()]+?)(?=[\s<>()]|$)/g;
-      
-          wrap.querySelectorAll('.footnote-definition > p, li[id^="fn"] > p')
-            .forEach(p => {
-              if (p.dataset.autolinked === '1') return;
-              p.innerHTML = p.innerHTML.replace(URL_RE, (m, url) => {
-                const href = url.startsWith('http') ? url : `https://${url}`;
-                return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-              });
-              p.dataset.autolinked = '1';
-            });
-      
-          // 안전: 링크 rel 보정
-          wrap.querySelectorAll('a').forEach(a => {
-            const rel = (a.getAttribute('rel') || '').split(/\s+/);
-            ['noopener','noreferrer'].forEach(tok => { if (!rel.includes(tok)) rel.push(tok); });
-            a.setAttribute('rel', rel.join(' ').trim());
-          });
-        }
-      });
-      </script>
-      
   </div>
 
 </article>
 
-
-      </main>
-    </div>
-
-    <!-- Footer -->
-    <footer class="site-footer" role="contentinfo" aria-label="site footer">
-      <p class="site-footer__text">
-        j-h, jaydashaitch, online archive of jae hyeon lee. ©2025 jaehyeon lee
-      </p>
-      <p class="site-footer__text--mobile">
-        j-h, ©2025 jaehyeon lee
-      </p>
-    </footer>
-
-    <!-- Hangul span 래핑 스크립트 -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const HANGUL_RE = /([\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A3]+)/g;
-        const SKIP_SELECTOR = 'pre, code, kbd, samp, script, style';
-        const walker = document.createTreeWalker(
-          document.body,
-          NodeFilter.SHOW_TEXT,
-          {
-            acceptNode(node) {
-              if (!node.nodeValue || !HANGUL_RE.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
-              let p = node.parentNode;
-              while (p && p !== document.body) {
-                if (p.matches && p.matches(SKIP_SELECTOR)) return NodeFilter.FILTER_REJECT;
-                p = p.parentNode;
-              }
-              return NodeFilter.FILTER_ACCEPT;
-            }
-          }
-        );
-        const texts = [];
-        let n;
-        while (n = walker.nextNode()) texts.push(n);
-        for (const text of texts) {
-          const span = document.createElement('span');
-          span.innerHTML = text.nodeValue.replace(HANGUL_RE, '<span class="han">$1</span>');
-          text.parentNode.replaceChild(span, text);
-        }
-      });
-    </script>
-
-    <!-- ✅ Mobile Menu Script -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const btn = document.getElementById("menu-toggle");
-        const menu = document.getElementById("nav-menu");
-        if (!btn || !menu) return;
-
-        function closeMenu() {
-          menu.classList.remove("open");
-          btn.setAttribute("aria-expanded", "false");
-        }
-
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const isOpen = menu.classList.toggle("open");
-          btn.setAttribute("aria-expanded", String(isOpen));
-        });
-
-        document.addEventListener("click", (e) => {
-          if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
-        });
-
-        window.addEventListener("resize", () => {
-          if (window.innerWidth > 600) closeMenu();
-        });
-      });
-    </script>
-
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.__FN_WIRED__) return;
-    window.__FN_WIRED__ = true;
+  (function () {
   
-    /* =========================
-       설정값
-       ========================= */
-    const SCROLL_MS   = 300;   // 부드럽지만 빠르게
-    const HL_IN_MS    = 200;   // 페이드 인
-    const HL_OUT_MS   = 700;   // 페이드 아웃(느리게)
-    const HL_HOLD_MS  = 800;   // 유지 시간(짧게 유지 후 서서히 사라짐)
-  
-/* =========================
-   스크롤 유틸 (컨테이너 대응, quintic S-curve + out-bias)
-   ========================= */
-   const isScrollable = (el) => {
-  if (!el) return false;
-  const s = getComputedStyle(el);
-  const oy = s.overflowY;
-  return (oy === "auto" || oy === "scroll") && el.scrollHeight > el.clientHeight;
-};
-
-const getScrollContainer = (el) => {
-  let node = el.parentElement;
-  while (node && node !== document.body && node !== document.documentElement) {
-    if (isScrollable(node)) return node;
-    node = node.parentElement;
-  }
-  return document.scrollingElement || document.documentElement || document.body;
-};
-
-/* =========================
-   스크롤 애니메이션 (quintic S-curve + out-bias)
-   - 부드러운 시작, 끈적한 감속
-   ========================= */
-const easeInOutSticky = (t) => {
-  // Quintic smoothstep (C2 연속, S-curve)
-  const t2 = t * t, t3 = t2 * t, t4 = t2 * t2, t5 = t4 * t;
-  const base = 6 * t5 - 15 * t4 + 10 * t3; // 기본 S-curve
-  const OUT_BIAS = 1.12; // 1.0~1.2 권장 (↑ = 더 끈적한 감속)
-  return 1 - Math.pow(1 - base, OUT_BIAS);
-};
-
-const scrollToTarget = (container, target, ms = SCROLL_MS, offsetY = 0) =>
-  new Promise((resolve) => {
-    const containerIsDoc =
-      container === document.scrollingElement ||
-      container === document.documentElement ||
-      container === document.body;
-
-    const containerRect = containerIsDoc
-      ? { top: 0 }
-      : container.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
-
-    const start = containerIsDoc
-      ? window.pageYOffset || document.documentElement.scrollTop
-      : container.scrollTop;
-
-    const targetY = start + (targetRect.top - containerRect.top) + offsetY;
-
-    if (ms <= 0) {
-      if (containerIsDoc) window.scrollTo(0, targetY);
-      else container.scrollTop = targetY;
-      resolve();
-      return;
+    function isVisible(el) {
+      return !!(el && el.offsetParent !== null);
     }
-
-    const startTime = performance.now();
-    const step = (now) => {
-      const t = Math.min(1, (now - startTime) / ms);
-      const eased = easeInOutSticky(t);
-      const y = start + (targetY - start) * eased;
-
-      if (containerIsDoc) window.scrollTo(0, y);
-      else container.scrollTop = y;
-
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else {
-        if (containerIsDoc) window.scrollTo(0, targetY);
-        else container.scrollTop = targetY;
-        resolve();
+  
+    function isInViewport(el) {
+      if (!el) return false;
+      const r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    }
+  
+    function scrollToRef(el, block) {
+      if (!el) return;
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: block
+      });
+    }
+  
+    function scrollDocumentToRevealMeta() {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth"
+      });
+    }
+  
+    function setActiveFootnote(id) {
+      history.pushState(null, "", "#fn-" + id);
+  
+      document.querySelectorAll(".meta-note").forEach(el => {
+        el.classList.toggle("is-active", el.dataset.fnid === id);
+      });
+  
+      document.querySelectorAll(".footnote-definition").forEach(el => {
+        el.classList.toggle("is-active", el.id === id);
+      });
+    }
+  
+    const mqDesktop = window.matchMedia("(min-width: 600px)");
+  
+    document.addEventListener("click", function (e) {
+  
+      const meta = e.target.closest(".meta-note[data-fnid]");
+      if (meta) {
+        if (e.target.closest("a")) return;
+  
+        const id = meta.dataset.fnid;
+        if (!id) return;
+  
+        const ref = document.querySelector(
+          '.footnote-reference a[href="#' + id + '"]'
+        );
+        if (!ref) return;
+  
+        scrollToRef(ref, "start");
+        setActiveFootnote(id);
+        return;
       }
-    };
-
-    requestAnimationFrame(step);
-  });
-
   
-    /* =========================
-       하이라이트 (빠른 IN → 유지 → 느린 OUT)
-       ========================= */
-    const highlight = (host, hold = HL_HOLD_MS) => {
-      if (!host) return;
-      host.classList.add('fn-hl');  // 초기 상태(투명) + 트랜지션 규칙
-      // 다음 프레임에 ON
-      requestAnimationFrame(() => {
-        host.style.setProperty('--fn-hl-in',  `${HL_IN_MS}ms`);
-        host.style.setProperty('--fn-hl-out', `${HL_OUT_MS}ms`);
-        host.classList.add('is-on');           // 빠르게 켜짐
-        setTimeout(() => {
-          host.classList.add('is-fading');     // 느리게 꺼짐
-          host.classList.remove('is-on');
-          setTimeout(() => host.classList.remove('fn-hl', 'is-fading'), HL_OUT_MS + 30);
-        }, hold);
-      });
-    };
+      const def = e.target.closest(".footnote-definition[id]");
+      if (def) {
+        if (e.target.closest("a")) return;
   
-    /* =========================
-       매핑: 본문 참조 ↔ 각주 블록
-       ========================= */
-    const allIds = new Set([...document.querySelectorAll('[id]')].map(el => el.id));
-    const bodyLinks = [...document.querySelectorAll('.page-content a[href^="#"]')]
-      .filter(a => !a.closest('.footnote-definition') && !a.closest('.footnotes'));
+        const id = def.id;
+        if (!id) return;
   
-    const footnoteIds = new Set(
-      bodyLinks
-        .map(a => (a.getAttribute('href') || '').slice(1))
-        .filter(id => id && allIds.has(id))
-    );
+        const ref = document.querySelector(
+          '.footnote-reference a[href="#' + id + '"]'
+        );
+        if (!ref) return;
   
-    const getFootnoteBlock = (id) => {
-      const el = document.getElementById(id);
-      return el
-        ? (el.closest('.footnote-definition') || el.closest('.footnotes li[id^="fn"]') || el)
-        : null;
-    };
+        scrollToRef(ref, "start");
+        setActiveFootnote(id);
+        return;
+      }
   
-    const backMap = new Map();
-    bodyLinks
-      .filter(a => footnoteIds.has((a.getAttribute('href') || '').slice(1)))
-      .forEach(a => {
-        const id = a.getAttribute('href').slice(1);
-        const sup = a.closest('sup[id^="fnref"]') || a.closest('sup');
-        const target = sup || a;
-        if (!target.id) {
-          let base = `fnref-auto-${id}`, i = 1, uid = base;
-          while (document.getElementById(uid)) uid = `${base}-${i++}`;
-          target.id = uid;
-        }
-        backMap.set(id, target.id);
-      });
-  
-    /* =========================
-       이벤트: 본문 → 각주
-       ========================= */
-    document.addEventListener('click', async (e) => {
-      const ref = e.target.closest('.page-content a[href^="#"]');
-      if (!ref || ref.closest('.footnote-definition') || ref.closest('.footnotes')) return;
-  
-      const hash = ref.getAttribute('href') || '';
-      if (!hash.startsWith('#')) return;
-  
-      const id = hash.slice(1);
-      if (!footnoteIds.has(id)) return;
+      const refLink = e.target.closest(".footnote-reference a[href^='#']");
+      if (!refLink) return;
   
       e.preventDefault();
-      const fnBlock = getFootnoteBlock(id);
-      if (!fnBlock) return;
   
-      const container = getScrollContainer(fnBlock);
-      await scrollToTarget(container, fnBlock, SCROLL_MS, 0);
-      history.pushState(null, '', `#${id}`);
-      highlight(fnBlock, HL_HOLD_MS);
-    });
+      const id = refLink.getAttribute("href").slice(1);
+      if (!id) return;
   
-    /* =========================
-       이벤트: 각주 → 본문
-       ========================= */
-    document.addEventListener('click', async (e) => {
-      const a = e.target.closest('a');
-      if (a) {
-        const href = a.getAttribute('href') || '';
-        if (href && !href.startsWith('#')) return; // 외부 링크는 방해하지 않음
-      }
+      setActiveFootnote(id);
   
-      let node = e.target.closest('[id]');
-      while (node) {
-        const id = node.id;
-        if (footnoteIds.has(id)) {
-          const backId = backMap.get(id);
-          if (backId) {
-            e.preventDefault();
-            const backEl = document.getElementById(backId) || document.querySelector(`a[href="#${id}"]`);
-            if (!backEl) return;
-            const container = getScrollContainer(backEl);
-            await scrollToTarget(container, backEl, SCROLL_MS, 0);
-            history.pushState(null, '', `#${backId}`);
-            highlight(backEl, HL_HOLD_MS);
+      if (mqDesktop.matches) {
+        const metaTarget = document.querySelector(
+          ".meta-note[data-fnid='" + id + "']"
+        );
+  
+        if (metaTarget && isVisible(metaTarget)) {
+          if (!isInViewport(metaTarget)) {
+            scrollDocumentToRevealMeta(metaTarget);
           }
           return;
         }
-        node = node.parentElement;
+      }
+  
+      const footTarget = document.getElementById(id);
+      if (footTarget && isVisible(footTarget)) {
+        scrollToRef(footTarget, "end");
       }
     });
   
-    /* =========================
-       해시 진입/변경 시 하이라이트
-       ========================= */
-    const flashFromHash = async () => {
-      const id = location.hash.slice(1);
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!location.hash.startsWith("#fn-")) return;
+  
+      const id = location.hash.replace("#fn-", "");
       if (!id) return;
-      const el = document.getElementById(id);
-      if (!el) return;
-      const target = el.closest('.footnote-definition') || el.closest('.footnotes li[id^="fn"]') || el;
-      const container = getScrollContainer(target);
   
-      // 뷰포트 안에 대략 보이는지 검사
-      const viewTop = (container === document.scrollingElement || container === document.documentElement || container === document.body)
-        ? 0
-        : container.getBoundingClientRect().top;
-      const r = target.getBoundingClientRect();
-      const inView = (r.top - viewTop) >= 0 && (r.bottom - viewTop) <= (container.clientHeight || window.innerHeight);
+      setActiveFootnote(id);
   
-      if (!inView) await scrollToTarget(container, target, SCROLL_MS, 0);
-      highlight(target, HL_HOLD_MS);
-    };
+      if (mqDesktop.matches) {
+        const metaTarget = document.querySelector(
+          ".meta-note[data-fnid='" + id + "']"
+        );
+        if (metaTarget && isVisible(metaTarget)) {
+          if (!isInViewport(metaTarget)) {
+            scrollDocumentToRevealMeta(metaTarget);
+          }
+          return;
+        }
+      }
   
-    window.addEventListener('hashchange', () => setTimeout(flashFromHash, 30));
-    if (location.hash) setTimeout(flashFromHash, 60);
-  });
-  </script>
+      const footTarget = document.getElementById(id);
+      if (footTarget && isVisible(footTarget)) {
+        scrollToRef(footTarget, "end");
+      }
+    });
   
+  })();
+  </script>  
   
-
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.page-content ol > li').forEach(li => {
-        // 이미 래퍼가 있으면 생략
-        if (li.querySelector(':scope > .li-body')) return;
+    document.addEventListener("DOMContentLoaded", () => {
+      const PUNCTS = `"'\u2018\u201C([{‹«〈《「『`;
     
-        const body = document.createElement('span'); // inline semantics 유지
-        body.className = 'li-body';
+        const targets = document.querySelectorAll(
+  '.page-meta .meta-title, \
+   .page-meta .meta-line, \
+   .page-body .page-content p, \
+   .page-body .page-content li'
+);
+
     
-        // 숫자 마커(::before) 외 모든 노드를 li-body로 이동
-        while (li.firstChild) body.appendChild(li.firstChild);
-        li.appendChild(body);
+      targets.forEach(el => {
+        const text = (el.textContent || '').trimStart();
+        if (!text) return;
+    
+        const firstChar = text[0];
+        if (!PUNCTS.includes(firstChar)) return;
+    
+        el.classList.add('hang-punct');
       });
     });
     </script>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const superscriptMap = {
+          "0": "⁰",
+          "1": "¹",
+          "2": "²",
+          "3": "³",
+          "4": "⁴",
+          "5": "⁵",
+          "6": "⁶",
+          "7": "⁷",
+          "8": "⁸",
+          "9": "⁹"
+        };
+      
+        document
+          .querySelectorAll("sup.footnote-reference a")
+          .forEach(el => {
+            const text = el.textContent.trim();
+      
+            // 숫자만 처리
+            if (!/^\d+$/.test(text)) return;
+      
+            const superscript = [...text]
+              .map(d => superscriptMap[d] || d)
+              .join("");
+      
+            el.textContent = superscript;
+            el.setAttribute("aria-label", `Footnote ${text}`);
+          });
+      });
+      </script>
+      
+      <script>
+        (function () {
+          const root = document.querySelector(".page-body.page-content");
+          if (!root) return;
 
+          root.querySelectorAll("blockquote ol > li").forEach(li => {
+            if (li.querySelector(":scope > .li-body")) return;
+
+            const body = document.createElement("span");
+            body.className = "li-body";
+
+            const nodes = Array.from(li.childNodes);
+
+            nodes.forEach(node => {
+              // 🔑 숫자용 ::before는 건드리지 말고
+              // 🔑 실제 DOM 자식만 이동
+              if (
+                node.nodeType === Node.ELEMENT_NODE ||
+                (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "")
+              ) {
+                body.appendChild(node);
+              }
+            });
+
+            li.appendChild(body);
+          });
+        })();
+        </script>
+        
+
+
+    </main>
+
+<footer class="footer" role="contentinfo">
+  <p class="footer__text">
+    © 2026 <span id="footer-site-title"></span><span class="footer-sep"></span>
+    
+      <span class="footer-msg">This website is <span id="footer-variant">(for a while)</span> in the making.</span>
+    
+  </p>
+
+</footer>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const currentHost = window.location.hostname;
-    const links = document.querySelectorAll('a[href^="http"]');
-  
-    links.forEach(link => {
-      const url = new URL(link.href);
-      if (url.hostname !== currentHost) {
-        link.setAttribute("target", "_blank");
-        link.setAttribute("rel", "noopener noreferrer");
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("menu-toggle");
+    const menu = document.getElementById("global-menu");
+    if (!btn || !menu) return;
+
+    const openMenu = () => {
+      menu.hidden = false;
+      btn.setAttribute("aria-expanded", "true");
+      document.body.classList.add("menu-open");
+    };
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("menu-open");
+    };
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      expanded ? closeMenu() : openMenu();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        closeMenu();
       }
     });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
   });
-  </script>
+</script>
 
 
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const currentHost = window.location.hostname;
+        document
+          .querySelectorAll('a[href^="http"]')
+          .forEach(link => {
+            const url = new URL(link.href);
+            if (url.hostname !== currentHost) {
+              link.setAttribute("target", "_blank");
+              link.setAttribute("rel", "noopener noreferrer");
+            }
+          });
+      });
+    </script>
+
+    <script>
+      const SITE_TITLES = [
+      "J—H",
+      "j—h",
+      "Jaydashaitch",
+      "제이대시에이치",
+      "제이에이치",
+      "제이(대시)에이치",
+      "JAY(DASH)AITCH",
+      "재현",
+      "재(대시)현",
+      "JH ARCHIVE",
+      "JAEHYEON LEE",
+      "JAEHYEON",
+      "jay—aitch",
+      "JAE(DASH)HYEON"
+      ];
+
+      function pickRandom(list) {
+        return list[Math.floor(Math.random() * list.length)];
+      }
+
+      function pickRandomDifferent(list, current) {
+        const pool = list.filter(item => item !== current);
+        return pool.length
+          ? pool[Math.floor(Math.random() * pool.length)]
+          : current;
+      }
+
+      (function () {
+        const titleEl = document.getElementById("site-title");
+        const footerEl = document.getElementById("footer-site-title");
+        if (!titleEl || !footerEl) return;
+
+        const KEY = "jh_site_title";
+
+        const applyTitle = (value) => {
+          titleEl.textContent = value;
+          footerEl.textContent = value;
+        };
+
+        if (!sessionStorage.getItem(KEY)) {
+          sessionStorage.setItem(KEY, pickRandom(SITE_TITLES));
+        }
+
+        applyTitle(sessionStorage.getItem(KEY));
+
+        titleEl.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          const current = sessionStorage.getItem(KEY);
+          const next = pickRandomDifferent(SITE_TITLES, current);
+
+          sessionStorage.setItem(KEY, next);
+          applyTitle(next);
+
+          setTimeout(() => {
+            window.location.href = titleEl.href;
+          }, 80);
+        });
+      })();
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const target = document.getElementById("footer-variant");
+        if (!target) return;
+      
+        const lang = document.documentElement.lang;
+      
+        const variants = lang === "ko"
+          ? [
+              "(한동안은)",
+              "(당분간은)",
+              "(얼마간은)",
+              "(현재로서는)",
+              "(일단은)",
+              "(우선은)",
+              "(잠시나마)",
+              "(당장까지는)",
+              "(지금으로서는)",
+              "(일정 기간동안은)",
+              "(잠정적으로)",
+              "(잠시 동안은)",
+              "(지금은 계속)"
+            ]
+          : [
+              "(for a while)",
+              "(for now)",
+              "(for the time being)",
+              "(temporarily)",
+              "(for the moment)",
+              "(in the meantime)",
+              "(for some time)",
+              "(briefly)",
+              "(until further notice)",
+              "(as of now)",
+              "(for a certain period)",
+              "(still)",
+              "(for a short while)"
+            ];
+      
+        let current = target.textContent;
+      
+        const pickNext = () => {
+          let next;
+          do {
+            next = variants[Math.floor(Math.random() * variants.length)];
+          } while (next === current);
+      
+          current = next;
+          target.textContent = next;
+        };
+      
+        setInterval(pickNext, 1000);
+      });
+      </script>
   
   </body>
 </html>
