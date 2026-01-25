@@ -233,7 +233,7 @@ Hito Steyerl's <em>Strike</em> (2010) demonstrates digital randomness through a 
         el.classList.toggle("is-active", el.dataset.fnid === id);
       });
   
-      document.querySelectorAll(".footnote-definition").forEach(el => {
+      document.querySelectorAll(".footnotes-list li[id]").forEach(el => {
         el.classList.toggle("is-active", el.id === id);
       });
     }
@@ -259,7 +259,7 @@ Hito Steyerl's <em>Strike</em> (2010) demonstrates digital randomness through a 
         return;
       }
   
-      const def = e.target.closest(".footnote-definition[id]");
+      const def = e.target.closest(".footnotes-list li[id]");
       if (def) {
         if (e.target.closest("a")) return;
   

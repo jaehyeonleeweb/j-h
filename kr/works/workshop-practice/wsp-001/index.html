@@ -426,7 +426,7 @@ D: 하나의 패턴이 2칸, 다른 패턴이 1칸, 또 다른 패턴이 1칸 �
         el.classList.toggle("is-active", el.dataset.fnid === id);
       });
   
-      document.querySelectorAll(".footnote-definition").forEach(el => {
+      document.querySelectorAll(".footnotes-list li[id]").forEach(el => {
         el.classList.toggle("is-active", el.id === id);
       });
     }
@@ -452,7 +452,7 @@ D: 하나의 패턴이 2칸, 다른 패턴이 1칸, 또 다른 패턴이 1칸 �
         return;
       }
   
-      const def = e.target.closest(".footnote-definition[id]");
+      const def = e.target.closest(".footnotes-list li[id]");
       if (def) {
         if (e.target.closest("a")) return;
   

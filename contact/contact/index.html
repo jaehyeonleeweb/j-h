@@ -173,7 +173,7 @@ Portfolio available upon request.
         el.classList.toggle("is-active", el.dataset.fnid === id);
       });
   
-      document.querySelectorAll(".footnote-definition").forEach(el => {
+      document.querySelectorAll(".footnotes-list li[id]").forEach(el => {
         el.classList.toggle("is-active", el.id === id);
       });
     }
@@ -199,7 +199,7 @@ Portfolio available upon request.
         return;
       }
   
-      const def = e.target.closest(".footnote-definition[id]");
+      const def = e.target.closest(".footnotes-list li[id]");
       if (def) {
         if (e.target.closest("a")) return;
   

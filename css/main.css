@@ -568,48 +568,6 @@ main {
 }
 
 
-.page-two-col .footnote-definition {
-  display: grid;
-  grid-template-columns: 2ch 1fr;
-  column-gap: 0.5ch;
-
-  opacity: 0.2;
-  transition: opacity 0.15s ease, color 0.15s ease;
-}
-
-.page-two-col .footnote-definition.is-active {
-  opacity: 1;
-}
-
-.page-two-col .footnote-definition:hover {
-  opacity: 1;
-}
-
-.page-two-col .footnote-definition-label {
-  grid-column: 1;
-  font-size: inherit;
-  line-height: inherit;
-  vertical-align: baseline;
-}
-
-.page-two-col .footnote-definition p {
-  grid-column: 2;
-  margin: 0;
-}
-
-.page-two-col .footnote-definition p::before {
-  content: "→ ";
-}
-
-.page-two-col .footnote-definition a {
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-}
-
-.page-two-col .footnote-definition:first-of-type {
-  margin-top: 3rem;
-}
-
 .page-two-col .hang-punct {
   text-indent: -1ch;
 }
@@ -630,8 +588,7 @@ main {
   text-indent: -2ch;
 }
 
-.page-meta .meta-note,
-.page-two-col .footnote-definition {
+.page-meta .meta-note {
   cursor: pointer;
 }
 
@@ -639,7 +596,7 @@ main {
   display: none;
 }
 
-.footnote-definition {
+.footnotes {
   display: block;
 }
 
@@ -648,7 +605,7 @@ main {
     display: block;
   }
 
-  .page-two-col .footnote-definition {
+  .footnotes {
     display: none;
   }
 }
@@ -821,4 +778,57 @@ sup.footnote-reference a {
   justify-content: center;
   text-align: center;
   padding: 1.5rem;
+}
+
+
+.footnotes a[href^="#fr-"] {
+  display: none !important;
+}
+
+.footnotes-list li {
+  display: grid;
+  grid-template-columns: 2ch 1fr;
+  column-gap: 0.5ch;
+  align-items: start;
+}
+
+.footnotes-list li::before {
+  content: attr(id);
+  grid-column: 1;
+}
+
+.footnotes-list li::before {
+  content: counter(fn);
+}
+
+.footnotes-list {
+  counter-reset: fn;
+}
+
+.footnotes-list li {
+  counter-increment: fn;
+}
+
+.footnotes-list li > p::before {
+  content: "→ ";
+}
+
+.footnotes {
+  margin-top: 3rem;
+}
+
+.footnotes-list li {
+  display: grid;
+  grid-template-columns: 2ch 1fr;
+  column-gap: 0.5ch;
+  align-items: start;
+
+  opacity: 0.2;
+  transition: opacity 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+}
+
+.footnotes-list li:hover,
+.footnotes-list li.is-active {
+  opacity: 1;
 }
