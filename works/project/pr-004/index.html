@@ -64,7 +64,7 @@
       
         <a href="/allarchive/">All Archive</a>
         
-        <a href="/about/">About</a>
+        <a href="/about/">About This Web</a>
         <a href="/contact/">Contact</a>
         <span class="menu-item--disabled" aria-disabled="true">Shop</span>
       
@@ -147,7 +147,7 @@
       
         <div
           class="meta-line meta-note"
-          data-fnid="1"
+          data-fnid="fn-1"
           role="link"
           tabindex="0"
         >
@@ -178,7 +178,7 @@ These silhouettes are arranged on a 114 × 164 mm format, structured into three 
 <p><strong>1. Twelve Flower Pictures</strong><br>
 I collected random flower pictures from the internet. (These appear on the book's back cover.)
 <br><br></p>
-<figure class="img--fixed" style="max-width:480px;">
+<figure class="img--fixed" style="max-width:720px;">
   <img src="/media/works/project/pr-004/combinations of twelve silhouettes from twelve flower pictures-back cover.webp" alt="Back Cover">
   <figcaption>Back Cover</figcaption>
 </figure>
@@ -186,47 +186,59 @@ I collected random flower pictures from the internet. (These appear on the book'
 <p><strong>2. Twelve Silhouettes</strong><br>
 The previously collected bitmap images are converted into vector graphic silhouettes using Image Trace — with my intention somewhat intervening in the parameter values — according to specified criteria. The twelve silhouettes are placed on the 114 x 164 mm format base and tagged from (a) to (l).
 <br><br></p>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 01.webp" alt="Silhouette 1">
+  <figcaption>Silhouette #01</figcaption>
 </figure>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 02.webp" alt="Silhouette 2">
+  <figcaption>Silhouette #02</figcaption>
 </figure>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 03.webp" alt="Silhouette 3">
+  <figcaption>Silhouette #03</figcaption>
 </figure>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 04.webp" alt="Silhouette 4">
+  <figcaption>Silhouette #04</figcaption>
 </figure>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 05.webp" alt="Silhouette 5">
+  <figcaption>Silhouette #05</figcaption>
 </figure>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 06.webp" alt="Silhouette 6">
+  <figcaption>Silhouette #06</figcaption>
 </figure>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 07.webp" alt="Silhouette 7">
+  <figcaption>Silhouette #07</figcaption>
 </figure>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 08.webp" alt="Silhouette 8">
+  <figcaption>Silhouette #08</figcaption>
 </figure>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 09.webp" alt="Silhouette 9">
+  <figcaption>Silhouette #09</figcaption>
 </figure>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 10.webp" alt="Silhouette 10">
+  <figcaption>Silhouette #10</figcaption>
 </figure>
-<figure class="" style="">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/project/pr-004/twelve silhouette 11.webp" alt="Silhouette 11">
+  <figcaption>Silhouette #11</figcaption>
 </figure>
-<figure class="" style="">
-  <img src="/media/works/project/pr-004/twelve silhouette 12.webp" alt="Silhouette 11">
+<figure class="img--fixed" style="max-width:480px;">
+  <img src="/media/works/project/pr-004/twelve silhouette 12.webp" alt="Silhouette 12">
+  <figcaption>Silhouette #12</figcaption>
 </figure>
 <br>
 <p><strong>3. Combinations of the Twelve Silhouettes</strong><br>
 The twelve silhouettes are grouped into sets of three. Three patterns are applied to reveal overlapping areas between silhouettes, mechanically combining them within a predefined layout. This process generates a total of 220 combined result images.
 <br><br></p>
-<figure class="img--full" style="">
+<figure class="" style="">
   <img src="/media/works/project/pr-004/combination 001 and 002.webp" alt="Combination #001, #002">
   <figcaption>Combination #001, #002</figcaption>
 </figure>
@@ -248,6 +260,16 @@ Combination: Mechanical and reductive superimposition within a 114 × 164 mm for
   </div>
 
 </article>
+
+<div id="image-viewer" aria-hidden="true">
+  <button class="viewer-close" aria-label="Close">×</button>
+  <button class="viewer-prev" aria-label="Previous">←</button>
+  <img class="viewer-image" alt="" />
+  <button class="viewer-next" aria-label="Next">→</button>
+</div>
+
+<div id="link-preview" aria-hidden="true"></div>
+
 
 <script>
   (function () {
@@ -278,7 +300,7 @@ Combination: Mechanical and reductive superimposition within a 114 × 164 mm for
     }
   
     function setActiveFootnote(id) {
-      history.pushState(null, "", "#fn-" + id);
+      history.pushState(null, "", "#" + id);
   
       document.querySelectorAll(".meta-note").forEach(el => {
         el.classList.toggle("is-active", el.dataset.fnid === id);
@@ -357,9 +379,9 @@ Combination: Mechanical and reductive superimposition within a 114 × 164 mm for
     });
   
     document.addEventListener("DOMContentLoaded", function () {
-      if (!location.hash.startsWith("#fn-")) return;
+      if (!location.hash.startsWith("#")) return;
   
-      const id = location.hash.replace("#fn-", "");
+      const id = location.hash.slice(1);
       if (!id) return;
   
       setActiveFootnote(id);
@@ -429,7 +451,6 @@ Combination: Mechanical and reductive superimposition within a 114 × 164 mm for
           .forEach(el => {
             const text = el.textContent.trim();
       
-            // 숫자만 처리
             if (!/^\d+$/.test(text)) return;
       
             const superscript = [...text]
@@ -456,8 +477,6 @@ Combination: Mechanical and reductive superimposition within a 114 × 164 mm for
             const nodes = Array.from(li.childNodes);
 
             nodes.forEach(node => {
-              // 🔑 숫자용 ::before는 건드리지 말고
-              // 🔑 실제 DOM 자식만 이동
               if (
                 node.nodeType === Node.ELEMENT_NODE ||
                 (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "")
@@ -470,7 +489,179 @@ Combination: Mechanical and reductive superimposition within a 114 × 164 mm for
           });
         })();
         </script>
-        
+
+
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const root = document.querySelector(".page-body.page-content");
+            if (!root) return;
+          
+            root.querySelectorAll("p > strong").forEach(strong => {
+              const parent = strong.parentElement;
+              if (parent && parent.classList.contains("centered-strong")) return;
+          
+              const wrapper = document.createElement("span");
+              wrapper.className = "centered-strong";
+          
+              parent.replaceChild(wrapper, strong);
+              wrapper.appendChild(strong);
+            });
+          });
+          </script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const images = Array.from(
+        document.querySelectorAll(".page-body.page-content figure img")
+      );
+    
+      if (!images.length) return;
+    
+      const viewer = document.getElementById("image-viewer");
+      const viewerImg = viewer.querySelector(".viewer-image");
+      const btnClose = viewer.querySelector(".viewer-close");
+      const btnPrev = viewer.querySelector(".viewer-prev");
+      const btnNext = viewer.querySelector(".viewer-next");
+    
+      let currentIndex = 0;
+    
+      function openViewer(index) {
+        currentIndex = index;
+        viewerImg.src = images[currentIndex].src;
+        viewer.classList.add("is-open");
+        viewer.setAttribute("aria-hidden", "false");
+      }
+    
+      function closeViewer() {
+        viewer.classList.remove("is-open");
+        viewer.setAttribute("aria-hidden", "true");
+      }
+    
+      function prev() {
+        if (currentIndex > 0) openViewer(currentIndex - 1);
+      }
+    
+      function next() {
+        if (currentIndex < images.length - 1) openViewer(currentIndex + 1);
+      }
+    
+      images.forEach((img, i) => {
+        img.style.cursor = "zoom-in";
+        img.addEventListener("click", () => openViewer(i));
+      });
+    
+      btnClose.addEventListener("click", closeViewer);
+      btnPrev.addEventListener("click", prev);
+      btnNext.addEventListener("click", next);
+      viewerImg.addEventListener("click", closeViewer);
+      viewer.addEventListener("click", e => {
+  if (e.target === viewer) {
+    closeViewer();
+  }
+});
+    
+      document.addEventListener("keydown", e => {
+        if (!viewer.classList.contains("is-open")) return;
+        if (e.key === "Escape") closeViewer();
+        if (e.key === "ArrowLeft") prev();
+        if (e.key === "ArrowRight") next();
+      });
+    });
+    </script>
+
+<script>
+  (function () {
+    if (!window.matchMedia("(min-width: 601px)").matches) return;
+  
+    const preview = document.createElement("div");
+    preview.id = "link-preview";
+    document.body.appendChild(preview);
+  
+    let aborter = null;
+  
+    function isInternalLink(a) {
+      if (!a || !a.href) return false;
+      try {
+        return new URL(a.href).origin === location.origin;
+      } catch {
+        return false;
+      }
+    }
+  
+    function extractPreviewText(html) {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+
+        const body = doc.querySelector(".page-body");
+        if (!body) return "";
+
+        body.querySelectorAll(
+          "figure, img, pre, code, table, script, style, \
+          .footnotes, .footnotes-list, aside"
+        ).forEach(el => el.remove());
+
+        body.querySelectorAll("sup").forEach(el => el.remove());
+
+        const candidates = Array.from(
+          body.querySelectorAll("p, li")
+        )
+          .map(el =>
+            el.textContent
+              .replace(/\s+/g, " ")
+              .trim()
+          )
+          .filter(text => text.length > 0);
+
+        if (!candidates.length) return "";
+
+        return candidates[0];
+      }
+  
+    function positionPreview(e) {
+      const offset = 14;
+      const maxX = window.innerWidth  - preview.offsetWidth  - 8;
+      const maxY = window.innerHeight - preview.offsetHeight - 8;
+  
+      preview.style.left = Math.min(e.clientX + offset, maxX) + "px";
+      preview.style.top  = Math.min(e.clientY + offset, maxY) + "px";
+    }
+  
+    document.addEventListener("mouseover", async (e) => {
+      const a = e.target.closest("a[href]");
+      if (!a || !isInternalLink(a)) return;
+  
+      aborter?.abort();
+      aborter = new AbortController();
+  
+      try {
+        const res = await fetch(a.href, { signal: aborter.signal });
+        const html = await res.text();
+        const text = extractPreviewText(html);
+  
+        if (!text) return;
+  
+        preview.textContent = text;
+        preview.classList.add("is-visible");
+        positionPreview(e);
+      } catch {
+      }
+    });
+  
+    document.addEventListener("mousemove", (e) => {
+      if (!preview.classList.contains("is-visible")) return;
+      positionPreview(e);
+    });
+  
+    document.addEventListener("mouseout", (e) => {
+      if (!e.target.closest("a[href]")) return;
+      preview.classList.remove("is-visible");
+      aborter?.abort();
+    });
+  })();
+  </script>
+  
+  
+    
+
 
 
     </main>
@@ -543,14 +734,11 @@ Combination: Mechanical and reductive superimposition within a 114 × 164 mm for
       "j—h",
       "Jaydashaitch",
       "제이대시에이치",
-      "제이에이치",
       "제이(대시)에이치",
       "JAY(DASH)AITCH",
-      "재현",
-      "재(대시)현",
       "JH ARCHIVE",
       "JAEHYEON LEE",
-      "JAEHYEON",
+      "JAE—HYEON",
       "jay—aitch",
       "JAE(DASH)HYEON"
       ];

@@ -149,7 +149,7 @@
 <br><br>
 신시사이저의 탄생에는 유토피아적 상상력이 자리한다. 19세기 초의 프랑스 수학자 조제프 푸리에는 푸리에 변환<em>Fourier Transform</em>을 통해 모든 복잡한 주기 신호가 단순한 사인파들의 합으로 분해될 수 있다는 사실을 증명한다. 이 아이디어는 이후 전자공학의 발전과 함께 음향기기로 물화되어 음악가와 엔지니어에게 새로운 세계를 가져다 주었다. 그들은 이제 현실의 소리를 기계로 모사할 뿐 아니라 이상의 새로운 소리까지 설계해낼 수 있게 되었다. 그렇게 탄생한 전자음악은 특유의 추상성과 개방성을 무기로 자유로운 발전을 거듭하며 오늘날 거의 모든 음악의 구현을 매개하는 지배적인 장르로 자리매김했다.
 <br><br></p>
-<figure class="img--fixed" style="max-width:600px;">
+<figure class="" style="">
   <img src="/media/works/workshop/analog synth 101.webp" alt="Analog Synth 101 Diagram">
   <figcaption>“Analog Synth 101.” Designed by Ray Wilson. © Music From Outer Space LLC 2011.<br>(Source: musicfromouterspace.com)</figcaption>
 </figure>
@@ -158,7 +158,7 @@
 <br><br>
 신시사이저의 구조를 개념적으로 환원해 다른 영역에 접목한다면 어떨까? 시각예술에 한정하자면, 이 음향 합성 기계를 시각적 기계장치로 바꿔낸다는 아이디어는 이미 역사적으로 여러 번 시도되었다. 오실로스코프 아트, 백-아베 신디사이저와 같은 아날로그 장치와 더불어, 노드 기반의 이미지 제작방식을 활용하는 터치디자이너와 같은 소프트웨어는 같은 아이디어를 공유한다. 심지어 인공지능이 만들어내는 생성형 이미지까지도 원리적으로는 이와 같은 출발점을 가진다.
 <br><br>
-<figure class="img--fixed" style="max-width:240px;">
+<figure class="img--fixed" style="max-width:720px;">
   <img src="/media/works/workshop/paik abe video synthesizer.webp" alt="Paik-Abe Video Synthesizer">
   <figcaption>Paik-Abe Video Synthesizer (1969), Nam June Paik & Shūya Abe. Courtesy of the Nam June Paik Art Center.</figcaption>
 </figure>
@@ -170,6 +170,16 @@
   </div>
 
 </article>
+
+<div id="image-viewer" aria-hidden="true">
+  <button class="viewer-close" aria-label="Close">×</button>
+  <button class="viewer-prev" aria-label="Previous">←</button>
+  <img class="viewer-image" alt="" />
+  <button class="viewer-next" aria-label="Next">→</button>
+</div>
+
+<div id="link-preview" aria-hidden="true"></div>
+
 
 <script>
   (function () {
@@ -200,7 +210,7 @@
     }
   
     function setActiveFootnote(id) {
-      history.pushState(null, "", "#fn-" + id);
+      history.pushState(null, "", "#" + id);
   
       document.querySelectorAll(".meta-note").forEach(el => {
         el.classList.toggle("is-active", el.dataset.fnid === id);
@@ -279,9 +289,9 @@
     });
   
     document.addEventListener("DOMContentLoaded", function () {
-      if (!location.hash.startsWith("#fn-")) return;
+      if (!location.hash.startsWith("#")) return;
   
-      const id = location.hash.replace("#fn-", "");
+      const id = location.hash.slice(1);
       if (!id) return;
   
       setActiveFootnote(id);
@@ -351,7 +361,6 @@
           .forEach(el => {
             const text = el.textContent.trim();
       
-            // 숫자만 처리
             if (!/^\d+$/.test(text)) return;
       
             const superscript = [...text]
@@ -378,8 +387,6 @@
             const nodes = Array.from(li.childNodes);
 
             nodes.forEach(node => {
-              // 🔑 숫자용 ::before는 건드리지 말고
-              // 🔑 실제 DOM 자식만 이동
               if (
                 node.nodeType === Node.ELEMENT_NODE ||
                 (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "")
@@ -392,7 +399,179 @@
           });
         })();
         </script>
-        
+
+
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const root = document.querySelector(".page-body.page-content");
+            if (!root) return;
+          
+            root.querySelectorAll("p > strong").forEach(strong => {
+              const parent = strong.parentElement;
+              if (parent && parent.classList.contains("centered-strong")) return;
+          
+              const wrapper = document.createElement("span");
+              wrapper.className = "centered-strong";
+          
+              parent.replaceChild(wrapper, strong);
+              wrapper.appendChild(strong);
+            });
+          });
+          </script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const images = Array.from(
+        document.querySelectorAll(".page-body.page-content figure img")
+      );
+    
+      if (!images.length) return;
+    
+      const viewer = document.getElementById("image-viewer");
+      const viewerImg = viewer.querySelector(".viewer-image");
+      const btnClose = viewer.querySelector(".viewer-close");
+      const btnPrev = viewer.querySelector(".viewer-prev");
+      const btnNext = viewer.querySelector(".viewer-next");
+    
+      let currentIndex = 0;
+    
+      function openViewer(index) {
+        currentIndex = index;
+        viewerImg.src = images[currentIndex].src;
+        viewer.classList.add("is-open");
+        viewer.setAttribute("aria-hidden", "false");
+      }
+    
+      function closeViewer() {
+        viewer.classList.remove("is-open");
+        viewer.setAttribute("aria-hidden", "true");
+      }
+    
+      function prev() {
+        if (currentIndex > 0) openViewer(currentIndex - 1);
+      }
+    
+      function next() {
+        if (currentIndex < images.length - 1) openViewer(currentIndex + 1);
+      }
+    
+      images.forEach((img, i) => {
+        img.style.cursor = "zoom-in";
+        img.addEventListener("click", () => openViewer(i));
+      });
+    
+      btnClose.addEventListener("click", closeViewer);
+      btnPrev.addEventListener("click", prev);
+      btnNext.addEventListener("click", next);
+      viewerImg.addEventListener("click", closeViewer);
+      viewer.addEventListener("click", e => {
+  if (e.target === viewer) {
+    closeViewer();
+  }
+});
+    
+      document.addEventListener("keydown", e => {
+        if (!viewer.classList.contains("is-open")) return;
+        if (e.key === "Escape") closeViewer();
+        if (e.key === "ArrowLeft") prev();
+        if (e.key === "ArrowRight") next();
+      });
+    });
+    </script>
+
+<script>
+  (function () {
+    if (!window.matchMedia("(min-width: 601px)").matches) return;
+  
+    const preview = document.createElement("div");
+    preview.id = "link-preview";
+    document.body.appendChild(preview);
+  
+    let aborter = null;
+  
+    function isInternalLink(a) {
+      if (!a || !a.href) return false;
+      try {
+        return new URL(a.href).origin === location.origin;
+      } catch {
+        return false;
+      }
+    }
+  
+    function extractPreviewText(html) {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+
+        const body = doc.querySelector(".page-body");
+        if (!body) return "";
+
+        body.querySelectorAll(
+          "figure, img, pre, code, table, script, style, \
+          .footnotes, .footnotes-list, aside"
+        ).forEach(el => el.remove());
+
+        body.querySelectorAll("sup").forEach(el => el.remove());
+
+        const candidates = Array.from(
+          body.querySelectorAll("p, li")
+        )
+          .map(el =>
+            el.textContent
+              .replace(/\s+/g, " ")
+              .trim()
+          )
+          .filter(text => text.length > 0);
+
+        if (!candidates.length) return "";
+
+        return candidates[0];
+      }
+  
+    function positionPreview(e) {
+      const offset = 14;
+      const maxX = window.innerWidth  - preview.offsetWidth  - 8;
+      const maxY = window.innerHeight - preview.offsetHeight - 8;
+  
+      preview.style.left = Math.min(e.clientX + offset, maxX) + "px";
+      preview.style.top  = Math.min(e.clientY + offset, maxY) + "px";
+    }
+  
+    document.addEventListener("mouseover", async (e) => {
+      const a = e.target.closest("a[href]");
+      if (!a || !isInternalLink(a)) return;
+  
+      aborter?.abort();
+      aborter = new AbortController();
+  
+      try {
+        const res = await fetch(a.href, { signal: aborter.signal });
+        const html = await res.text();
+        const text = extractPreviewText(html);
+  
+        if (!text) return;
+  
+        preview.textContent = text;
+        preview.classList.add("is-visible");
+        positionPreview(e);
+      } catch {
+      }
+    });
+  
+    document.addEventListener("mousemove", (e) => {
+      if (!preview.classList.contains("is-visible")) return;
+      positionPreview(e);
+    });
+  
+    document.addEventListener("mouseout", (e) => {
+      if (!e.target.closest("a[href]")) return;
+      preview.classList.remove("is-visible");
+      aborter?.abort();
+    });
+  })();
+  </script>
+  
+  
+    
+
 
 
     </main>
@@ -465,14 +644,11 @@
       "j—h",
       "Jaydashaitch",
       "제이대시에이치",
-      "제이에이치",
       "제이(대시)에이치",
       "JAY(DASH)AITCH",
-      "재현",
-      "재(대시)현",
       "JH ARCHIVE",
       "JAEHYEON LEE",
-      "JAEHYEON",
+      "JAE—HYEON",
       "jay—aitch",
       "JAE(DASH)HYEON"
       ];

@@ -133,7 +133,7 @@ html {
 
 @media screen and (min-width: 1600px) {
   html {
-    font-size: 1.2vw;
+    font-size: 1vw;
   }
 }
 
@@ -465,11 +465,14 @@ main {
 }
 
 .title-cell > a {
+  display: block;
   padding-left: 1ch;
 }
 
 .title-cell[data-leading-punct="true"] > a {
-  padding-left: 0;
+  display: block;
+  padding-left: 1ch;
+  text-indent: -1ch;
 }
 
 @media (max-width: 600px) {
@@ -610,15 +613,18 @@ main {
   }
 }
 
-.page-two-col .page-body p > strong {
+.page-two-col .page-body .centered-strong {
   display: block;
-  width: fit-content;
-  margin: 0 auto;
-  font-weight: normal;
-  line-height: calc(1.5em - 1px);
-  padding-bottom: 0;
-  border-bottom: 1px solid currentColor;
+  text-align: center;
 }
+
+.page-two-col .page-body .centered-strong > strong {
+  display: inline;
+  font-weight: normal;
+  border-bottom: 1px solid currentColor;
+  line-height: 1.5;
+}
+
 
 sup.footnote-reference {
   vertical-align: baseline;
@@ -662,6 +668,10 @@ sup.footnote-reference a {
   padding-left: 2ch;
 }
 
+.page-body blockquote ol ol {
+  padding-left: 0;
+}
+
 .page-body blockquote li {
   margin: 0;
   padding: 0;
@@ -671,7 +681,9 @@ sup.footnote-reference a {
   list-style: none;
   counter-reset: item;
   position: relative;
-  padding-left: 2ch;
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 0;     
 }
 
 .page-body blockquote ol > li {
@@ -692,27 +704,18 @@ sup.footnote-reference a {
   white-space: nowrap;
 }
 
-.page-body blockquote ol > li > ol {
-  margin-top: 1.5em;
-}
-
 .page-body blockquote li > ol {
   padding-left: 2ch;
   position: relative;
 }
 
-
-.page-body blockquote li > ol::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 1px;
-  background: currentColor;
-  opacity: 0.5;
+.page-body blockquote ol > li {
+  margin-top: 1.5em;
 }
 
+.page-body blockquote > ol > li:first-child {
+  margin-top: 0;
+}
 
 
 .page-body figure {
@@ -831,4 +834,83 @@ sup.footnote-reference a {
 .footnotes-list li:hover,
 .footnotes-list li.is-active {
   opacity: 1;
+}
+
+#image-viewer {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#image-viewer.is-open {
+  display: flex;
+}
+
+#image-viewer img {
+  max-width: min(90vw, 1200px);
+  max-height: 90vh;
+  cursor: zoom-out;
+}
+
+#image-viewer button {
+  position: absolute;
+  background: none;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.viewer-close {
+  top: 1rem;
+  right: 1rem;
+  color: white;
+}
+
+.viewer-prev {
+  left: 1rem;
+  color: white;
+}
+
+.viewer-next {
+  right: 1rem;
+  color: white;
+}
+
+
+#link-preview {
+  position: fixed;
+  max-width: 48ch;
+
+  padding: 0.75rem;
+  background: white;
+  border: 1px solid currentColor;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  z-index: 10000;
+  pointer-events: none;
+
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+#link-preview.is-visible {
+  opacity: 1;
+}
+
+
+@media (max-width: 600px) {
+  #link-preview {
+    display: none !important;
+  }
 }

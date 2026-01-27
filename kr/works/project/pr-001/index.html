@@ -139,6 +139,18 @@
     
 
     
+    <div class="meta-block meta-desc">
+      
+        <div class="meta-line">
+          → 글꼴 내려받기: <a href="media/files/DongleDemo-Regular.otf">DongleDemo-Regular.otf </a>
+        </div>
+      
+        <div class="meta-line">
+          → 글꼴 내려받기: <a href="media/files/DongleDemo-Line.otf">DongleDemo-Line.otf</a>
+        </div>
+      
+    </div>
+    
     
 
     
@@ -165,17 +177,20 @@
   <img src="/media/works/project/pr-001/dongle line letter set.webp" alt="Dongle Demo Line Letters">
   <figcaption>Dongle Line (Letter set)</figcaption>
 </figure>
-<hr />
-<h3 id="geulggol-naeryeobadgi">글꼴 내려받기:</h3>
-<ol>
-<li><a href="/media/works/project/files/DongleDemo-Regular.otf">DongleDemo-Regular.otf </a></li>
-<li><a href="/media/works/project/files/DongleDemo-Line.otf">DongleDemo-Line.otf</a></li>
-</ol>
-
 
   </div>
 
 </article>
+
+<div id="image-viewer" aria-hidden="true">
+  <button class="viewer-close" aria-label="Close">×</button>
+  <button class="viewer-prev" aria-label="Previous">←</button>
+  <img class="viewer-image" alt="" />
+  <button class="viewer-next" aria-label="Next">→</button>
+</div>
+
+<div id="link-preview" aria-hidden="true"></div>
+
 
 <script>
   (function () {
@@ -206,7 +221,7 @@
     }
   
     function setActiveFootnote(id) {
-      history.pushState(null, "", "#fn-" + id);
+      history.pushState(null, "", "#" + id);
   
       document.querySelectorAll(".meta-note").forEach(el => {
         el.classList.toggle("is-active", el.dataset.fnid === id);
@@ -285,9 +300,9 @@
     });
   
     document.addEventListener("DOMContentLoaded", function () {
-      if (!location.hash.startsWith("#fn-")) return;
+      if (!location.hash.startsWith("#")) return;
   
-      const id = location.hash.replace("#fn-", "");
+      const id = location.hash.slice(1);
       if (!id) return;
   
       setActiveFootnote(id);
@@ -357,7 +372,6 @@
           .forEach(el => {
             const text = el.textContent.trim();
       
-            // 숫자만 처리
             if (!/^\d+$/.test(text)) return;
       
             const superscript = [...text]
@@ -384,8 +398,6 @@
             const nodes = Array.from(li.childNodes);
 
             nodes.forEach(node => {
-              // 🔑 숫자용 ::before는 건드리지 말고
-              // 🔑 실제 DOM 자식만 이동
               if (
                 node.nodeType === Node.ELEMENT_NODE ||
                 (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "")
@@ -398,7 +410,179 @@
           });
         })();
         </script>
-        
+
+
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const root = document.querySelector(".page-body.page-content");
+            if (!root) return;
+          
+            root.querySelectorAll("p > strong").forEach(strong => {
+              const parent = strong.parentElement;
+              if (parent && parent.classList.contains("centered-strong")) return;
+          
+              const wrapper = document.createElement("span");
+              wrapper.className = "centered-strong";
+          
+              parent.replaceChild(wrapper, strong);
+              wrapper.appendChild(strong);
+            });
+          });
+          </script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const images = Array.from(
+        document.querySelectorAll(".page-body.page-content figure img")
+      );
+    
+      if (!images.length) return;
+    
+      const viewer = document.getElementById("image-viewer");
+      const viewerImg = viewer.querySelector(".viewer-image");
+      const btnClose = viewer.querySelector(".viewer-close");
+      const btnPrev = viewer.querySelector(".viewer-prev");
+      const btnNext = viewer.querySelector(".viewer-next");
+    
+      let currentIndex = 0;
+    
+      function openViewer(index) {
+        currentIndex = index;
+        viewerImg.src = images[currentIndex].src;
+        viewer.classList.add("is-open");
+        viewer.setAttribute("aria-hidden", "false");
+      }
+    
+      function closeViewer() {
+        viewer.classList.remove("is-open");
+        viewer.setAttribute("aria-hidden", "true");
+      }
+    
+      function prev() {
+        if (currentIndex > 0) openViewer(currentIndex - 1);
+      }
+    
+      function next() {
+        if (currentIndex < images.length - 1) openViewer(currentIndex + 1);
+      }
+    
+      images.forEach((img, i) => {
+        img.style.cursor = "zoom-in";
+        img.addEventListener("click", () => openViewer(i));
+      });
+    
+      btnClose.addEventListener("click", closeViewer);
+      btnPrev.addEventListener("click", prev);
+      btnNext.addEventListener("click", next);
+      viewerImg.addEventListener("click", closeViewer);
+      viewer.addEventListener("click", e => {
+  if (e.target === viewer) {
+    closeViewer();
+  }
+});
+    
+      document.addEventListener("keydown", e => {
+        if (!viewer.classList.contains("is-open")) return;
+        if (e.key === "Escape") closeViewer();
+        if (e.key === "ArrowLeft") prev();
+        if (e.key === "ArrowRight") next();
+      });
+    });
+    </script>
+
+<script>
+  (function () {
+    if (!window.matchMedia("(min-width: 601px)").matches) return;
+  
+    const preview = document.createElement("div");
+    preview.id = "link-preview";
+    document.body.appendChild(preview);
+  
+    let aborter = null;
+  
+    function isInternalLink(a) {
+      if (!a || !a.href) return false;
+      try {
+        return new URL(a.href).origin === location.origin;
+      } catch {
+        return false;
+      }
+    }
+  
+    function extractPreviewText(html) {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+
+        const body = doc.querySelector(".page-body");
+        if (!body) return "";
+
+        body.querySelectorAll(
+          "figure, img, pre, code, table, script, style, \
+          .footnotes, .footnotes-list, aside"
+        ).forEach(el => el.remove());
+
+        body.querySelectorAll("sup").forEach(el => el.remove());
+
+        const candidates = Array.from(
+          body.querySelectorAll("p, li")
+        )
+          .map(el =>
+            el.textContent
+              .replace(/\s+/g, " ")
+              .trim()
+          )
+          .filter(text => text.length > 0);
+
+        if (!candidates.length) return "";
+
+        return candidates[0];
+      }
+  
+    function positionPreview(e) {
+      const offset = 14;
+      const maxX = window.innerWidth  - preview.offsetWidth  - 8;
+      const maxY = window.innerHeight - preview.offsetHeight - 8;
+  
+      preview.style.left = Math.min(e.clientX + offset, maxX) + "px";
+      preview.style.top  = Math.min(e.clientY + offset, maxY) + "px";
+    }
+  
+    document.addEventListener("mouseover", async (e) => {
+      const a = e.target.closest("a[href]");
+      if (!a || !isInternalLink(a)) return;
+  
+      aborter?.abort();
+      aborter = new AbortController();
+  
+      try {
+        const res = await fetch(a.href, { signal: aborter.signal });
+        const html = await res.text();
+        const text = extractPreviewText(html);
+  
+        if (!text) return;
+  
+        preview.textContent = text;
+        preview.classList.add("is-visible");
+        positionPreview(e);
+      } catch {
+      }
+    });
+  
+    document.addEventListener("mousemove", (e) => {
+      if (!preview.classList.contains("is-visible")) return;
+      positionPreview(e);
+    });
+  
+    document.addEventListener("mouseout", (e) => {
+      if (!e.target.closest("a[href]")) return;
+      preview.classList.remove("is-visible");
+      aborter?.abort();
+    });
+  })();
+  </script>
+  
+  
+    
+
 
 
     </main>
@@ -471,14 +655,11 @@
       "j—h",
       "Jaydashaitch",
       "제이대시에이치",
-      "제이에이치",
       "제이(대시)에이치",
       "JAY(DASH)AITCH",
-      "재현",
-      "재(대시)현",
       "JH ARCHIVE",
       "JAEHYEON LEE",
-      "JAEHYEON",
+      "JAE—HYEON",
       "jay—aitch",
       "JAE(DASH)HYEON"
       ];

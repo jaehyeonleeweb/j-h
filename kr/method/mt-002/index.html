@@ -155,7 +155,7 @@
       
         <div
           class="meta-line meta-note"
-          data-fnid="1"
+          data-fnid="fn-1"
           role="link"
           tabindex="0"
         >
@@ -178,11 +178,11 @@
 <br><br>
 이미지 트레이스는 기능의 목적상 언제나 정확한 재현을 목표로 하지만 실제로 그 결과를 정확히 예측하는 것은 불가능하다. 추적된 이미지는 여러 매개변수에 따라 변형되고 세밀한 부분은 언제나 과장되거나 생략된다. 물론 이 결과는 수치에 따라 반복가능하나 여전히 통제가능한 것은 아니다. 계산 과정의 복잡성이 인간의 직관을 넘어서는 한 근사화가 일으키는 디지털 환경의 불규칙한 결과는 항상 예측할 수 없는 것이 된다. 그리고 이미지 트레이스가 필연적으로 수반하는 원본과의 간극은 디지털 이미지의 새로운 가능성—<a href="/kr/thought/th-001/">잠재이미지</a>의 가능성—으로 연결된다.
 <br><br>
-히토 슈타이얼의 «Strike» (2010)은 간단한 몸짓으로 디지털 무작위성을 드러낸다. 전시장 벽에 걸린 LCD 모니터 화면을 망치로 내리치는 20초 남짓의 영상은 디지털 이미지의 표면과 파편화를 암시한다. 이미지와 정치성을 탐구하는 그의 작가적 경향과 함께 이 작품은 주로 디지털 물질성에서 포착되는 현대 사회의 권력과 저항에 관련한 담론과 연결된다. 하지만 정치적 맥락에 앞서 작품이 내포한 형식적 암시는 꽤나 강렬하다. 디지털 이미지가 가진 고유한(것처럼 보이는) 특성은 과연 예측가능한 것인가? 우연성이 제거된(것처럼 보이는) 알고리즘의 시대에는 불확실한 것과 어떻게 마주칠 수 있는가?
+히토 슈타이얼의 〈스트라이크〉(2010)는 간단한 몸짓으로 디지털 무작위성을 드러낸다. 전시장 벽에 걸린 LCD 모니터 화면을 망치로 내리치는 20초 남짓의 영상은 디지털 이미지의 표면과 파편화를 암시한다. 이미지와 정치성을 탐구하는 그의 작가적 경향과 함께 이 작품은 주로 디지털 물질성에서 포착되는 현대 사회의 권력과 저항에 관련한 담론과 연결된다. 하지만 정치적 맥락에 앞서 작품이 내포한 형식적 암시는 꽤나 강렬하다. 디지털 이미지가 가진 고유한(것처럼 보이는) 특성은 과연 예측가능한 것인가? 우연성이 제거된(것처럼 보이는) 알고리즘의 시대에는 불확실한 것과 어떻게 마주칠 수 있는가?
 <br><br></p>
-<figure class="img--full" style="">
+<figure class="" style="">
   <img src="/media/method/hito steyerl strike 2010.webp" alt="Strike">
-  <figcaption>Strike (2010), Hito Steyerl</figcaption>
+  <figcaption>스트라이크(2010), 히토 슈타이얼</figcaption>
 </figure>
 <section class="footnotes">
 <ol class="footnotes-list">
@@ -196,6 +196,16 @@
   </div>
 
 </article>
+
+<div id="image-viewer" aria-hidden="true">
+  <button class="viewer-close" aria-label="Close">×</button>
+  <button class="viewer-prev" aria-label="Previous">←</button>
+  <img class="viewer-image" alt="" />
+  <button class="viewer-next" aria-label="Next">→</button>
+</div>
+
+<div id="link-preview" aria-hidden="true"></div>
+
 
 <script>
   (function () {
@@ -226,7 +236,7 @@
     }
   
     function setActiveFootnote(id) {
-      history.pushState(null, "", "#fn-" + id);
+      history.pushState(null, "", "#" + id);
   
       document.querySelectorAll(".meta-note").forEach(el => {
         el.classList.toggle("is-active", el.dataset.fnid === id);
@@ -305,9 +315,9 @@
     });
   
     document.addEventListener("DOMContentLoaded", function () {
-      if (!location.hash.startsWith("#fn-")) return;
+      if (!location.hash.startsWith("#")) return;
   
-      const id = location.hash.replace("#fn-", "");
+      const id = location.hash.slice(1);
       if (!id) return;
   
       setActiveFootnote(id);
@@ -377,7 +387,6 @@
           .forEach(el => {
             const text = el.textContent.trim();
       
-            // 숫자만 처리
             if (!/^\d+$/.test(text)) return;
       
             const superscript = [...text]
@@ -404,8 +413,6 @@
             const nodes = Array.from(li.childNodes);
 
             nodes.forEach(node => {
-              // 🔑 숫자용 ::before는 건드리지 말고
-              // 🔑 실제 DOM 자식만 이동
               if (
                 node.nodeType === Node.ELEMENT_NODE ||
                 (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "")
@@ -418,7 +425,179 @@
           });
         })();
         </script>
-        
+
+
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const root = document.querySelector(".page-body.page-content");
+            if (!root) return;
+          
+            root.querySelectorAll("p > strong").forEach(strong => {
+              const parent = strong.parentElement;
+              if (parent && parent.classList.contains("centered-strong")) return;
+          
+              const wrapper = document.createElement("span");
+              wrapper.className = "centered-strong";
+          
+              parent.replaceChild(wrapper, strong);
+              wrapper.appendChild(strong);
+            });
+          });
+          </script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const images = Array.from(
+        document.querySelectorAll(".page-body.page-content figure img")
+      );
+    
+      if (!images.length) return;
+    
+      const viewer = document.getElementById("image-viewer");
+      const viewerImg = viewer.querySelector(".viewer-image");
+      const btnClose = viewer.querySelector(".viewer-close");
+      const btnPrev = viewer.querySelector(".viewer-prev");
+      const btnNext = viewer.querySelector(".viewer-next");
+    
+      let currentIndex = 0;
+    
+      function openViewer(index) {
+        currentIndex = index;
+        viewerImg.src = images[currentIndex].src;
+        viewer.classList.add("is-open");
+        viewer.setAttribute("aria-hidden", "false");
+      }
+    
+      function closeViewer() {
+        viewer.classList.remove("is-open");
+        viewer.setAttribute("aria-hidden", "true");
+      }
+    
+      function prev() {
+        if (currentIndex > 0) openViewer(currentIndex - 1);
+      }
+    
+      function next() {
+        if (currentIndex < images.length - 1) openViewer(currentIndex + 1);
+      }
+    
+      images.forEach((img, i) => {
+        img.style.cursor = "zoom-in";
+        img.addEventListener("click", () => openViewer(i));
+      });
+    
+      btnClose.addEventListener("click", closeViewer);
+      btnPrev.addEventListener("click", prev);
+      btnNext.addEventListener("click", next);
+      viewerImg.addEventListener("click", closeViewer);
+      viewer.addEventListener("click", e => {
+  if (e.target === viewer) {
+    closeViewer();
+  }
+});
+    
+      document.addEventListener("keydown", e => {
+        if (!viewer.classList.contains("is-open")) return;
+        if (e.key === "Escape") closeViewer();
+        if (e.key === "ArrowLeft") prev();
+        if (e.key === "ArrowRight") next();
+      });
+    });
+    </script>
+
+<script>
+  (function () {
+    if (!window.matchMedia("(min-width: 601px)").matches) return;
+  
+    const preview = document.createElement("div");
+    preview.id = "link-preview";
+    document.body.appendChild(preview);
+  
+    let aborter = null;
+  
+    function isInternalLink(a) {
+      if (!a || !a.href) return false;
+      try {
+        return new URL(a.href).origin === location.origin;
+      } catch {
+        return false;
+      }
+    }
+  
+    function extractPreviewText(html) {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+
+        const body = doc.querySelector(".page-body");
+        if (!body) return "";
+
+        body.querySelectorAll(
+          "figure, img, pre, code, table, script, style, \
+          .footnotes, .footnotes-list, aside"
+        ).forEach(el => el.remove());
+
+        body.querySelectorAll("sup").forEach(el => el.remove());
+
+        const candidates = Array.from(
+          body.querySelectorAll("p, li")
+        )
+          .map(el =>
+            el.textContent
+              .replace(/\s+/g, " ")
+              .trim()
+          )
+          .filter(text => text.length > 0);
+
+        if (!candidates.length) return "";
+
+        return candidates[0];
+      }
+  
+    function positionPreview(e) {
+      const offset = 14;
+      const maxX = window.innerWidth  - preview.offsetWidth  - 8;
+      const maxY = window.innerHeight - preview.offsetHeight - 8;
+  
+      preview.style.left = Math.min(e.clientX + offset, maxX) + "px";
+      preview.style.top  = Math.min(e.clientY + offset, maxY) + "px";
+    }
+  
+    document.addEventListener("mouseover", async (e) => {
+      const a = e.target.closest("a[href]");
+      if (!a || !isInternalLink(a)) return;
+  
+      aborter?.abort();
+      aborter = new AbortController();
+  
+      try {
+        const res = await fetch(a.href, { signal: aborter.signal });
+        const html = await res.text();
+        const text = extractPreviewText(html);
+  
+        if (!text) return;
+  
+        preview.textContent = text;
+        preview.classList.add("is-visible");
+        positionPreview(e);
+      } catch {
+      }
+    });
+  
+    document.addEventListener("mousemove", (e) => {
+      if (!preview.classList.contains("is-visible")) return;
+      positionPreview(e);
+    });
+  
+    document.addEventListener("mouseout", (e) => {
+      if (!e.target.closest("a[href]")) return;
+      preview.classList.remove("is-visible");
+      aborter?.abort();
+    });
+  })();
+  </script>
+  
+  
+    
+
 
 
     </main>
@@ -491,14 +670,11 @@
       "j—h",
       "Jaydashaitch",
       "제이대시에이치",
-      "제이에이치",
       "제이(대시)에이치",
       "JAY(DASH)AITCH",
-      "재현",
-      "재(대시)현",
       "JH ARCHIVE",
       "JAEHYEON LEE",
-      "JAEHYEON",
+      "JAE—HYEON",
       "jay—aitch",
       "JAE(DASH)HYEON"
       ];

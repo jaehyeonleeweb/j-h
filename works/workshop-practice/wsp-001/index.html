@@ -64,7 +64,7 @@
       
         <a href="/allarchive/">All Archive</a>
         
-        <a href="/about/">About</a>
+        <a href="/about/">About This Web</a>
         <a href="/contact/">Contact</a>
         <span class="menu-item--disabled" aria-disabled="true">Shop</span>
       
@@ -152,7 +152,7 @@
         </div>
       
         <div class="meta-line">
-          → (For the relationship between workshops and practice, see <a href="/about/about/">About</a>.)
+          → (For the relationship between workshops and practice, see <a href="/about/about/">About This Web</a>.)
         </div>
       
     </div>
@@ -164,7 +164,7 @@
       
         <div
           class="meta-line meta-note"
-          data-fnid="1"
+          data-fnid="fn-1"
           role="link"
           tabindex="0"
         >
@@ -177,7 +177,7 @@
       
         <div
           class="meta-line meta-note"
-          data-fnid="2"
+          data-fnid="fn-2"
           role="link"
           tabindex="0"
         >
@@ -190,7 +190,7 @@
       
         <div
           class="meta-line meta-note"
-          data-fnid="3"
+          data-fnid="fn-3"
           role="link"
           tabindex="0"
         >
@@ -203,7 +203,7 @@
       
         <div
           class="meta-line meta-note"
-          data-fnid="4"
+          data-fnid="fn-4"
           role="link"
           tabindex="0"
         >
@@ -216,7 +216,7 @@
       
         <div
           class="meta-line meta-note"
-          data-fnid="5"
+          data-fnid="fn-5"
           role="link"
           tabindex="0"
         >
@@ -229,7 +229,7 @@
       
         <div
           class="meta-line meta-note"
-          data-fnid="6"
+          data-fnid="fn-6"
           role="link"
           tabindex="0"
         >
@@ -242,7 +242,7 @@
       
         <div
           class="meta-line meta-note"
-          data-fnid="7"
+          data-fnid="fn-7"
           role="link"
           tabindex="0"
         >
@@ -289,7 +289,7 @@ JPG processes color by separating it into luminance (brightness) and chrominance
 <br><br>
 The process by which JPG handles shape is more complex. First, JPG divides the entire image into 8×8 pixel blocks for processing. Each block is then compressed independently. (The blocky appearance in digital images, often called JPEG artifacts, arises during this process.) During compression, these 8×8 pixel blocks are converted into a combination of 64 basic patterns using a method called the Discrete Cosine Transform (DCT). This converts spatial domain information into frequency domain information, which is also related to the hierarchy of information discernible by the human eye. We perceive low-frequency components, which form the large structures of an image, well, but we do not perceive high-frequency components, which are detailed and have complex shape changes, as well. Therefore, JPG increases compression efficiency by sacrificing the high-frequency components in the transformed 8×8 pixel frequency domain.
 <br><br></p>
-<figure class="img--fixed" style="max-width:360px;">
+<figure class="img--fixed" style="max-width:720px;">
   <img src="/media/works/workshop-practice/wsp-001/jpg image.webp" alt="JPG Image">
   <figcaption>JPG image, You can see the JPEG artifacts</figcaption>
 </figure>
@@ -306,7 +306,7 @@ JPG’s DCT follows these steps:</p>
 </ol>
 </blockquote>
 <br>
-<figure class="img--fixed" style="max-width:360px;">
+<figure class="img--fixed" style="max-width:720px;">
   <img src="/media/works/workshop-practice/wsp-001/dct 8x8.webp" alt="DCT 8×8">
   <figcaption>Basic patterns in a DCT block (8×8)</figcaption>
 </figure>
@@ -326,7 +326,7 @@ As previously noted, the Discrete Cosine Transform yields 64 DCT coefficients. T
 <br>
 <p>Accordingly, I obtained 4 basic patterns and 1,808 shape images. These represent all possible images under the experimental conditions.
 <br><br></p>
-<figure class="img--fixed" style="max-width:370px;">
+<figure class="img--fixed" style="max-width:480px;">
   <img src="/media/works/workshop-practice/wsp-001/dct 2x2 Basics.webp" alt="dct 2×2 basics">
   <figcaption>Four basic patterns (A 2×2 pixel block’s DCT coefficient has four possible cases based on weights 0 and 1.)</figcaption>
 </figure>
@@ -339,22 +339,22 @@ C: Image filled with one pattern occupying 3 cells and another pattern occupying
 D: Image filled with one pattern occupying 2 cells, another pattern occupying 1 cell, and yet another pattern occupying 1 cell<sup class="footnote-reference" id="fr-7-1"><a href="#fn-7">7</a></sup></p>
 </blockquote>
 <p><br><br></p>
-<figure class="img--fixed" style="max-width:410px;">
+<figure class="" style="">
   <img src="/media/works/workshop-practice/wsp-001/dct images A.webp" alt="dct images A">
   <figcaption>Shape Image Combination A, 8 types (16 combinations minus duplicate images)</figcaption>
 </figure>
 <br>
-<figure class="img--fixed" style="max-width:810px;">
+<figure class="" style="">
   <img src="/media/works/workshop-practice/wsp-001/dct images B.webp" alt="dct images B">
   <figcaption>Shape Image Combination B, 96 types (removing duplicate images from 120 combination pairs)</figcaption>
 </figure>
 <br>
-<figure class="img--fixed" style="max-width:810px;">
+<figure class="" style="">
   <img src="/media/works/workshop-practice/wsp-001/dct images C.webp" alt="dct images C">
   <figcaption>Shape Image Combination C, 192 types (removing duplicate images from 240 combination pairs)</figcaption>
 </figure>
 <br>
-<figure class="img--fixed" style="max-width:810px;">
+<figure class="" style="">
   <img src="/media/works/workshop-practice/wsp-001/dct images D.webp" alt="dct images D">
   <figcaption>Shape Image Combination D, 1512 types (removing duplicate images from 1680 combination pairs)</figcaption>
 </figure>
@@ -392,6 +392,16 @@ Through this series of processes, I sought to demonstrate that concrete images c
 
 </article>
 
+<div id="image-viewer" aria-hidden="true">
+  <button class="viewer-close" aria-label="Close">×</button>
+  <button class="viewer-prev" aria-label="Previous">←</button>
+  <img class="viewer-image" alt="" />
+  <button class="viewer-next" aria-label="Next">→</button>
+</div>
+
+<div id="link-preview" aria-hidden="true"></div>
+
+
 <script>
   (function () {
   
@@ -421,7 +431,7 @@ Through this series of processes, I sought to demonstrate that concrete images c
     }
   
     function setActiveFootnote(id) {
-      history.pushState(null, "", "#fn-" + id);
+      history.pushState(null, "", "#" + id);
   
       document.querySelectorAll(".meta-note").forEach(el => {
         el.classList.toggle("is-active", el.dataset.fnid === id);
@@ -500,9 +510,9 @@ Through this series of processes, I sought to demonstrate that concrete images c
     });
   
     document.addEventListener("DOMContentLoaded", function () {
-      if (!location.hash.startsWith("#fn-")) return;
+      if (!location.hash.startsWith("#")) return;
   
-      const id = location.hash.replace("#fn-", "");
+      const id = location.hash.slice(1);
       if (!id) return;
   
       setActiveFootnote(id);
@@ -572,7 +582,6 @@ Through this series of processes, I sought to demonstrate that concrete images c
           .forEach(el => {
             const text = el.textContent.trim();
       
-            // 숫자만 처리
             if (!/^\d+$/.test(text)) return;
       
             const superscript = [...text]
@@ -599,8 +608,6 @@ Through this series of processes, I sought to demonstrate that concrete images c
             const nodes = Array.from(li.childNodes);
 
             nodes.forEach(node => {
-              // 🔑 숫자용 ::before는 건드리지 말고
-              // 🔑 실제 DOM 자식만 이동
               if (
                 node.nodeType === Node.ELEMENT_NODE ||
                 (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "")
@@ -613,7 +620,179 @@ Through this series of processes, I sought to demonstrate that concrete images c
           });
         })();
         </script>
-        
+
+
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const root = document.querySelector(".page-body.page-content");
+            if (!root) return;
+          
+            root.querySelectorAll("p > strong").forEach(strong => {
+              const parent = strong.parentElement;
+              if (parent && parent.classList.contains("centered-strong")) return;
+          
+              const wrapper = document.createElement("span");
+              wrapper.className = "centered-strong";
+          
+              parent.replaceChild(wrapper, strong);
+              wrapper.appendChild(strong);
+            });
+          });
+          </script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const images = Array.from(
+        document.querySelectorAll(".page-body.page-content figure img")
+      );
+    
+      if (!images.length) return;
+    
+      const viewer = document.getElementById("image-viewer");
+      const viewerImg = viewer.querySelector(".viewer-image");
+      const btnClose = viewer.querySelector(".viewer-close");
+      const btnPrev = viewer.querySelector(".viewer-prev");
+      const btnNext = viewer.querySelector(".viewer-next");
+    
+      let currentIndex = 0;
+    
+      function openViewer(index) {
+        currentIndex = index;
+        viewerImg.src = images[currentIndex].src;
+        viewer.classList.add("is-open");
+        viewer.setAttribute("aria-hidden", "false");
+      }
+    
+      function closeViewer() {
+        viewer.classList.remove("is-open");
+        viewer.setAttribute("aria-hidden", "true");
+      }
+    
+      function prev() {
+        if (currentIndex > 0) openViewer(currentIndex - 1);
+      }
+    
+      function next() {
+        if (currentIndex < images.length - 1) openViewer(currentIndex + 1);
+      }
+    
+      images.forEach((img, i) => {
+        img.style.cursor = "zoom-in";
+        img.addEventListener("click", () => openViewer(i));
+      });
+    
+      btnClose.addEventListener("click", closeViewer);
+      btnPrev.addEventListener("click", prev);
+      btnNext.addEventListener("click", next);
+      viewerImg.addEventListener("click", closeViewer);
+      viewer.addEventListener("click", e => {
+  if (e.target === viewer) {
+    closeViewer();
+  }
+});
+    
+      document.addEventListener("keydown", e => {
+        if (!viewer.classList.contains("is-open")) return;
+        if (e.key === "Escape") closeViewer();
+        if (e.key === "ArrowLeft") prev();
+        if (e.key === "ArrowRight") next();
+      });
+    });
+    </script>
+
+<script>
+  (function () {
+    if (!window.matchMedia("(min-width: 601px)").matches) return;
+  
+    const preview = document.createElement("div");
+    preview.id = "link-preview";
+    document.body.appendChild(preview);
+  
+    let aborter = null;
+  
+    function isInternalLink(a) {
+      if (!a || !a.href) return false;
+      try {
+        return new URL(a.href).origin === location.origin;
+      } catch {
+        return false;
+      }
+    }
+  
+    function extractPreviewText(html) {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+
+        const body = doc.querySelector(".page-body");
+        if (!body) return "";
+
+        body.querySelectorAll(
+          "figure, img, pre, code, table, script, style, \
+          .footnotes, .footnotes-list, aside"
+        ).forEach(el => el.remove());
+
+        body.querySelectorAll("sup").forEach(el => el.remove());
+
+        const candidates = Array.from(
+          body.querySelectorAll("p, li")
+        )
+          .map(el =>
+            el.textContent
+              .replace(/\s+/g, " ")
+              .trim()
+          )
+          .filter(text => text.length > 0);
+
+        if (!candidates.length) return "";
+
+        return candidates[0];
+      }
+  
+    function positionPreview(e) {
+      const offset = 14;
+      const maxX = window.innerWidth  - preview.offsetWidth  - 8;
+      const maxY = window.innerHeight - preview.offsetHeight - 8;
+  
+      preview.style.left = Math.min(e.clientX + offset, maxX) + "px";
+      preview.style.top  = Math.min(e.clientY + offset, maxY) + "px";
+    }
+  
+    document.addEventListener("mouseover", async (e) => {
+      const a = e.target.closest("a[href]");
+      if (!a || !isInternalLink(a)) return;
+  
+      aborter?.abort();
+      aborter = new AbortController();
+  
+      try {
+        const res = await fetch(a.href, { signal: aborter.signal });
+        const html = await res.text();
+        const text = extractPreviewText(html);
+  
+        if (!text) return;
+  
+        preview.textContent = text;
+        preview.classList.add("is-visible");
+        positionPreview(e);
+      } catch {
+      }
+    });
+  
+    document.addEventListener("mousemove", (e) => {
+      if (!preview.classList.contains("is-visible")) return;
+      positionPreview(e);
+    });
+  
+    document.addEventListener("mouseout", (e) => {
+      if (!e.target.closest("a[href]")) return;
+      preview.classList.remove("is-visible");
+      aborter?.abort();
+    });
+  })();
+  </script>
+  
+  
+    
+
 
 
     </main>
@@ -686,14 +865,11 @@ Through this series of processes, I sought to demonstrate that concrete images c
       "j—h",
       "Jaydashaitch",
       "제이대시에이치",
-      "제이에이치",
       "제이(대시)에이치",
       "JAY(DASH)AITCH",
-      "재현",
-      "재(대시)현",
       "JH ARCHIVE",
       "JAEHYEON LEE",
-      "JAEHYEON",
+      "JAE—HYEON",
       "jay—aitch",
       "JAE(DASH)HYEON"
       ];
