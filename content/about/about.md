@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "About This Web"
 extra:
   notes:
     - id: "1"
