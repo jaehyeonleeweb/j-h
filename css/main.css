@@ -709,13 +709,15 @@ sup.footnote-reference a {
   position: relative;
 }
 
-.page-body blockquote ol > li {
-  margin-top: 1.5em;
-}
-
 .page-body blockquote > ol > li:first-child {
   margin-top: 0;
 }
+
+.page-body blockquote ol:has(li > ol) > li {
+  margin-top: 1.5em;
+}
+
+
 
 
 .page-body figure {
@@ -881,10 +883,18 @@ sup.footnote-reference a {
   color: white;
 }
 
+@media (max-width: 600px) {
+  #image-viewer .viewer-close,
+  #image-viewer .viewer-prev,
+  #image-viewer .viewer-next {
+    display: none;
+  }
+}
+
 
 #link-preview {
   position: fixed;
-  max-width: 48ch;
+  max-width: 72ch;
 
   padding: 0.75rem;
   background: white;

@@ -173,7 +173,7 @@
 <ol>
 <li>이 웹에는 워크샵<em>workshop</em>을 통해 실천된 아이디어<em>workshop practice</em>가 기록된다.
 <ol>
-<li>모든 워크샵은 울리포의 ‘잠재문학’<sup class="footnote-reference" id="fr-2-1"><a href="#fn-2">2</a></sup>에서 빌려온 개념 <a href="/kr/thought/th-001/">잠재이미지</a>를 탐구하는 것을 목적으로 한다. 이 실천들의 목적은 제약에 기반한 시도를 통해 이미지가 스스로의 잠재성을 드러내게끔 하는 것이다.</li>
+<li>모든 워크샵은 울리포의 ‘잠재문학’<sup class="footnote-reference" id="fr-2-1"><a href="#fn-2">2</a></sup>에서 빌려온 개념인 <a href="/kr/thought/th-001/">잠재이미지</a>를 탐구하는 것을 목적으로 한다. 이 실천들의 목적은 제약에 기반한 시도를 통해 이미지가 스스로의 잠재성을 드러내게끔 하는 것이다.</li>
 <li>나는 울리포적 입장을 적극 수용하고 있지만 경우에 따라 느슨하게 적용하기도 한다. 나에게 중요한 것은 항상 새로운 것들이다.</li>
 </ol>
 </li>
@@ -475,6 +475,8 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      const isMobile = window.matchMedia("(max-width: 600px)").matches;
+      
       const images = Array.from(
         document.querySelectorAll(".page-body.page-content figure img")
       );
@@ -514,16 +516,47 @@
         img.addEventListener("click", () => openViewer(i));
       });
     
+      if (!isMobile) {
       btnClose.addEventListener("click", closeViewer);
       btnPrev.addEventListener("click", prev);
       btnNext.addEventListener("click", next);
+      }
+      if (isMobile) {
+      viewer.addEventListener("click", closeViewer);
+      } else {
       viewerImg.addEventListener("click", closeViewer);
       viewer.addEventListener("click", e => {
-  if (e.target === viewer) {
-    closeViewer();
-  }
-});
-    
+      if (e.target === viewer) {
+      closeViewer();
+      }
+      });
+    }
+        
+      if (isMobile) {
+        let startX = 0;
+        let startY = 0;
+
+        viewer.addEventListener("touchstart", e => {
+          const t = e.touches[0];
+          startX = t.clientX;
+          startY = t.clientY;
+        }, { passive: true });
+
+        viewer.addEventListener("touchend", e => {
+          const t = e.changedTouches[0];
+          const dx = t.clientX - startX;
+          const dy = t.clientY - startY;
+
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx > 0) {
+              prev();
+            } else {
+              next();
+            }
+          }
+        });
+      }
+
       document.addEventListener("keydown", e => {
         if (!viewer.classList.contains("is-open")) return;
         if (e.key === "Escape") closeViewer();
@@ -592,7 +625,9 @@
     document.addEventListener("mouseover", async (e) => {
       const a = e.target.closest("a[href]");
       if (!a || !isInternalLink(a)) return;
-  
+      
+      if (a.closest("sup")) return;
+      
       aborter?.abort();
       aborter = new AbortController();
   
