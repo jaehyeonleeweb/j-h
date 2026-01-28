@@ -458,11 +458,10 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const isMobile = window.matchMedia("(max-width: 600px)").matches;
-      
+    
       const images = Array.from(
         document.querySelectorAll(".page-body.page-content figure img")
       );
-    
       if (!images.length) return;
     
       const viewer = document.getElementById("image-viewer");
@@ -472,17 +471,40 @@
       const btnNext = viewer.querySelector(".viewer-next");
     
       let currentIndex = 0;
+      let scrollY = 0;
+    
+      function lockScroll() {
+        scrollY = window.scrollY;
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+        document.body.style.width = "100%";
+      }
+    
+      function unlockScroll() {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        document.body.style.width = "";
+        window.scrollTo(0, scrollY);
+      }
     
       function openViewer(index) {
         currentIndex = index;
         viewerImg.src = images[currentIndex].src;
         viewer.classList.add("is-open");
         viewer.setAttribute("aria-hidden", "false");
+    
+        if (isMobile) lockScroll();
       }
     
       function closeViewer() {
         viewer.classList.remove("is-open");
         viewer.setAttribute("aria-hidden", "true");
+    
+        if (isMobile) unlockScroll();
       }
     
       function prev() {
@@ -498,55 +520,55 @@
         img.addEventListener("click", () => openViewer(i));
       });
     
+
       if (!isMobile) {
-      btnClose.addEventListener("click", closeViewer);
-      btnPrev.addEventListener("click", prev);
-      btnNext.addEventListener("click", next);
+        btnClose.addEventListener("click", closeViewer);
+        btnPrev.addEventListener("click", prev);
+        btnNext.addEventListener("click", next);
+    
+        viewerImg.addEventListener("click", closeViewer);
+        viewer.addEventListener("click", e => {
+          if (e.target === viewer) closeViewer();
+        });
       }
+    
       if (isMobile) {
-      viewer.addEventListener("click", closeViewer);
-      } else {
-      viewerImg.addEventListener("click", closeViewer);
-      viewer.addEventListener("click", e => {
-      if (e.target === viewer) {
-      closeViewer();
-      }
-      });
-    }
-        
-      if (isMobile) {
+        viewer.addEventListener("click", closeViewer);
+    
         let startX = 0;
         let startY = 0;
-
-        viewer.addEventListener("touchstart", e => {
-          const t = e.touches[0];
-          startX = t.clientX;
-          startY = t.clientY;
-        }, { passive: true });
-
+    
+        viewer.addEventListener(
+          "touchstart",
+          e => {
+            const t = e.touches[0];
+            startX = t.clientX;
+            startY = t.clientY;
+          },
+          { passive: true }
+        );
+    
         viewer.addEventListener("touchend", e => {
           const t = e.changedTouches[0];
           const dx = t.clientX - startX;
           const dy = t.clientY - startY;
-
+    
           if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-            if (dx > 0) {
-              prev();
-            } else {
-              next();
-            }
+            dx > 0 ? prev() : next();
           }
         });
       }
-
+    
       document.addEventListener("keydown", e => {
         if (!viewer.classList.contains("is-open")) return;
+    
         if (e.key === "Escape") closeViewer();
         if (e.key === "ArrowLeft") prev();
         if (e.key === "ArrowRight") next();
       });
     });
     </script>
+    
 
 <script>
   (function () {

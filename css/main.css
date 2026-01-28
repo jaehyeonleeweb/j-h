@@ -889,6 +889,10 @@ sup.footnote-reference a {
   #image-viewer .viewer-next {
     display: none;
   }
+  #image-viewer {
+    background: var(--viewer-bg, black);
+    touch-action: pan-x;
+  }
 }
 
 
