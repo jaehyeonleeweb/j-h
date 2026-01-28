@@ -44,7 +44,7 @@
 
         <tr
           data-title="{{ display_title_src | lower }}"
-          data-title-norm="{{ display_title_src | lower | replace(from='^[‘“(\\[{‹«〈《「『]+', to='') }}"
+          data-title-norm="{{ display_title_src | lower }}"
           data-doc="{{ doc }}"
           data-cat="{{ cat | lower }}"
           data-sort="{{ date_sort }}"
@@ -148,7 +148,16 @@
       if (k === 'sort') return 'str';
       return 'str';
     }
-  
+    
+    const LEADING_PUNCTS = /^[‘“"'([{‹«〈《「『]+/;
+
+    function normalizeTitle(str) {
+    return (str || "")
+      .toLowerCase()
+      .replace(LEADING_PUNCTS, "")
+      .trim();
+}
+
     function sortRows(key, type, order) {
       const rows = Array.from(tbody.querySelectorAll('tr'));
       const dir = (order === 'desc') ? -1 : 1;
@@ -168,8 +177,15 @@
           if (!aValid && bValid) return 1;
           return 0;
         } else {
-          const sa = (key === 'title') ? a.dataset.titleNorm : va.toString();
-          const sb = (key === 'title') ? b.dataset.titleNorm : vb.toString();
+          const sa =
+            key === 'title'
+              ? normalizeTitle(a.dataset.titleNorm || a.dataset.title)
+              : va.toString();
+
+          const sb =
+            key === 'title'
+              ? normalizeTitle(b.dataset.titleNorm || b.dataset.title)
+              : vb.toString();
           return sa.localeCompare(sb) * dir;
         }
       });
