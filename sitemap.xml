@@ -31,6 +31,9 @@
         <loc>https://j-h-a-r-c-h-i-v-e.com/glossary/gl-003/</loc>
     </url>
     <url>
+        <loc>https://j-h-a-r-c-h-i-v-e.com/glossary/gl-004/</loc>
+    </url>
+    <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/</loc>
     </url>
     <url>
@@ -61,6 +64,9 @@
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/glossary/gl-003/</loc>
     </url>
     <url>
+        <loc>https://j-h-a-r-c-h-i-v-e.com/kr/glossary/gl-004/</loc>
+    </url>
+    <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/method/</loc>
     </url>
     <url>
@@ -89,6 +95,13 @@
         <lastmod>2025-11-01</lastmod>
     </url>
     <url>
+        <loc>https://j-h-a-r-c-h-i-v-e.com/kr/web-document/</loc>
+    </url>
+    <url>
+        <loc>https://j-h-a-r-c-h-i-v-e.com/kr/web-document/wd-001/</loc>
+        <lastmod>2026-02-01</lastmod>
+    </url>
+    <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/works/</loc>
     </url>
     <url>
@@ -109,6 +122,10 @@
     <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/works/project/pr-004/</loc>
         <lastmod>2025-11-02</lastmod>
+    </url>
+    <url>
+        <loc>https://j-h-a-r-c-h-i-v-e.com/kr/works/project/pr-005/</loc>
+        <lastmod>2026-02-02</lastmod>
     </url>
     <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/kr/works/workshop-practice/</loc>
@@ -153,6 +170,13 @@
         <lastmod>2025-11-01</lastmod>
     </url>
     <url>
+        <loc>https://j-h-a-r-c-h-i-v-e.com/web-document/</loc>
+    </url>
+    <url>
+        <loc>https://j-h-a-r-c-h-i-v-e.com/web-document/wd-001/</loc>
+        <lastmod>2026-02-01</lastmod>
+    </url>
+    <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/works/</loc>
     </url>
     <url>
@@ -173,6 +197,10 @@
     <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/works/project/pr-004/</loc>
         <lastmod>2024-11-02</lastmod>
+    </url>
+    <url>
+        <loc>https://j-h-a-r-c-h-i-v-e.com/works/project/pr-005/</loc>
+        <lastmod>2026-02-02</lastmod>
     </url>
     <url>
         <loc>https://j-h-a-r-c-h-i-v-e.com/works/workshop-practice/</loc>

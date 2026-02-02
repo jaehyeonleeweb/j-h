@@ -200,8 +200,6 @@
   <button class="viewer-next" aria-label="Next">→</button>
 </div>
 
-<div id="link-preview" aria-hidden="true"></div>
-
 
 <script>
   (function () {
@@ -556,100 +554,112 @@
     </script>
     
 
-<script>
-  (function () {
-    if (!window.matchMedia("(min-width: 601px)").matches) return;
-  
-    const preview = document.createElement("div");
-    preview.id = "link-preview";
-    document.body.appendChild(preview);
-  
-    let aborter = null;
-  
-    function isInternalLink(a) {
-      if (!a || !a.href) return false;
-      try {
-        return new URL(a.href).origin === location.origin;
-      } catch {
-        return false;
-      }
-    }
-  
-    function extractPreviewText(html) {
-        const doc = new DOMParser().parseFromString(html, "text/html");
-
-        const body = doc.querySelector(".page-body");
-        if (!body) return "";
-
-        body.querySelectorAll(
-          "figure, img, pre, code, table, script, style, \
-          .footnotes, .footnotes-list, aside"
-        ).forEach(el => el.remove());
-
-        body.querySelectorAll("sup").forEach(el => el.remove());
-
-        const candidates = Array.from(
-          body.querySelectorAll("p, li")
-        )
-          .map(el =>
-            el.textContent
-              .replace(/\s+/g, " ")
-              .trim()
-          )
-          .filter(text => text.length > 0);
-
-        if (!candidates.length) return "";
-
-        return candidates[0];
-      }
-  
-    function positionPreview(e) {
-      const offset = 14;
-      const maxX = window.innerWidth  - preview.offsetWidth  - 8;
-      const maxY = window.innerHeight - preview.offsetHeight - 8;
-  
-      preview.style.left = Math.min(e.clientX + offset, maxX) + "px";
-      preview.style.top  = Math.min(e.clientY + offset, maxY) + "px";
-    }
-  
-    document.addEventListener("mouseover", async (e) => {
-      const a = e.target.closest("a[href]");
-      if (!a || !isInternalLink(a)) return;
-      
-      if (a.closest("sup")) return;
-      
-      aborter?.abort();
-      aborter = new AbortController();
-  
-      try {
-        const res = await fetch(a.href, { signal: aborter.signal });
-        const html = await res.text();
-        const text = extractPreviewText(html);
-  
-        if (!text) return;
-  
-        preview.textContent = text;
-        preview.classList.add("is-visible");
-        positionPreview(e);
-      } catch {
-      }
-    });
-  
-    document.addEventListener("mousemove", (e) => {
-      if (!preview.classList.contains("is-visible")) return;
-      positionPreview(e);
-    });
-  
-    document.addEventListener("mouseout", (e) => {
-      if (!e.target.closest("a[href]")) return;
-      preview.classList.remove("is-visible");
-      aborter?.abort();
-    });
-  })();
-  </script>
-  
-  
+    <script>
+      (function () {
+        if (!window.matchMedia("(min-width: 601px)").matches) return;
     
+        const preview = document.createElement("div");
+        preview.id = "link-preview";
+        document.body.appendChild(preview);
+    
+        let aborter = null;
+    
+        function isHomeLink(a) {
+          if (!a || !a.href) return false;
+          try {
+            const url = new URL(a.href);
+            if (url.origin !== location.origin) return false;
+            return url.pathname === "/" || url.pathname === "/kr/";
+          } catch {
+            return false;
+          }
+        }
+    
+        function isInternalLink(a) {
+          if (!a || !a.href) return false;
+          try {
+            return new URL(a.href).origin === location.origin;
+          } catch {
+            return false;
+          }
+        }
+    
+        function extractPreviewText(html) {
+          const doc = new DOMParser().parseFromString(html, "text/html");
+          const body = doc.querySelector(".page-body");
+          if (!body) return "";
+    
+          body.querySelectorAll(
+            "figure, img, pre, code, table, script, style, .footnotes, .footnotes-list, aside"
+          ).forEach(el => el.remove());
+    
+          body.querySelectorAll("sup").forEach(el => el.remove());
+    
+          const candidates = Array.from(body.querySelectorAll("p, li"))
+            .map(el => el.textContent.replace(/\s+/g, " ").trim())
+            .filter(text => text.length > 0);
+    
+          return candidates[0] || "";
+        }
+    
+        function positionPreview(e) {
+          const offset = 14;
+          const maxX = window.innerWidth - preview.offsetWidth - 8;
+          const maxY = window.innerHeight - preview.offsetHeight - 8;
+    
+          preview.style.left = Math.min(e.clientX + offset, maxX) + "px";
+          preview.style.top = Math.min(e.clientY + offset, maxY) + "px";
+        }
+    
+        document.addEventListener("mouseover", async (e) => {
+          const a = e.target.closest("a[href]");
+          if (!a) return;
+          if (a.closest("header")) return;
+          if (a.closest("sup")) return;
+    
+          aborter?.abort();
+          aborter = new AbortController();
+    
+          if (isHomeLink(a) && a.closest(".page-two-col")) {
+            preview.textContent = sessionStorage.getItem("jh_site_title") || "J—H";
+            preview.classList.add("is-visible");
+            positionPreview(e);
+            return;
+          }
+    
+          if (!isInternalLink(a) || !a.closest(".page-two-col")) return;
+    
+          try {
+            const res = await fetch(a.href, { signal: aborter.signal });
+            const html = await res.text();
+            const text = extractPreviewText(html);
+            if (!text) return;
+    
+            preview.textContent = text;
+            preview.classList.add("is-visible");
+            positionPreview(e);
+          } catch {}
+        });
+    
+        document.addEventListener("mousemove", (e) => {
+          if (!preview.classList.contains("is-visible")) return;
+          positionPreview(e);
+        });
+    
+        document.addEventListener("mouseout", (e) => {
+          const a = e.target.closest("a[href]");
+          if (!a) return;
+
+          if (a.contains(e.relatedTarget)) return;
+
+          preview.classList.remove("is-visible");
+          aborter?.abort();
+        });
+
+      })();
+    </script>
+    
+
 
 
 
