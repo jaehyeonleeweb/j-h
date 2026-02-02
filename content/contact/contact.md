@@ -2,6 +2,7 @@
 title: "Contact"
 extra:
   doc_no: "2"
+  category: "Web Document"
 ---
 **Jaehyeon Lee**  
 Open for commissions.  
