@@ -11,13 +11,13 @@ import os, re, shutil, pathlib, sys
 VAULT = "/Users/jaehyeonlee/Library/Mobile Documents/iCloud~md~obsidian/Documents/j-h-web"
 DEST  = "/Users/jaehyeonlee/web/j-h"
 
-SRC_CONTENT_ROOTS = ["about", "contact", "glossary", "method", "shop", "thought", "works"]
+SRC_CONTENT_ROOTS = ["about", "contact", "glossary", "method", "shop", "thought", "works", "web-document"]
 ROOT_SECTIONS = set(s.lower() for s in SRC_CONTENT_ROOTS)
 
 SECTIONS = [
     "",
     "allarchive",
-    "about", "contact", "glossary", "method", "shop", "thought", "works",
+    "about", "contact", "web-document", "glossary", "method", "shop", "thought", "works",
     "works/project", "works/workshop", "works/workshop-practice",
 ]
 
@@ -31,6 +31,7 @@ TITLES_EN = {
     "allarchive": "all archive",
     "about": "about",
     "contact": "contact",
+    "web-document": "web document",
     "glossary": "glossary",
     "method": "methodology",
     "shop": "shop",
@@ -46,6 +47,7 @@ TITLES_KR = {
     "allarchive": "모든 아카이브",
     "about": "이 웹에 대하여",
     "contact": "연락처",
+    "web-document": "웹 문서",
     "glossary": "참조",
     "method": "방법",
     "shop": "구매",
@@ -65,6 +67,7 @@ SECTION_TEMPLATES = {
     "allarchive":     "allarchive.html",
     "works":          "section/works.html",
     "shop":           "section/shop.html",
+    "web-document":   "allarchive.html",
     "glossary":       "allarchive.html",
     "method":         "allarchive.html",
     "thought":        "allarchive.html",
@@ -550,6 +553,10 @@ def move_custom_fields_into_extra(text: str, doc_parent_rel: str, footnotes: lis
             s = WIKILINK_GLOBAL_RE.sub(
                 lambda m: f"[{m.group(2) or m.group(1)}]"
                         f"({_vault_path_to_site_href(m.group(1), doc_parent_rel)})",
+                s
+            )
+            s = LINK_RE.sub(
+                lambda m: f"[{m.group(1)}]({to_web_media_path(doc_parent_rel, m.group(2))})",
                 s
             )
 
