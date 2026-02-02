@@ -16,7 +16,7 @@ extra:
   category: "Web Document"
 ---
 **About the Overview**<br>  
-[This Web](https://j-h-a-r-c-h-i-v-e.com/) records images [contact](/contact/contact/)I] have created. [this web](https://j-h-a-r-c-h-i-v-e.com/) will form a web-like network of relationships between images (true to its name). Moreover, [this web](https://j-h-a-r-c-h-i-v-e.com/) records the underlying contexts to foster sticky, tenacious, persistent connections between images. It may be another image, or it may not be an image at all. It may be something I created, or it may not be something I created. Therefore, [this web](https://j-h-a-r-c-h-i-v-e.com/) pursues the viscosity of things—whether created by me or not, whether images or not. How viscous can this web truly become?
+[This Web](https://j-h-a-r-c-h-i-v-e.com/) records images [I](/contact/contact/) have created. [this web](https://j-h-a-r-c-h-i-v-e.com/) will form a web-like network of relationships between images (true to its name). Moreover, [this web](https://j-h-a-r-c-h-i-v-e.com/) records the underlying contexts to foster sticky, tenacious, persistent connections between images. It may be another image, or it may not be an image at all. It may be something I created, or it may not be something I created. Therefore, [this web](https://j-h-a-r-c-h-i-v-e.com/) pursues the viscosity of things—whether created by me or not, whether images or not. How viscous can this web truly become?
 <br><br> 
 
 **Regarding Graphic Design Images**<br>
