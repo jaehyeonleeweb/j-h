@@ -374,6 +374,7 @@ main {
   grid-template-columns: repeat(12, 1fr);
   align-items: baseline;
   position: relative;
+  padding: 0.25em 0;
 }
 
 .list-table th:nth-child(1),
@@ -402,6 +403,7 @@ main {
   white-space: nowrap;
   text-align: left;
   font-weight: normal;
+  line-height: 1;
 }
 
 .list-table td.title-cell {
@@ -587,8 +589,8 @@ main {
 .page-meta .meta-data .meta-line,
 .page-meta .meta-desc .meta-line,
 .page-meta .meta-notes .meta-line {
-  padding-left: 2ch;
-  text-indent: -2ch;
+  padding-left: 3ch;
+  text-indent: -3ch;
 }
 
 .page-meta .meta-note {
