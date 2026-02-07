@@ -5,10 +5,11 @@ extra:
   category: "Web Document"
 ---
 **Jaehyeon Lee**
+<br>
 Open for commissions.
 <br><br>
 
-Contact:  
+Contact:
 <br>
 [leejaehyeonwork@gmail.com](mailto:leejaehyeonwork@gmail.com)
 <br><br>
