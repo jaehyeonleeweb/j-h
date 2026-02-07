@@ -98,7 +98,7 @@ extra:
 
 <br>
 
-> 이 모든 생각의 주춧돌:<br>
+> 모든 생각의 주춧돌:<br>
 > → [iamjae.com](http://iamjae.com/)
 
 
