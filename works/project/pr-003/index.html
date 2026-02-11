@@ -727,8 +727,18 @@
 
         const KEY = "jh_site_title";
 
+        const renderTitle = (el, text) => {
+          el.innerHTML = "";
+
+          [...text].forEach(char => {
+            const span = document.createElement("span");
+            span.textContent = char;
+            el.appendChild(span);
+          });
+        };
+
         const applyTitle = (value) => {
-          titleEl.textContent = value;
+          renderTitle(titleEl, value);
           footerEl.textContent = value;
         };
 
@@ -745,11 +755,25 @@
           const next = pickRandomDifferent(SITE_TITLES, current);
 
           sessionStorage.setItem(KEY, next);
-          applyTitle(next);
+
+          titleEl.classList.add("falling");
+
+          [...titleEl.children].forEach(span => {
+            const delay = Math.random() * 0.6;
+            span.style.animationDelay = `${delay}s`;
+          });
 
           setTimeout(() => {
+            titleEl.classList.remove("falling");
+
+            [...titleEl.children].forEach(span => {
+              span.style.animationDelay = "";
+            });
+
+            applyTitle(next);
+
             window.location.href = titleEl.href;
-          }, 80);
+          }, 1350);
         });
       })();
     </script>
