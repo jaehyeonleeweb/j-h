@@ -93,29 +93,29 @@ em {
 }
 
 @font-face {
-  font-family: "JH Web duo";
-  src: url("/fonts/JHWebduo-Regular.woff") format("woff");
+  font-family: "JH Web Duo";
+  src: url("/fonts/JHWebDuo-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "JH Web duo";
-  src: url("/fonts/JHWebduo-Italic.woff") format("woff");
+  font-family: "JH Web Duo";
+  src: url("/fonts/JHWebDuo-Italic.woff") format("woff");
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "JH Web duo";
-  src: url("/fonts/JHWebduo-Bold.woff") format("woff");
+  font-family: "JH Web Duo";
+  src: url("/fonts/JHWebDuo-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "JH Web duo";
-  src: url("/fonts/JHWebduo-BoldItalic.woff") format("woff");
+  font-family: "JH Web Duo";
+  src: url("/fonts/JHWebDuo-BoldItalic.woff") format("woff");
   font-weight: 700;
   font-style: italic;
 }
@@ -154,7 +154,7 @@ input,
 pre,
 select,
 textarea {
-  font-family: "JH Web duo", monospace;
+  font-family: "JH Web Duo", monospace;
 }
 
 html, body {
