@@ -952,26 +952,3 @@ sup.footnote-reference a {
   }
 }
 
-.falling-layer {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-.falling-char {
-  position: absolute;
-  will-change: transform, opacity;
-  animation: titleFall 1.35s ease-in forwards;
-}
-
-@keyframes titleFall {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(140vh) rotate(25deg);
-    opacity: 0;
-  }
-}
