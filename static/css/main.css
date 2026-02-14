@@ -316,25 +316,16 @@ main {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  padding: 0 1rem 1.5rem;
+  padding: 0 1rem 9rem;
 }
 
 .footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: end;
-  -ms-flex-align: end;
   align-items: flex-end;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 9rem;
-  flex: 0 0 9rem;
+  margin-top: auto;
   padding: 1.5rem 1.25rem calc(.5rem + env(safe-area-inset-bottom));
   text-align: center;
-  flex-shrink: 0;
 }
 
 .footer-sep::after {
