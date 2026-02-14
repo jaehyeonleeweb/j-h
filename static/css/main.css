@@ -966,3 +966,27 @@ sup.footnote-reference a {
   position: absolute;
   animation: titleFall 1.5s ease-in forwards;
 }
+
+#menu-tooltip {
+  position: fixed;
+  max-width: 72ch;
+
+  padding: 0.75rem;
+  background: white;
+  border: 1px solid currentColor;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+
+  white-space: nowrap;
+
+  z-index: 10000;
+  pointer-events: none;
+
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+#menu-tooltip.is-visible {
+  opacity: 1;
+}
