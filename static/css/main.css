@@ -969,24 +969,27 @@ sup.footnote-reference a {
 
 #menu-tooltip {
   position: fixed;
-  max-width: 72ch;
 
-  padding: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0 0.5rem;
+
   background: white;
   border: 1px solid currentColor;
 
   font-size: 0.75rem;
   line-height: 1.5;
+  padding: 0.5rem;
 
   white-space: nowrap;
 
-  z-index: 10000;
   pointer-events: none;
+  z-index: 10000;
 
   opacity: 0;
   transition: opacity 0.15s ease;
 }
-
 #menu-tooltip.is-visible {
   opacity: 1;
 }
