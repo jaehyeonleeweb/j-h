@@ -1084,5 +1084,50 @@ D: 하나의 패턴이 2칸, 다른 패턴이 1칸, 또 다른 패턴이 1칸 �
       });
       </script>
   
+  <script>
+    (function () {
+    
+      if (!window.matchMedia("(min-width: 601px)").matches) return;
+    
+      const tooltip = document.createElement("div");
+      tooltip.id = "menu-tooltip";
+      document.body.appendChild(tooltip);
+    
+      function position(e) {
+        const offset = 14;
+        tooltip.style.left = e.clientX + offset + "px";
+        tooltip.style.top = e.clientY + offset + "px";
+      }
+    
+      document.addEventListener("mouseover", (e) => {
+    
+        const disabled = e.target.closest(".menu-item--disabled");
+        if (!disabled) return;
+    
+        const lang = document.documentElement.lang;
+    
+        tooltip.textContent =
+          lang === "ko"
+            ? "준비중..."
+            : "Coming soon…";
+    
+        tooltip.classList.add("is-visible");
+        position(e);
+      });
+    
+      document.addEventListener("mousemove", (e) => {
+        if (!tooltip.classList.contains("is-visible")) return;
+        position(e);
+      });
+    
+      document.addEventListener("mouseout", (e) => {
+        if (!e.target.closest(".menu-item--disabled")) return;
+        tooltip.classList.remove("is-visible");
+      });
+    
+    })();
+    </script>
+
+
   </body>
 </html>
