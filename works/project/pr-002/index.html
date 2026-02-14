@@ -717,89 +717,109 @@
       });
     </script>
 
-    <script>
-      const SITE_TITLES = [
-      "J—H",
-      "j—h",
-      "Jaydashaitch",
-      "제이대시에이치",
-      "제이(대시)에이치",
-      "JAY(DASH)AITCH",
-      "JH ARCHIVE",
-      "JAEHYEON LEE",
-      "JAE—HYEON",
-      "jay—aitch",
-      "JAE(DASH)HYEON"
-      ];
 
-      function pickRandom(list) {
-        return list[Math.floor(Math.random() * list.length)];
+<script>
+  const SITE_TITLES = [
+    "J—H",
+    "j—h",
+    "Jaydashaitch",
+    "제이대시에이치",
+    "제이(대시)에이치",
+    "JAY(DASH)AITCH",
+    "JH ARCHIVE",
+    "JAEHYEON LEE",
+    "JAE—HYEON",
+    "jay—aitch",
+    "JAE(DASH)HYEON"
+  ];
+  
+  function pickRandom(list) {
+    return list[Math.floor(Math.random() * list.length)];
+  }
+  
+  function pickRandomDifferent(list, current) {
+    const pool = list.filter(item => item !== current);
+    return pool.length
+      ? pool[Math.floor(Math.random() * pool.length)]
+      : current;
+  }
+  
+  (function () {
+    const titleEl = document.getElementById("site-title");
+    const footerEl = document.getElementById("footer-site-title");
+    if (!titleEl || !footerEl) return;
+  
+    const KEY = "jh_site_title";
+  
+    const renderTitle = (el, text) => {
+      el.innerHTML = "";
+      [...text].forEach(char => {
+        const span = document.createElement("span");
+        span.textContent = char;
+        el.appendChild(span);
+      });
+    };
+  
+    if (!sessionStorage.getItem(KEY)) {
+      sessionStorage.setItem(KEY, pickRandom(SITE_TITLES));
+    }
+  
+    const initial = sessionStorage.getItem(KEY);
+    renderTitle(titleEl, initial);
+    footerEl.textContent = initial;
+  
+    titleEl.addEventListener("click", (e) => {
+      e.preventDefault();
+  
+      const IS_HOME =
+        window.location.pathname === "/" ||
+        window.location.pathname === "/kr/";
+  
+      if (!IS_HOME) {
+        window.location.href = titleEl.href;
+        return;
       }
-
-      function pickRandomDifferent(list, current) {
-        const pool = list.filter(item => item !== current);
-        return pool.length
-          ? pool[Math.floor(Math.random() * pool.length)]
-          : current;
-      }
-
-      (function () {
-        const titleEl = document.getElementById("site-title");
-        const footerEl = document.getElementById("footer-site-title");
-        if (!titleEl || !footerEl) return;
-
-        const KEY = "jh_site_title";
-
-        const renderTitle = (el, text) => {
-          el.innerHTML = "";
-
-          [...text].forEach(char => {
-            const span = document.createElement("span");
-            span.textContent = char;
-            el.appendChild(span);
-          });
-        };
-
-        const applyTitle = (value) => {
-          renderTitle(titleEl, value);
-          footerEl.textContent = value;
-        };
-
-        if (!sessionStorage.getItem(KEY)) {
-          sessionStorage.setItem(KEY, pickRandom(SITE_TITLES));
-        }
-
-        applyTitle(sessionStorage.getItem(KEY));
-
-        titleEl.addEventListener("click", (e) => {
-          e.preventDefault();
-
-          const current = sessionStorage.getItem(KEY);
-          const next = pickRandomDifferent(SITE_TITLES, current);
-
-          sessionStorage.setItem(KEY, next);
-
-          titleEl.classList.add("falling");
-
-          [...titleEl.children].forEach(span => {
-            const delay = Math.random() * 0.6;
-            span.style.animationDelay = `${delay}s`;
-          });
-
-          setTimeout(() => {
-            titleEl.classList.remove("falling");
-
-            [...titleEl.children].forEach(span => {
-              span.style.animationDelay = "";
-            });
-
-            applyTitle(next);
-
-            window.location.href = titleEl.href;
-          }, 1350);
+  
+      const current = sessionStorage.getItem(KEY);
+      const next = pickRandomDifferent(SITE_TITLES, current);
+      sessionStorage.setItem(KEY, next);
+  
+      const layer = document.createElement("div");
+      layer.className = "falling-layer";
+      document.body.appendChild(layer);
+  
+      [...titleEl.children].forEach(originalSpan => {
+        const rect = originalSpan.getBoundingClientRect();
+  
+        const span = document.createElement("span");
+        span.className = "falling-char";
+        span.textContent = originalSpan.textContent;
+  
+        span.style.left = `${rect.left}px`;
+        span.style.top = `${rect.top}px`;
+        span.style.animationDelay = `${Math.random() * 0.15}s`;
+        span.style.animationDuration = `${1.2 + Math.random() * 1.6}s`;
+  
+        layer.appendChild(span);
+      });
+  
+      titleEl.classList.add("is-switching");
+  
+      renderTitle(titleEl, next);
+      footerEl.textContent = next;
+  
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          titleEl.classList.remove("is-switching");
         });
-      })();
-    </script>
+      });
+  
+      setTimeout(() => {
+        layer.remove();
+      }, 2000);
+    });
+  })();
+</script>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
