@@ -958,10 +958,13 @@ The structure of this web:</p>
       const canHover = window.matchMedia("(hover: hover)").matches;
     
       function position(x, y) {
-        const offset = 14;
+        const offset = 6;
     
         tooltip.style.left = x + offset + "px";
-        tooltip.style.top = y + offset + "px";
+        tooltip.style.top = y + "px";
+    
+        tooltip.style.height = "";
+        tooltip.style.lineHeight = "";
     
         tooltip.style.bottom = "";
         tooltip.style.transform = "";
@@ -980,6 +983,12 @@ The structure of this web:</p>
             tooltip.classList.remove("is-visible");
           }, 900);
         }
+      }
+    
+      function getTextRect(el) {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        return range.getBoundingClientRect();
       }
     
       if (canHover) {
@@ -1019,12 +1028,12 @@ The structure of this web:</p>
           if (!disabled) return;
     
           const lang = document.documentElement.lang;
-          const touch = e.touches[0];
+          const rect = getTextRect(disabled);
     
           show(
             lang === "ko" ? "준비중..." : "Coming soon...",
-            touch.clientX,
-            touch.clientY
+            rect.right,
+            rect.top
           );
     
         });
