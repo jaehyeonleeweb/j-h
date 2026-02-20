@@ -18,7 +18,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>DCT Flux, J-H</title>
+    <title>DCT Synthesizer 1.0, J-H</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -64,7 +64,7 @@
       
         <a href="/allarchive/">All Archive</a>
         
-        <a href="/about/">About This Web</a>
+        <a href="/about/">About</a>
         <a href="/contact/">Contact</a>
         <span class="menu-item--disabled" aria-disabled="true">Shop</span>
       
@@ -78,7 +78,7 @@
   <aside class="page-meta" role="complementary">
 
     <div class="meta-block meta-title">
-      <strong>DCT Flux</strong>
+      <strong>DCT Synthesizer 1.0</strong>
     </div>
 
     <div class="meta-block meta-data">
@@ -86,7 +86,7 @@
       
         <div class="meta-line">
           
-            Document No. → [19]
+            Document No. → [21]
           
         </div>
       
@@ -144,7 +144,15 @@
     
         
           
-            [<a href="&#x2F;works&#x2F;workshop-practice&#x2F;wsp-001&#x2F;">Workshop about “Synthesizer”: DCT Synthesizing I</a>]
+            [<a href="&#x2F;works&#x2F;workshop&#x2F;ws-001&#x2F;">Workshop about “Synthesizer”</a>], 
+          
+        
+          
+            [<a href="&#x2F;works&#x2F;workshop-practice&#x2F;wsp-001&#x2F;">Workshop about “Synthesizer”: DCT Synthesizing I</a>], 
+          
+        
+          
+            [<a href="&#x2F;works&#x2F;project&#x2F;pr-007&#x2F;">DCT Flux</a>]
           
         
       </div>
@@ -159,7 +167,7 @@
     <div class="meta-block meta-desc">
       
         <div class="meta-line">
-          ※ This project can be viewed at <a rel="external" href="https://jaydashaitch.neocities.org/projects/dctflux">DCT Flux</a>
+          ※ You can synthesize DCT images in <a rel="external" href="https://jaydashaitch.neocities.org/projects/dctsynthesizer1">DCT Synthesizer 1.0</a>.
         </div>
       
     </div>
@@ -167,19 +175,54 @@
     
 
     
+    <div class="meta-block meta-notes">
+      
+        <div
+          class="meta-line meta-note"
+          data-fnid="fn-1"
+          role="link"
+          tabindex="0"
+        >
+          <span class="footnote-num">1</span>
+          <span class="footnote-arrow"> → </span>
+          <span class="footnote-text">
+            Images compressed using the JPEG method are composed of 8×8 pixel blocks, each of which repeats as many times as needed to fill the entire image, starting from the top-left corner.
+          </span>
+        </div>
+      
+    </div>
+    
     
 
   </aside>
 
   <div class="page-body page-content">
 
-    <p><em>DCT Flux</em> is a web project that endlessly generates flowing images by applying the principles of DCT (Discrete Cosine Transform), a technique used in JPEG image compression. The ambiguous, murky, and speckled grayscale images produced by <em>DCT Flux</em> may momentarily appear to depict recognizable objects, but they are in fact an aggregation of neutral, impersonal pixels composed of random frequency values. 
-<br><br>
-If one could watch <em>DCT Flux</em> forever, it might be possible to imagine every form in the world at least once. If so, then surely—at the very least, once—Kazimir Malevich’s Black Square (or maybe Black Rectangle) would appear.
-<br></p>
-<figure class="img--fixed" style="max-width:800px;">
-  <img src="/media/works/project/pr-006/dct-flux.webp" alt="DCT Flux">
+    <figure class="img--full img--plain" style="">
+  <img src="/media/works/project/pr-006/DCT Synthesizer 1-01.webp" alt="DCT Synthesizer 1.0">
 </figure>
+<figure class="img--full img--plain" style="">
+  <img src="/media/works/project/pr-006/DCT Synthesizer 1-02.webp" alt="DCT Synthesizer 1.0">
+</figure>
+<figure class="img--full img--plain" style="">
+  <img src="/media/works/project/pr-006/DCT Synthesizer 1-03.webp" alt="DCT Synthesizer 1.0">
+</figure>
+<br>
+<p>As explored in <a href="/works/workshop-practice/wsp-001/">Workshop about “Synthesizer”: DCT Synthesizing I</a>, the JPEG image compression process possesses the potential to generate shape images through the synthesis of multiple frequencies. This project synthesizes images by applying the DCT principle used in JPEG compression in reverse.
+<br><br></p>
+<p>DCT Synthesizer 1.0 synthesizes an 8×8 resolution shape image by arranging four DCT blocks in a grid pattern.<sup class="footnote-reference" id="fr-1-1"><a href="#fn-1">1</a></sup> The PNG image users can export is a bitmap image resampled to 1000×1000 pixels, with interpolation applied for continuous visualization of the frequency structure.
+<br><br></p>
+<p>Each cell in a block is represented in X-Y format, indicating the vibration frequency in the horizontal direction and the vibration frequency in the vertical direction, respectively. For example, ‘1-0’ has a lower frequency vibration count in the horizontal direction than ‘3-0’, and ‘0-1’ has a lower frequency vibration count in the vertical direction than ‘0-3’. As the frequency vibration count increases, and as the horizontal and vertical frequencies mix more, increasingly complex forms emerge. In other words, this means that in an image created using the DCT principle, complexity increases as the coefficients in the high-frequency domain become higher.
+<br><br></p>
+<p>The original JPEG compression principle operates by simplifying these high-frequency domain values. This implies that complex shapes must be smoothed out to enhance image compression efficiency. However, my purpose in addressing the DCT resynthesis principle is closer to the opposite. Here, complex shapes are not targets to be efficiently removed, but objects of potentiality holding new possibilities. Accordingly, the ambiguous and blurred shapes produced by the DCT synthesizer 1.0 become <a href="/thought/th-001/">potential images</a> processed through a Ulysses algorithm.</p>
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn-1">
+<p>Images compressed using the JPEG method are composed of 8×8 pixel blocks, each of which repeats as many times as needed to fill the entire image, starting from the top-left corner. <a href="#fr-1-1">↩</a></p>
+</li>
+</ol>
+</section>
+
 
   </div>
 

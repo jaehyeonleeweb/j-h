@@ -292,10 +292,18 @@ body.menu-open .header {
   text-align: left;
 }
 
-.global-menu a,
-.global-menu .menu-item--disabled {
+.global-menu a {
   display: block;
   width: 100%;
+  text-decoration: none;
+  color: inherit;
+  line-height: 1.5;
+  opacity: 0.5;
+}
+
+.global-menu .menu-item--disabled {
+  display: inline-block;
+  width: auto;
   text-decoration: none;
   color: inherit;
   line-height: 1.5;
@@ -630,6 +638,11 @@ sup.footnote-reference a {
   border-bottom: none;
 }
 
+.page-body strong em,
+.page-body em strong {
+  font-style: normal;
+  font-weight: 700;
+}
 
 
 .page-body blockquote {
@@ -715,7 +728,7 @@ sup.footnote-reference a {
 
 
 .page-body figure {
-  margin: 1.5rem auto;
+  margin: 0 auto 2rem;
   text-align: center;
 }
 
