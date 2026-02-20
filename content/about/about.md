@@ -1,5 +1,5 @@
 ---
-title: "About This Web"
+title: "About"
 extra:
   meta_description:
     - "This document is the latest version, newly created in accordance with the website renewal in February 2026. Previous information about [this web](https://j-h-a-r-c-h-i-v-e.com/) has been archived in the new document [About The Previous Web  (2025)](/web-document/wd-001/)."

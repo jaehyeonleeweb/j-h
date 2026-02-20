@@ -766,6 +766,8 @@ def transform_markdown_images_with_directives(doc_rel_dir: str, text: str) -> st
         classes, style, data_attr = [], "", ""
         if 'full' in opts: classes.append('img--full')
 
+        if 'plain' in opts: classes.append('img--plain')
+
         fixed = opts.get('fixed') or opts.get('max')
         if fixed:
             classes.append('img--fixed')

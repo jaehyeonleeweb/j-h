@@ -4,20 +4,16 @@ extra:
   doc_no: "2"
   category: "Web Document"
 ---
-**Jaehyeon Lee**
-<br>
-Open for commissions.
+***Jaehyeon Lee***
 <br><br>
-
-Contact:
+Work Inquiries:
 <br>
 [leejaehyeonwork@gmail.com](mailto:leejaehyeonwork@gmail.com)
 <br><br>
 
 External Links:
 <br>
-[Web Projects](https://jaydashaitch.neocities.org/)<br>
-[The Previous Web (2025)](https://jaehyeonleeweb.github.io/j-h-2025/)<br>
-[jaehyeonlee.kr](https://jaehyeonlee.kr)<br>
-[instagram(j-h)](https://www.instagram.com/jaydashaitch)<br>
-[instagram(jae hyeon lee)](https://www.instagram.com/jae.hyeon.lee)
+[JH Web Projects](https://jaydashaitch.neocities.org/)<br>
+[jae hyeon lee](https://jaehyeonlee.kr)<br>
+[IG (J-H)](https://www.instagram.com/jaydashaitch)<br>
+[IG (jae hyeon lee)](https://www.instagram.com/jae.hyeon.lee)
