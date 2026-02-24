@@ -14,6 +14,6 @@ extra:
 다른 연결들:
 <br>
 [JH Web Projects](https://jaydashaitch.neocities.org/)<br>
-[jaeh yeon lee](https://jaehyeonlee.kr)<br>
+[jae hyeon lee](https://jaehyeonlee.kr)<br>
 [IG (J-H)](https://www.instagram.com/jaydashaitch)<br>
 [IG (jae hyeon lee)](https://www.instagram.com/jae.hyeon.lee)
